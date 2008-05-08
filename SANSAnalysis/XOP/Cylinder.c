@@ -595,10 +595,8 @@ LamellarFFX(FitParamsPtr p)
 }
 
 /*	LamellarPSX  :  calculates the form factor of a lamellar structure - with S(q) effects included
--------
-------- resolution effects ARE included, but only a CONSTANT default value, not the real q-dependent resolution!!
 
-	*/
+*/
 int
 LamellarPSX(FitParamsPtr p)
 {
@@ -631,10 +629,8 @@ LamellarPSX(FitParamsPtr p)
 
 
 /*	LamellarPS_HGX  :  calculates the form factor of a lamellar structure - with S(q) effects included
--------
-------- resolution effects ARE included, but only a CONSTANT default value, not the real q-dependent resolution!!
 
-	*/
+*/
 int
 LamellarPS_HGX(FitParamsPtr p)
 {
