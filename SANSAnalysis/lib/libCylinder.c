@@ -924,10 +924,9 @@ LamellarFF(double dp[], double q)
 }
 
 /*	LamellarPSX  :  calculates the form factor of a lamellar structure - with S(q) effects included
--------
-------- resolution effects ARE included, but only a CONSTANT default value, not the real q-dependent resolution!!
-
-	*/
+--- now the proper resolution effects are used - the "default" resolution is turned off (= 0) and the
+model is smeared just like any other function
+*/
 double
 LamellarPS(double dp[], double q)
 {
@@ -939,7 +938,8 @@ LamellarPS(double dp[], double q)
 
 	
 	Euler = 0.5772156649;		// Euler's constant
-	dQDefault = 0.0025;		//[=] 1/A, q-resolution, default value
+//	dQDefault = 0.0025;		//[=] 1/A, q-resolution, default value
+	dQDefault = 0.0;
 	dQ = dQDefault;
 	
 	Pi = 4.0*atan(1.0);
@@ -995,10 +995,9 @@ LamellarPS(double dp[], double q)
 
 
 /*	LamellarPS_HGX  :  calculates the form factor of a lamellar structure - with S(q) effects included
--------
-------- resolution effects ARE included, but only a CONSTANT default value, not the real q-dependent resolution!!
-
-	*/
+--- now the proper resolution effects are used - the "default" resolution is turned off (= 0) and the
+model is smeared just like any other function
+*/
 double
 LamellarPS_HG(double dp[], double q)
 {
@@ -1009,7 +1008,8 @@ LamellarPS_HG(double dp[], double q)
 	
 	
 	Euler = 0.5772156649;		// Euler's constant
-	dQDefault = 0.0025;		//[=] 1/A, q-resolution, default value
+//	dQDefault = 0.0025;		//[=] 1/A, q-resolution, default value
+	dQDefault = 0.0;
 	dQ = dQDefault;
 	
 	Pi = 4.0*atan(1.0);
