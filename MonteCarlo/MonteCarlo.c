@@ -62,7 +62,7 @@ Monte_SANSX(MC_ParamsPtr p) {
 	double testQ,testPhi,left,delta,dummy,pi;
 	double sigabs_0,num_bins;
 	long NSingleIncoherent,NSingleCoherent,NScatterEvents,incoherentEvent,coherentEvent;
-	long NDoubleCoherent,NMultipleScatter,isOn;
+	long NDoubleCoherent,NMultipleScatter,isOn,xCtr_long,yCtr_long;
 
 	// for accessing the 2D wave data, direct method (see the WaveAccess example XOP)
 	waveHndl wavH;
@@ -147,7 +147,9 @@ Monte_SANSX(MC_ParamsPtr p) {
 	wavelength = inputWave[8];
 	sig_incoh = inputWave[9];
 	sig_sas = inputWave[10];
-		
+	xCtr_long = round(xCtr);
+	yCtr_long = round(yCtr);
+	
 	dummy = MDGetWaveScaling(p->ran_devH, 0, &delta, &left);		//0 is the rows
 	if (result = MDGetWaveDimensions(p->ran_devH, &numDimensions, dimensionSizes))
 		return result;
@@ -323,68 +325,78 @@ Monte_SANSX(MC_ParamsPtr p) {
 				//	nn[index] += 1;
 				}
 												
-				//IF (VZ > 1.0) 	// FIX INVALID ARGUMENT
-					//VZ = 1.0 - 1.2e-7
-				//ENDIF
-				theta_z = acos(vz);		// Angle (= 2theta) WITH respect to z axis.
-				testQ = 2*pi*sin(theta_z)/wavelength;
-				
-				// pick a random phi angle, and see if it lands on the detector
-				// since the scattering is isotropic, I can safely pick a new, random value
-				// this would not be true if simulating anisotropic scattering.
-				testPhi = ran3(&seed)*2*pi;
-				
-				// is it on the detector?	
-				FindPixel(testQ,testPhi,wavelength,sdd,pixSize,xCtr,yCtr,&xPixel,&yPixel);
-												
-				if(xPixel != -1 && yPixel != -1) {
-					isOn += 1;
-					MemClear(indices, sizeof(indices)); // Must be 0 for unused dimensions.
-					indices[0] = xPixel;
-					indices[1] = yPixel;
-					if (result = MDGetNumericWavePointValue(wavH, indices, value))
-						return result;
-					value[0] += 1; // Real part
-					if (result = MDSetNumericWavePointValue(wavH, indices, value))
-						return result;
-					//if(index==1)  // only the single scattering events
-						//dp = dp0 + xPixel + yPixel*numColumns;		//offset the pointer to the exact memory location
-						//*dp += 1;		//increment the value there
-					//endif
-				}
-				
+				if( index != 0) {		//neutron was scattered, figure out where it went
+					theta_z = acos(vz);		// Angle (= 2theta) WITH respect to z axis.
+					testQ = 2*pi*sin(theta_z)/wavelength;
+					
+					// pick a random phi angle, and see if it lands on the detector
+					// since the scattering is isotropic, I can safely pick a new, random value
+					// this would not be true if simulating anisotropic scattering.
+					testPhi = ran3(&seed)*2*pi;
+					
+					// is it on the detector?	
+					FindPixel(testQ,testPhi,wavelength,sdd,pixSize,xCtr,yCtr,&xPixel,&yPixel);
+													
+					if(xPixel != -1 && yPixel != -1) {
+						isOn += 1;
+						MemClear(indices, sizeof(indices)); // Must be 0 for unused dimensions.
+						indices[0] = xPixel;
+						indices[1] = yPixel;
+						if (result = MDGetNumericWavePointValue(wavH, indices, value))
+							return result;
+						value[0] += 1; // Real part
+						if (result = MDSetNumericWavePointValue(wavH, indices, value))
+							return result;
+						//if(index==1)  // only the single scattering events
+							//dp = dp0 + xPixel + yPixel*numColumns;		//offset the pointer to the exact memory location
+							//*dp += 1;		//increment the value there
+						//endif
+					}
+					
 
-/*		is this causing me a problem since I'm not locking these? Probably not, since it crashes even if I comment these out... */
-				if(theta_z < theta_max) {
-					//Choose index for scattering angle array.
-					//IND = NINT(THETA_z/DTH + 0.4999999)
-					ind = round(theta_z/dth + 0.4999999);		//round is eqivalent to nint()
-					nt[ind] += 1; 			//Increment bin for angle.
-					//Increment angle array for single scattering events.
-					if (index == 1) {
-						j1[ind] += 1;
+	/*		is this causing me a problem since I'm not locking these? Probably not, since it crashes even if I comment these out... */
+					if(theta_z < theta_max) {
+						//Choose index for scattering angle array.
+						//IND = NINT(THETA_z/DTH + 0.4999999)
+						ind = round(theta_z/dth + 0.4999999);		//round is eqivalent to nint()
+						nt[ind] += 1; 			//Increment bin for angle.
+						//Increment angle array for single scattering events.
+						if (index == 1) {
+							j1[ind] += 1;
+						}
+						//Increment angle array for double scattering events.
+						if (index == 2) {
+							j2[ind] += 1;
+						}
 					}
-					//Increment angle array for double scattering events.
-					if (index == 2) {
-						j2[ind] += 1;
+	/**/
+					
+					// increment all of the counters now since done==1 here and I'm sure to exit and get another neutron
+					NScatterEvents += index;		//total number of scattering events
+					if(index == 1 && incoherentEvent == 1) {
+						NSingleIncoherent += 1;
 					}
-				}
-/**/
-				
-				// increment all of the counters now since done==1 here and I'm sure to exit and get another neutron
-				NScatterEvents += index;		//total number of scattering events
-				if(index == 1 && incoherentEvent == 1) {
-					NSingleIncoherent += 1;
-				}
-				if(index == 1 && coherentEvent == 1) {
-					NSingleCoherent += 1;
-				}
-				if(index == 2 && coherentEvent == 1 && incoherentEvent == 0) {
-					NDoubleCoherent += 1;
-				}
-				if(index > 1) {
-					NMultipleScatter += 1;
-				}
+					if(index == 1 && coherentEvent == 1) {
+						NSingleCoherent += 1;
+					}
+					if(index == 2 && coherentEvent == 1 && incoherentEvent == 0) {
+						NDoubleCoherent += 1;
+					}
+					if(index > 1) {
+						NMultipleScatter += 1;
+					}
+				} else {	// index was zero, neutron must be transmitted, so just increment the proper counters and data
+						isOn += 1;
+						nt[0] += 1;
+						MemClear(indices, sizeof(indices)); // Must be 0 for unused dimensions.
+						indices[0] = xCtr_long;
+						indices[1] = yCtr_long;
+						if (result = MDGetNumericWavePointValue(wavH, indices, value))
+							return result;
+						value[0] += 1; // Real part
+						if (result = MDSetNumericWavePointValue(wavH, indices, value))
+							return result;
+					}	
 			}
 		 } while (!done);
 	} while(n1 < imon);
