@@ -13,4 +13,11 @@ int OneLevelX(FitParamsPtr p);
 int TwoLevelX(FitParamsPtr p);
 int ThreeLevelX(FitParamsPtr p);
 int FourLevelX(FitParamsPtr p);
-
+//
+int BroadPeakX(FitParamsPtr p);
+int CorrLengthX(FitParamsPtr p);
+int TwoLorentzianX(FitParamsPtr p);
+int TwoPowerLawX(FitParamsPtr p);
+int PolyGaussCoilX(FitParamsPtr p);
+int GaussLorentzGelX(FitParamsPtr p);
+int GaussianShellX(FitParamsPtr p);

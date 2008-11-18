@@ -621,6 +621,200 @@ resource 'XOPF' (1100) {
 			NT_FP64,					/* double precision x */
 			NT_FP64,					/* double precision x */
 		},
+		
+/// new models in 2008 (starts index 68)
+
+		"SpherocylinderX",
+		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
+		NT_FP64,						/* return value type */			
+		{
+			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
+			NT_FP64,					/* double precision x */
+		},
+		
+		"ConvexLensX",
+		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
+		NT_FP64,						/* return value type */			
+		{
+			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
+			NT_FP64,					/* double precision x */
+		},
+		
+		"DumbbellX",
+		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
+		NT_FP64,						/* return value type */			
+		{
+			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
+			NT_FP64,					/* double precision x */
+		},
+		
+		"CappedCylinderX",
+		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
+		NT_FP64,						/* return value type */			
+		{
+			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
+			NT_FP64,					/* double precision x */
+		},
+		
+		"BarbellX",
+		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
+		NT_FP64,						/* return value type */			
+		{
+			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
+			NT_FP64,					/* double precision x */
+		},
+// index # 73 is Lamellar_ParaCrystalX		
+		"Lamellar_ParaCrystalX",				
+		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
+		NT_FP64,						/* return value type */			
+		{
+			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
+			NT_FP64,					/* double precision x */
+		},
+		
+		"BCC_ParaCrystalX",				
+		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
+		NT_FP64,						/* return value type */			
+		{
+			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
+			NT_FP64,					/* double precision x */
+		},
+		
+		"FCC_ParaCrystalX",				
+		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
+		NT_FP64,						/* return value type */			
+		{
+			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
+			NT_FP64,					/* double precision x */
+		},
+		
+		"SC_ParaCrystalX",				
+		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
+		NT_FP64,						/* return value type */			
+		{
+			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
+			NT_FP64,					/* double precision x */
+		},
+		
+		"OneShellX",				
+		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
+		NT_FP64,						/* return value type */			
+		{
+			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
+			NT_FP64,					/* double precision x */
+		},
+		
+		"TwoShellX",				
+		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
+		NT_FP64,						/* return value type */			
+		{
+			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
+			NT_FP64,					/* double precision x */
+		},
+		
+		"ThreeShellX",				
+		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
+		NT_FP64,						/* return value type */			
+		{
+			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
+			NT_FP64,					/* double precision x */
+		},
+		
+		"FourShellX",				
+		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
+		NT_FP64,						/* return value type */			
+		{
+			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
+			NT_FP64,					/* double precision x */
+		},
+		
+		"PolyOneShellX",				
+		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
+		NT_FP64,						/* return value type */			
+		{
+			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
+			NT_FP64,					/* double precision x */
+		},
+		
+		"PolyTwoShellX",				
+		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
+		NT_FP64,						/* return value type */			
+		{
+			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
+			NT_FP64,					/* double precision x */
+		},
+		
+		"PolyThreeShellX",				
+		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
+		NT_FP64,						/* return value type */			
+		{
+			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
+			NT_FP64,					/* double precision x */
+		},
+		
+		"PolyFourShellX",		//case # 84
+		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
+		NT_FP64,						/* return value type */			
+		{
+			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
+			NT_FP64,					/* double precision x */
+		},
+				
+		"BroadPeakX",		//case # 85
+		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
+		NT_FP64,						/* return value type */			
+		{
+			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
+			NT_FP64,					/* double precision x */
+		},
+		
+		"CorrLengthX",		//case # 86
+		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
+		NT_FP64,						/* return value type */			
+		{
+			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
+			NT_FP64,					/* double precision x */
+		},
+		
+		"TwoLorentzianX",		//case # 87
+		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
+		NT_FP64,						/* return value type */			
+		{
+			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
+			NT_FP64,					/* double precision x */
+		},
+		
+		"TwoPowerLawX",		//case # 88
+		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
+		NT_FP64,						/* return value type */			
+		{
+			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
+			NT_FP64,					/* double precision x */
+		},
+
+		"PolyGaussCoilX",		//case # 89
+		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
+		NT_FP64,						/* return value type */			
+		{
+			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
+			NT_FP64,					/* double precision x */
+		},
+		
+		"GaussLorentzGelX",		//case # 90
+		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
+		NT_FP64,						/* return value type */			
+		{
+			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
+			NT_FP64,					/* double precision x */
+		},
+
+		"GaussianShellX",		//case # 91
+		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
+		NT_FP64,						/* return value type */			
+		{
+			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
+			NT_FP64,					/* double precision x */
+		},
 
 
 	}

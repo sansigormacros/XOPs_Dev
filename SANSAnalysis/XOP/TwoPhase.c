@@ -359,6 +359,222 @@ FourLevelX(FitParamsPtr p)
 	return 0;
 }
 
+int
+BroadPeakX(FitParamsPtr p)
+{
+	double *dp;				// Pointer to double precision wave data.
+	float *fp;				// Pointer to single precision wave data.
+	double q;
+	
+	if (p->waveHandle == NIL) {
+		SetNaN64(&p->result);
+		return NON_EXISTENT_WAVE;
+	}
+	
+	q= p->x;
+	
+	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
+		case NT_FP32:
+			fp= WaveData(p->waveHandle);
+			SetNaN64(&p->result);
+			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
+		case NT_FP64:
+			dp= WaveData(p->waveHandle);
+			p->result = BroadPeak(dp,q);
+			return 0;
+		default:								// We can't handle this wave data type.
+			SetNaN64(&p->result);
+			return REQUIRES_SP_OR_DP_WAVE;
+	}
+	
+	return 0;
+}
+
+int
+CorrLengthX(FitParamsPtr p)
+{
+	double *dp;				// Pointer to double precision wave data.
+	float *fp;				// Pointer to single precision wave data.
+	double q;
+	
+	if (p->waveHandle == NIL) {
+		SetNaN64(&p->result);
+		return NON_EXISTENT_WAVE;
+	}
+	
+	q= p->x;
+	
+	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
+		case NT_FP32:
+			fp= WaveData(p->waveHandle);
+			SetNaN64(&p->result);
+			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
+		case NT_FP64:
+			dp= WaveData(p->waveHandle);
+			p->result = CorrLength(dp,q);
+			return 0;
+		default:								// We can't handle this wave data type.
+			SetNaN64(&p->result);
+			return REQUIRES_SP_OR_DP_WAVE;
+	}
+	
+	return 0;
+}
+
+int
+TwoLorentzianX(FitParamsPtr p)
+{
+	double *dp;				// Pointer to double precision wave data.
+	float *fp;				// Pointer to single precision wave data.
+	double q;
+	
+	if (p->waveHandle == NIL) {
+		SetNaN64(&p->result);
+		return NON_EXISTENT_WAVE;
+	}
+	
+	q= p->x;
+	
+	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
+		case NT_FP32:
+			fp= WaveData(p->waveHandle);
+			SetNaN64(&p->result);
+			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
+		case NT_FP64:
+			dp= WaveData(p->waveHandle);
+			p->result = TwoLorentzian(dp,q);
+			return 0;
+		default:								// We can't handle this wave data type.
+			SetNaN64(&p->result);
+			return REQUIRES_SP_OR_DP_WAVE;
+	}
+	
+	return 0;
+}
+
+int
+TwoPowerLawX(FitParamsPtr p)
+{
+	double *dp;				// Pointer to double precision wave data.
+	float *fp;				// Pointer to single precision wave data.
+	double q;
+	
+	if (p->waveHandle == NIL) {
+		SetNaN64(&p->result);
+		return NON_EXISTENT_WAVE;
+	}
+	
+	q= p->x;
+	
+	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
+		case NT_FP32:
+			fp= WaveData(p->waveHandle);
+			SetNaN64(&p->result);
+			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
+		case NT_FP64:
+			dp= WaveData(p->waveHandle);
+			p->result = TwoPowerLaw(dp,q);
+			return 0;
+		default:								// We can't handle this wave data type.
+			SetNaN64(&p->result);
+			return REQUIRES_SP_OR_DP_WAVE;
+	}
+	
+	return 0;
+}
+
+int
+PolyGaussCoilX(FitParamsPtr p)
+{
+	double *dp;				// Pointer to double precision wave data.
+	float *fp;				// Pointer to single precision wave data.
+	double q;
+	
+	if (p->waveHandle == NIL) {
+		SetNaN64(&p->result);
+		return NON_EXISTENT_WAVE;
+	}
+	
+	q= p->x;
+	
+	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
+		case NT_FP32:
+			fp= WaveData(p->waveHandle);
+			SetNaN64(&p->result);
+			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
+		case NT_FP64:
+			dp= WaveData(p->waveHandle);
+			p->result = PolyGaussCoil(dp,q);
+			return 0;
+		default:								// We can't handle this wave data type.
+			SetNaN64(&p->result);
+			return REQUIRES_SP_OR_DP_WAVE;
+	}
+	
+	return 0;
+}
+
+int
+GaussLorentzGelX(FitParamsPtr p)
+{
+	double *dp;				// Pointer to double precision wave data.
+	float *fp;				// Pointer to single precision wave data.
+	double q;
+	
+	if (p->waveHandle == NIL) {
+		SetNaN64(&p->result);
+		return NON_EXISTENT_WAVE;
+	}
+	
+	q= p->x;
+	
+	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
+		case NT_FP32:
+			fp= WaveData(p->waveHandle);
+			SetNaN64(&p->result);
+			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
+		case NT_FP64:
+			dp= WaveData(p->waveHandle);
+			p->result = GaussLorentzGel(dp,q);
+			return 0;
+		default:								// We can't handle this wave data type.
+			SetNaN64(&p->result);
+			return REQUIRES_SP_OR_DP_WAVE;
+	}
+	
+	return 0;
+}
+
+int
+GaussianShellX(FitParamsPtr p)
+{
+	double *dp;				// Pointer to double precision wave data.
+	float *fp;				// Pointer to single precision wave data.
+	double q;
+	
+	if (p->waveHandle == NIL) {
+		SetNaN64(&p->result);
+		return NON_EXISTENT_WAVE;
+	}
+	
+	q= p->x;
+	
+	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
+		case NT_FP32:
+			fp= WaveData(p->waveHandle);
+			SetNaN64(&p->result);
+			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
+		case NT_FP64:
+			dp= WaveData(p->waveHandle);
+			p->result = GaussianShell(dp,q);
+			return 0;
+		default:								// We can't handle this wave data type.
+			SetNaN64(&p->result);
+			return REQUIRES_SP_OR_DP_WAVE;
+	}
+	
+	return 0;
+}
 
 ///////////end of XOP
 

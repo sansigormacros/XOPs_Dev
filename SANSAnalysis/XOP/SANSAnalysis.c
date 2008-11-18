@@ -243,7 +243,81 @@ RegisterFunction()
 		case 67:							// y = f(c,y,x)
 			return((long)Sphere_2D);			// This function is called using the direct method.
 			break;
-
+/// new models added in 2008
+		case 68:							// y = f(c,y,x)
+			return((long)SpherocylinderX);			// This function is called using the direct method.
+			break;
+		case 69:							// y = f(c,y,x)
+			return((long)ConvexLensX);			// This function is called using the direct method.
+			break;
+		case 70:							// y = f(c,y,x)
+			return((long)DumbbellX);			// This function is called using the direct method.
+			break;
+		case 71:							// y = f(c,y,x)
+			return((long)CappedCylinderX);			// This function is called using the direct method.
+			break;
+		case 72:							// y = f(c,y,x)
+			return((long)BarbellX);			// This function is called using the direct method.
+			break;
+		case 73:							// y = f(c,y,x)
+			return((long)Lamellar_ParaCrystalX);			// This function is called using the direct method.
+			break;
+			//
+		case 74:							// y = f(c,y,x)
+			return((long)BCC_ParaCrystalX);			// This function is called using the direct method.
+			break;
+		case 75:							// y = f(c,y,x)
+			return((long)FCC_ParaCrystalX);			// This function is called using the direct method.
+			break;
+		case 76:							// y = f(c,y,x)
+			return((long)SC_ParaCrystalX);			// This function is called using the direct method.
+			break;
+		case 77:							// y = f(c,y,x)
+			return((long)OneShellX);			// This function is called using the direct method.
+			break;
+		case 78:							// y = f(c,y,x)
+			return((long)TwoShellX);			// This function is called using the direct method.
+			break;
+		case 79:							// y = f(c,y,x)
+			return((long)ThreeShellX);			// This function is called using the direct method.
+			break;
+		case 80:							// y = f(c,y,x)
+			return((long)FourShellX);			// This function is called using the direct method.
+			break;
+		case 81:							// y = f(c,y,x)
+			return((long)PolyOneShellX);			// This function is called using the direct method.
+			break;
+		case 82:							// y = f(c,y,x)
+			return((long)PolyTwoShellX);			// This function is called using the direct method.
+			break;
+		case 83:							// y = f(c,y,x)
+			return((long)PolyThreeShellX);			// This function is called using the direct method.
+			break;
+		case 84:							// y = f(c,y,x)
+			return((long)PolyFourShellX);			// This function is called using the direct method.
+			break;
+			//
+		case 85:							// y = f(c,y,x)
+			return((long)BroadPeakX);			// This function is called using the direct method.
+			break;
+		case 86:							// y = f(c,y,x)
+			return((long)CorrLengthX);			// This function is called using the direct method.
+			break;
+		case 87:							// y = f(c,y,x)
+			return((long)TwoLorentzianX);			// This function is called using the direct method.
+			break;
+		case 88:							// y = f(c,y,x)
+			return((long)TwoPowerLawX);			// This function is called using the direct method.
+			break;
+		case 89:							// y = f(c,y,x)
+			return((long)PolyGaussCoilX);			// This function is called using the direct method.
+			break;
+		case 90:							// y = f(c,y,x)
+			return((long)GaussLorentzGelX);			// This function is called using the direct method.
+			break;
+		case 91:							// y = f(c,y,x)
+			return((long)GaussianShellX);			// This function is called using the direct method.
+			break;
 	}
 	return NIL;
 }
