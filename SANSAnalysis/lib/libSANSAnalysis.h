@@ -30,6 +30,14 @@ double LamellarFF(double dp[], double q);
 double LamellarFF_HG(double dp[], double q);
 double LamellarPS(double dp[], double q);
 double LamellarPS_HG(double dp[], double q);
+//
+double Lamellar_ParaCrystal(double dp[], double q);
+double Spherocylinder(double dp[], double q);
+double ConvexLens(double dp[], double q);
+double Dumbbell(double dp[], double q);
+double CappedCylinder(double dp[], double q);
+double Barbell(double dp[], double q);
+
 
 /* internal functions */
 double CylKernel(double qq, double rr,double h, double theta);
@@ -71,6 +79,18 @@ double BinaryHS(double dp[], double q);
 double BinaryHS_PSF11(double dp[], double q);
 double BinaryHS_PSF12(double dp[], double q);
 double BinaryHS_PSF22(double dp[], double q);
+//
+double OneShell(double dp[], double q);
+double TwoShell(double dp[], double q);
+double ThreeShell(double dp[], double q);
+double FourShell(double dp[], double q);
+double PolyOneShell(double dp[], double q);
+double PolyTwoShell(double dp[], double q);
+double PolyThreeShell(double dp[], double q);
+double PolyFourShell(double dp[], double q);
+double BCC_ParaCrystal(double dp[], double q);
+double FCC_ParaCrystal(double dp[], double q);
+double SC_ParaCrystal(double dp[], double q);
 
 //function prototypes
 double F_func(double qr);
@@ -105,6 +125,15 @@ double OneLevel(double dp[], double q);
 double TwoLevel(double dp[], double q);
 double ThreeLevel(double dp[], double q);
 double FourLevel(double dp[], double q);
+//
+double BroadPeak(double dp[], double q);
+double CorrLength(double dp[], double q);
+double TwoLorentzian(double dp[], double q);
+double TwoPowerLaw(double dp[], double q);
+double PolyGaussCoil(double dp[], double q);
+double GaussLorentzGel(double dp[], double q);
+double GaussianShell(double dp[], double q);
+
 
 // since the XOP and the library are separate chunks of compiled code
 // it is imperative to set ALL the structure alignments to be two-byte

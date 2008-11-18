@@ -242,10 +242,10 @@ TriaxialEllipsoid(double dp[], double q)
 	double summj,vaj,vbj,zij,slde,sld;			//for the inner integration
 	
 	Pi = 4.0*atan(1.0);
-	va = 0;
-	vb = 1;		//orintational average, outer integral
-	vaj = 0;
-	vbj = 1;		//endpoints of inner integral
+	va = 0.0;
+	vb = 1.0;		//orintational average, outer integral
+	vaj = 0.0;
+	vbj = 1.0;		//endpoints of inner integral
 	
 	summ = 0.0;			//initialize intergral
 	
@@ -259,7 +259,7 @@ TriaxialEllipsoid(double dp[], double q)
 	bkg = dp[6];
 	for(i=0;i<nordi;i++) {
 		//setup inner integral over the ellipsoidal cross-section
-		summj=0;
+		summj=0.0;
 		zi = ( Gauss76Z[i]*(vb-va) + va + vb )/2.0;		//the "x" dummy
 		for(j=0;j<nordj;j++) {
 			//20 gauss points for the inner integral
@@ -279,7 +279,7 @@ TriaxialEllipsoid(double dp[], double q)
 	// Multiply by contrast^2
 	answer *= delrho*delrho;
 	//normalize by ellipsoid volume
-	answer *= 4*Pi/3*aa*bb*cc;
+	answer *= 4.0*Pi/3.0*aa*bb*cc;
 	//convert to [cm-1]
 	answer *= 1.0e8;
 	//Scale
@@ -2217,4 +2217,625 @@ double NR_BessJ1(double x)
 	}
 	
 	return(ans);
+}
+
+/*	Lamellar_ParaCrystal - Pedersen's model
+
+*/
+double
+Lamellar_ParaCrystal(double w[], double q)
+{
+//	 Input (fitting) variables are:
+	//[0] scale factor
+	//[1]	thickness
+	//[2]	number of layers
+	//[3]	spacing between layers
+	//[4]	polydispersity of spacing
+	//[5] SLD lamellar
+	//[6] SLD solvent
+	//[7] incoherent background
+//	give them nice names
+	double inten,qval,scale,th,nl,davg,pd,contr,bkg,xn;
+	double xi,ww,Pbil,Znq,Snq,an,sldLayer,sldSolvent,pi;
+	long n1,n2;
+	
+	pi = 4.0*atan(1.0);
+	scale = w[0];
+	th = w[1];
+	nl = w[2];
+	davg = w[3];
+	pd = w[4];
+	sldLayer = w[5];
+	sldSolvent = w[6];
+	bkg = w[7];
+	
+	contr = w[5] - w[6];
+	qval = q;
+		
+	//get the fractional part of nl, to determine the "mixing" of N's
+	
+	n1 = trunc(nl);		//rounds towards zero
+	n2 = n1 + 1;
+	xn = (double)n2 - nl;			//fractional contribution of n1
+	
+	ww = exp(-qval*qval*pd*pd*davg*davg/2.0);
+	
+	//calculate the n1 contribution
+	an = paraCryst_an(ww,qval,davg,n1);
+	Snq = paraCryst_sn(ww,qval,davg,n1,an);
+	
+	Znq = xn*Snq;
+	
+	//calculate the n2 contribution
+	an = paraCryst_an(ww,qval,davg,n2);
+	Snq = paraCryst_sn(ww,qval,davg,n2,an);
+	
+	Znq += (1.0-xn)*Snq;
+	
+	//and the independent contribution
+	Znq += (1.0-ww*ww)/(1.0+ww*ww-2.0*ww*cos(qval*davg));
+	
+	//the limit when NL approaches infinity
+//	Zq = (1-ww^2)/(1+ww^2-2*ww*cos(qval*davg))
+	
+	xi = th/2.0;		//use 1/2 the bilayer thickness
+	Pbil = (sin(qval*xi)/(qval*xi))*(sin(qval*xi)/(qval*xi));
+	
+	inten = 2.0*pi*contr*contr*Pbil*Znq/(qval*qval);
+	inten *= 1.0e8;
+	
+	return(scale*inten+bkg);
+}
+
+// functions for the lamellar paracrystal model
+double
+paraCryst_sn(double ww, double qval, double davg, long nl, double an) {
+	
+	double Snq;
+	
+	Snq = an/( (double)nl*pow((1.0+ww*ww-2.0*ww*cos(qval*davg)),2) );
+	
+	return(Snq);
+}
+
+
+double
+paraCryst_an(double ww, double qval, double davg, long nl) {
+	
+	double an;
+	
+	an = 4.0*ww*ww - 2.0*(ww*ww*ww+ww)*cos(qval*davg);
+	an -= 4.0*pow(ww,(nl+2))*cos((double)nl*qval*davg);
+	an += 2.0*pow(ww,(nl+3))*cos((double)(nl-1)*qval*davg);
+	an += 2.0*pow(ww,(nl+1))*cos((double)(nl+1)*qval*davg);
+	
+	return(an);
+}
+
+
+/*	Spherocylinder  :
+
+Uses 76 pt Gaussian quadrature for both integrals
+*/
+double
+Spherocylinder(double w[], double x)
+{
+	int i,j;
+	double Pi;
+	double scale,contr,bkg,sldc,slds;
+	double len,rad,hDist,endRad;
+	int nordi=76;			//order of integration
+	int nordj=76;
+	double va,vb;		//upper and lower integration limits
+	double summ,zi,yyy,answer;			//running tally of integration
+	double summj,vaj,vbj,zij;			//for the inner integration
+	double SphCyl_tmp[7],arg1,arg2,inner;
+	
+	
+	scale = w[0];
+	rad = w[1];
+	len = w[2];
+	sldc = w[3];
+	slds = w[4];
+	bkg = w[5];
+	
+	SphCyl_tmp[0] = w[0];
+	SphCyl_tmp[1] = w[1];
+	SphCyl_tmp[2] = w[2];
+	SphCyl_tmp[3] = w[1];		//end radius is same as cylinder radius
+	SphCyl_tmp[4] = w[3];
+	SphCyl_tmp[5] = w[4];
+	SphCyl_tmp[6] = w[5];
+	
+	hDist = 0;		//by definition for this model
+	endRad = rad;
+	
+	contr = sldc-slds;
+	
+	Pi = 4.0*atan(1.0);
+	va = 0.0;
+	vb = Pi/2.0;		//orintational average, outer integral
+	vaj = -1.0*hDist/endRad;
+	vbj = 1.0;		//endpoints of inner integral
+
+	summ = 0.0;			//initialize intergral
+
+	for(i=0;i<nordi;i++) {
+		//setup inner integral over the ellipsoidal cross-section
+		summj=0.0;
+		zi = ( Gauss76Z[i]*(vb-va) + va + vb )/2.0;		//the "theta" dummy
+		
+		for(j=0;j<nordj;j++) {
+			//20 gauss points for the inner integral
+			zij = ( Gauss76Z[j]*(vbj-vaj) + vaj + vbj )/2.0;		//the "t" dummy
+			yyy = Gauss76Wt[j] * SphCyl_kernel(SphCyl_tmp,x,zij,zi);
+			summj += yyy;
+		}
+		//now calculate the value of the inner integral
+		inner = (vbj-vaj)/2.0*summj;
+		inner *= 4.0*Pi*endRad*endRad*endRad;
+		
+		//now calculate outer integrand
+		arg1 = x*len/2.0*cos(zi);
+		arg2 = x*rad*sin(zi);
+		yyy = inner;
+		
+		if(arg1 == 0) {		//limiting value of sinc(0) is 1; sinc is not defined in math.h
+			yyy += Pi*rad*rad*len*2.0*NR_BessJ1(arg2)/arg2;
+		} else {
+			yyy += Pi*rad*rad*len*sin(arg1)/arg1*2.0*NR_BessJ1(arg2)/arg2;
+		}
+		yyy *= yyy;
+		yyy *= sin(zi);		// = |A(q)|^2*sin(theta)
+		yyy *= Gauss76Wt[i];
+		summ += yyy;
+	}		//final scaling is done at the end of the function, after the NT_FP64 case
+	
+	answer = (vb-va)/2.0*summ;
+
+	answer /= Pi*rad*rad*len + Pi*4.0*endRad*endRad*endRad/3.0;		//divide by volume
+	answer *= 1.0e8;		//convert to cm^-1
+	answer *= contr*contr;
+	answer *= scale;
+	answer += bkg;
+		
+	return answer;
+}
+
+
+// inner integral of the sphereocylinder model, special case of hDist = 0
+//
+double
+SphCyl_kernel(double w[], double x, double tt, double theta) {
+
+	double val,arg1,arg2;
+	double scale,bkg,sldc,slds;
+	double len,rad,hDist,endRad;
+	scale = w[0];
+	rad = w[1];
+	len = w[2];
+	endRad = w[3];
+	sldc = w[4];
+	slds = w[5];
+	bkg = w[6];
+	
+	hDist = 0.0;
+		
+	arg1 = x*cos(theta)*(endRad*tt+hDist+len/2.0);
+	arg2 = x*endRad*sin(theta)*sqrt(1.0-tt*tt);
+	
+	val = cos(arg1)*(1.0-tt*tt)*NR_BessJ1(arg2)/arg2;
+	
+	return(val);
+}
+
+
+/*	Convex Lens  : special case where L ~ 0 and hDist < 0
+
+Uses 76 pt Gaussian quadrature for both integrals
+*/
+double
+ConvexLens(double w[], double x)
+{
+	int i,j;
+	double Pi;
+	double scale,contr,bkg,sldc,slds;
+	double len,rad,hDist,endRad;
+	int nordi=76;			//order of integration
+	int nordj=76;
+	double va,vb;		//upper and lower integration limits
+	double summ,zi,yyy,answer;			//running tally of integration
+	double summj,vaj,vbj,zij;			//for the inner integration
+	double CLens_tmp[7],arg1,arg2,inner,hh;
+	
+	
+	scale = w[0];
+	rad = w[1];
+//	len = w[2]
+	endRad = w[2];
+	sldc = w[3];
+	slds = w[4];
+	bkg = w[5];
+	
+	len = 0.01;
+	
+	CLens_tmp[0] = w[0];
+	CLens_tmp[1] = w[1];
+	CLens_tmp[2] = len;			//length is some small number, essentially zero
+	CLens_tmp[3] = w[2];
+	CLens_tmp[4] = w[3];
+	CLens_tmp[5] = w[4];
+	CLens_tmp[6] = w[5];
+		
+	hDist = -1.0*sqrt(fabs(endRad*endRad-rad*rad));		//by definition for this model
+	
+	contr = sldc-slds;
+	
+	Pi = 4.0*atan(1.0);
+	va = 0.0;
+	vb = Pi/2.0;		//orintational average, outer integral
+	vaj = -1.0*hDist/endRad;
+	vbj = 1.0;		//endpoints of inner integral
+
+	summ = 0.0;			//initialize intergral
+
+	for(i=0;i<nordi;i++) {
+		//setup inner integral over the ellipsoidal cross-section
+		summj=0.0;
+		zi = ( Gauss76Z[i]*(vb-va) + va + vb )/2.0;		//the "theta" dummy
+		
+		for(j=0;j<nordj;j++) {
+			//20 gauss points for the inner integral
+			zij = ( Gauss76Z[j]*(vbj-vaj) + vaj + vbj )/2.0;		//the "t" dummy
+			yyy = Gauss76Wt[j] * ConvLens_kernel(CLens_tmp,x,zij,zi);
+			summj += yyy;
+		}
+		//now calculate the value of the inner integral
+		inner = (vbj-vaj)/2.0*summj;
+		inner *= 4.0*Pi*endRad*endRad*endRad;
+		
+		//now calculate outer integrand
+		arg1 = x*len/2.0*cos(zi);
+		arg2 = x*rad*sin(zi);
+		yyy = inner;
+		
+		if(arg1 == 0) {		//limiting value of sinc(0) is 1; sinc is not defined in math.h
+			yyy += Pi*rad*rad*len*2.0*NR_BessJ1(arg2)/arg2;
+		} else {
+			yyy += Pi*rad*rad*len*sin(arg1)/arg1*2.0*NR_BessJ1(arg2)/arg2;
+		}
+		yyy *= yyy;
+		yyy *= sin(zi);		// = |A(q)|^2*sin(theta)
+		yyy *= Gauss76Wt[i];
+		summ += yyy;
+	}		//final scaling is done at the end of the function, after the NT_FP64 case
+	
+	answer = (vb-va)/2.0*summ;
+
+	hh = fabs(hDist);		//need positive value for spherical cap volume
+	answer /= 2.0*(1.0/3.0*Pi*(endRad-hh)*(endRad-hh)*(2.0*endRad+hh));		//divide by volume
+	answer *= 1.0e8;		//convert to cm^-1
+	answer *= contr*contr;
+	answer *= scale;
+	answer += bkg;
+		
+	return answer;
+}
+
+/*	Capped Cylinder  : special case where L is nonzero and hDist < 0
+
+ -- uses the same Kernel as the Convex Lens
+ 
+Uses 76 pt Gaussian quadrature for both integrals
+*/
+double
+CappedCylinder(double w[], double x)
+{
+	int i,j;
+	double Pi;
+	double scale,contr,bkg,sldc,slds;
+	double len,rad,hDist,endRad;
+	int nordi=76;			//order of integration
+	int nordj=76;
+	double va,vb;		//upper and lower integration limits
+	double summ,zi,yyy,answer;			//running tally of integration
+	double summj,vaj,vbj,zij;			//for the inner integration
+	double arg1,arg2,inner,hh;
+	
+	
+	scale = w[0];
+	rad = w[1];
+	len = w[2];
+	endRad = w[3];
+	sldc = w[4];
+	slds = w[5];
+	bkg = w[6];
+		
+	hDist = -1.0*sqrt(fabs(endRad*endRad-rad*rad));		//by definition for this model
+	
+	contr = sldc-slds;
+	
+	Pi = 4.0*atan(1.0);
+	va = 0.0;
+	vb = Pi/2.0;		//orintational average, outer integral
+	vaj = -1.0*hDist/endRad;
+	vbj = 1.0;		//endpoints of inner integral
+
+	summ = 0.0;			//initialize intergral
+
+	for(i=0;i<nordi;i++) {
+		//setup inner integral over the ellipsoidal cross-section
+		summj=0.0;
+		zi = ( Gauss76Z[i]*(vb-va) + va + vb )/2.0;		//the "theta" dummy
+		
+		for(j=0;j<nordj;j++) {
+			//20 gauss points for the inner integral
+			zij = ( Gauss76Z[j]*(vbj-vaj) + vaj + vbj )/2.0;		//the "t" dummy
+			yyy = Gauss76Wt[j] * ConvLens_kernel(w,x,zij,zi);		//uses the same kernel as ConvexLens, except here L != 0
+			summj += yyy;
+		}
+		//now calculate the value of the inner integral
+		inner = (vbj-vaj)/2.0*summj;
+		inner *= 4.0*Pi*endRad*endRad*endRad;
+		
+		//now calculate outer integrand
+		arg1 = x*len/2.0*cos(zi);
+		arg2 = x*rad*sin(zi);
+		yyy = inner;
+		
+		if(arg1 == 0) {		//limiting value of sinc(0) is 1; sinc is not defined in math.h
+			yyy += Pi*rad*rad*len*2.0*NR_BessJ1(arg2)/arg2;
+		} else {
+			yyy += Pi*rad*rad*len*sin(arg1)/arg1*2.0*NR_BessJ1(arg2)/arg2;
+		}
+		yyy *= yyy;
+		yyy *= sin(zi);		// = |A(q)|^2*sin(theta)
+		yyy *= Gauss76Wt[i];
+		summ += yyy;
+	}		//final scaling is done at the end of the function, after the NT_FP64 case
+	
+	answer = (vb-va)/2.0*summ;
+
+	hh = fabs(hDist);		//need positive value for spherical cap volume
+	answer /= Pi*rad*rad*len + 2.0*(1.0/3.0*Pi*(endRad-hh)*(endRad-hh)*(2.0*endRad+hh));		//divide by volume
+	answer *= 1.0e8;		//convert to cm^-1
+	answer *= contr*contr;
+	answer *= scale;
+	answer += bkg;
+		
+	return answer;
+}
+
+
+
+// inner integral of the ConvexLens model, special case where L ~ 0 and hDist < 0
+//
+double
+ConvLens_kernel(double w[], double x, double tt, double theta) {
+
+	double val,arg1,arg2;
+	double scale,bkg,sldc,slds;
+	double len,rad,hDist,endRad;
+	scale = w[0];
+	rad = w[1];
+	len = w[2];
+	endRad = w[3];
+	sldc = w[4];
+	slds = w[5];
+	bkg = w[6];
+	
+	hDist = -1.0*sqrt(fabs(endRad*endRad-rad*rad));
+		
+	arg1 = x*cos(theta)*(endRad*tt+hDist+len/2.0);
+	arg2 = x*endRad*sin(theta)*sqrt(1.0-tt*tt);
+	
+	val = cos(arg1)*(1.0-tt*tt)*NR_BessJ1(arg2)/arg2;
+	
+	return(val);
+}
+
+
+/*	Dumbbell  : special case where L ~ 0 and hDist > 0
+
+Uses 76 pt Gaussian quadrature for both integrals
+*/
+double
+Dumbbell(double w[], double x)
+{
+	int i,j;
+	double Pi;
+	double scale,contr,bkg,sldc,slds;
+	double len,rad,hDist,endRad;
+	int nordi=76;			//order of integration
+	int nordj=76;
+	double va,vb;		//upper and lower integration limits
+	double summ,zi,yyy,answer;			//running tally of integration
+	double summj,vaj,vbj,zij;			//for the inner integration
+	double Dumb_tmp[7],arg1,arg2,inner;
+	
+	
+	scale = w[0];
+	rad = w[1];
+//	len = w[2]
+	endRad = w[2];
+	sldc = w[3];
+	slds = w[4];
+	bkg = w[5];
+	
+	len = 0.01;
+	
+	Dumb_tmp[0] = w[0];
+	Dumb_tmp[1] = w[1];
+	Dumb_tmp[2] = len;		//length is some small number, essentially zero
+	Dumb_tmp[3] = w[2];
+	Dumb_tmp[4] = w[3];
+	Dumb_tmp[5] = w[4];
+	Dumb_tmp[6] = w[5];
+			
+	hDist = sqrt(fabs(endRad*endRad-rad*rad));		//by definition for this model
+	
+	contr = sldc-slds;
+	
+	Pi = 4.0*atan(1.0);
+	va = 0.0;
+	vb = Pi/2.0;		//orintational average, outer integral
+	vaj = -1.0*hDist/endRad;
+	vbj = 1.0;		//endpoints of inner integral
+
+	summ = 0.0;			//initialize intergral
+
+	for(i=0;i<nordi;i++) {
+		//setup inner integral over the ellipsoidal cross-section
+		summj=0.0;
+		zi = ( Gauss76Z[i]*(vb-va) + va + vb )/2.0;		//the "theta" dummy
+		
+		for(j=0;j<nordj;j++) {
+			//20 gauss points for the inner integral
+			zij = ( Gauss76Z[j]*(vbj-vaj) + vaj + vbj )/2.0;		//the "t" dummy
+			yyy = Gauss76Wt[j] * Dumb_kernel(Dumb_tmp,x,zij,zi);
+			summj += yyy;
+		}
+		//now calculate the value of the inner integral
+		inner = (vbj-vaj)/2.0*summj;
+		inner *= 4.0*Pi*endRad*endRad*endRad;
+		
+		//now calculate outer integrand
+		arg1 = x*len/2.0*cos(zi);
+		arg2 = x*rad*sin(zi);
+		yyy = inner;
+		
+		if(arg1 == 0) {		//limiting value of sinc(0) is 1; sinc is not defined in math.h
+			yyy += Pi*rad*rad*len*2.0*NR_BessJ1(arg2)/arg2;
+		} else {
+			yyy += Pi*rad*rad*len*sin(arg1)/arg1*2.0*NR_BessJ1(arg2)/arg2;
+		}
+		yyy *= yyy;
+		yyy *= sin(zi);		// = |A(q)|^2*sin(theta)
+		yyy *= Gauss76Wt[i];
+		summ += yyy;
+	}		//final scaling is done at the end of the function, after the NT_FP64 case
+	
+	answer = (vb-va)/2.0*summ;
+
+	answer /= 2.0*Pi*(2.0*endRad*endRad*endRad/3.0+endRad*endRad*hDist-hDist*hDist*hDist/3.0);		//divide by volume
+	answer *= 1.0e8;		//convert to cm^-1
+	answer *= contr*contr;
+	answer *= scale;
+	answer += bkg;
+		
+	return answer;
+}
+
+
+/*	Barbell  : "normal" case where L is nonzero 0 and hDist > 0
+
+-- uses the same kernel as the Dumbbell case
+
+Uses 76 pt Gaussian quadrature for both integrals
+*/
+double
+Barbell(double w[], double x)
+{
+	int i,j;
+	double Pi;
+	double scale,contr,bkg,sldc,slds;
+	double len,rad,hDist,endRad;
+	int nordi=76;			//order of integration
+	int nordj=76;
+	double va,vb;		//upper and lower integration limits
+	double summ,zi,yyy,answer;			//running tally of integration
+	double summj,vaj,vbj,zij;			//for the inner integration
+	double arg1,arg2,inner;
+	
+	
+	scale = w[0];
+	rad = w[1];
+	len = w[2];
+	endRad = w[3];
+	sldc = w[4];
+	slds = w[5];
+	bkg = w[6];
+			
+	hDist = sqrt(fabs(endRad*endRad-rad*rad));		//by definition for this model
+	
+	contr = sldc-slds;
+	
+	Pi = 4.0*atan(1.0);
+	va = 0.0;
+	vb = Pi/2.0;		//orintational average, outer integral
+	vaj = -1.0*hDist/endRad;
+	vbj = 1.0;		//endpoints of inner integral
+
+	summ = 0.0;			//initialize intergral
+
+	for(i=0;i<nordi;i++) {
+		//setup inner integral over the ellipsoidal cross-section
+		summj=0.0;
+		zi = ( Gauss76Z[i]*(vb-va) + va + vb )/2.0;		//the "theta" dummy
+		
+		for(j=0;j<nordj;j++) {
+			//20 gauss points for the inner integral
+			zij = ( Gauss76Z[j]*(vbj-vaj) + vaj + vbj )/2.0;		//the "t" dummy
+			yyy = Gauss76Wt[j] * Dumb_kernel(w,x,zij,zi);		//uses the same Kernel as the Dumbbell, here L>0
+			summj += yyy;
+		}
+		//now calculate the value of the inner integral
+		inner = (vbj-vaj)/2.0*summj;
+		inner *= 4.0*Pi*endRad*endRad*endRad;
+		
+		//now calculate outer integrand
+		arg1 = x*len/2.0*cos(zi);
+		arg2 = x*rad*sin(zi);
+		yyy = inner;
+		
+		if(arg1 == 0) {		//limiting value of sinc(0) is 1; sinc is not defined in math.h
+			yyy += Pi*rad*rad*len*2.0*NR_BessJ1(arg2)/arg2;
+		} else {
+			yyy += Pi*rad*rad*len*sin(arg1)/arg1*2.0*NR_BessJ1(arg2)/arg2;
+		}
+		yyy *= yyy;
+		yyy *= sin(zi);		// = |A(q)|^2*sin(theta)
+		yyy *= Gauss76Wt[i];
+		summ += yyy;
+	}		//final scaling is done at the end of the function, after the NT_FP64 case
+	
+	answer = (vb-va)/2.0*summ;
+
+	answer /= Pi*rad*rad*len + 2.0*Pi*(2.0*endRad*endRad*endRad/3.0+endRad*endRad*hDist-hDist*hDist*hDist/3.0);		//divide by volume
+	answer *= 1.0e8;		//convert to cm^-1
+	answer *= contr*contr;
+	answer *= scale;
+	answer += bkg;
+		
+	return answer;
+}
+
+
+
+// inner integral of the Dumbbell model, special case where L ~ 0 and hDist > 0
+//
+// inner integral of the Barbell model if L is nonzero
+//
+double
+Dumb_kernel(double w[], double x, double tt, double theta) {
+
+	double val,arg1,arg2;
+	double scale,bkg,sldc,slds;
+	double len,rad,hDist,endRad;
+	scale = w[0];
+	rad = w[1];
+	len = w[2];
+	endRad = w[3];
+	sldc = w[4];
+	slds = w[5];
+	bkg = w[6];
+	
+	hDist = sqrt(fabs(endRad*endRad-rad*rad));
+		
+	arg1 = x*cos(theta)*(endRad*tt+hDist+len/2.0);
+	arg2 = x*endRad*sin(theta)*sqrt(1.0-tt*tt);
+	
+	val = cos(arg1)*(1.0-tt*tt)*NR_BessJ1(arg2)/arg2;
+	
+	return(val);
 }

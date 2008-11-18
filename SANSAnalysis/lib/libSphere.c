@@ -1223,3 +1223,903 @@ F_func(double qr) {
 	return(3*(sin(qr) - qr*cos(qr))/(qr*qr*qr));
 }
 
+double
+OneShell(double dp[], double q)
+{
+	// variables are:
+	//[0] scale factor
+	//[1] radius of core [Å]
+	//[2] SLD of the core	[Å-2]
+	//[3] thickness of the shell	[Å]
+	//[4] SLD of the shell
+	//[5] SLD of the solvent
+	//[6] background	[cm-1]
+	
+	double x,pi;
+	double scale,rcore,thick,rhocore,rhoshel,rhosolv,bkg;		//my local names
+	double bes,f,vol,qr,contr,f2;
+	
+	pi = 4.0*atan(1.0);
+	x=q;
+	
+	scale = dp[0];
+	rcore = dp[1];
+	rhocore = dp[2];
+	thick = dp[3];
+	rhoshel = dp[4];
+	rhosolv = dp[5];
+	bkg = dp[6];
+	
+	// core first, then add in shell
+	qr=x*rcore;
+	contr = rhocore-rhoshel;
+	bes = 3.0*(sin(qr)-qr*cos(qr))/(qr*qr*qr);
+	vol = 4.0*pi/3.0*rcore*rcore*rcore;
+	f = vol*bes*contr;
+	//now the shell
+	qr=x*(rcore+thick);
+	contr = rhoshel-rhosolv;
+	bes = 3.0*(sin(qr)-qr*cos(qr))/(qr*qr*qr);
+	vol = 4.0*pi/3.0*pow((rcore+thick),3);
+	f += vol*bes*contr;
+	
+	// normalize to particle volume and rescale from [Å-1] to [cm-1]
+	f2 = f*f/vol*1.0e8;
+	
+	//scale if desired
+	f2 *= scale;
+	// then add in the background
+	f2 += bkg;
+	
+	return(f2);
+}
+
+double
+TwoShell(double dp[], double q)
+{
+	// variables are:
+	//[0] scale factor
+	//[1] radius of core [Å]
+	//[2] SLD of the core	[Å-2]
+	//[3] thickness of shell 1 [Å]
+	//[4] SLD of shell 1
+	//[5] thickness of shell 2 [Å]
+	//[6] SLD of shell 2
+	//[7] SLD of the solvent
+	//[8] background	[cm-1]
+	
+	double x,pi;
+	double scale,rcore,thick1,rhocore,rhoshel1,rhosolv,bkg;		//my local names
+	double bes,f,vol,qr,contr,f2;
+	double rhoshel2,thick2;
+	
+	pi = 4.0*atan(1.0);
+	x=q;
+	
+	scale = dp[0];
+	rcore = dp[1];
+	rhocore = dp[2];
+	thick1 = dp[3];
+	rhoshel1 = dp[4];
+	thick2 = dp[5];
+	rhoshel2 = dp[6];	
+	rhosolv = dp[7];
+	bkg = dp[8];
+		// core first, then add in shells
+	qr=x*rcore;
+	contr = rhocore-rhoshel1;
+	bes = 3.0*(sin(qr)-qr*cos(qr))/(qr*qr*qr);
+	vol = 4.0*pi/3*rcore*rcore*rcore;
+	f = vol*bes*contr;
+	//now the shell (1)
+	qr=x*(rcore+thick1);
+	contr = rhoshel1-rhoshel2;
+	bes = 3.0*(sin(qr)-qr*cos(qr))/(qr*qr*qr);
+	vol = 4.0*pi/3.0*(rcore+thick1)*(rcore+thick1)*(rcore+thick1);
+	f += vol*bes*contr;
+	//now the shell (2)
+	qr=x*(rcore+thick1+thick2);
+	contr = rhoshel2-rhosolv;
+	bes = 3.0*(sin(qr)-qr*cos(qr))/(qr*qr*qr);
+	vol = 4.0*pi/3.0*(rcore+thick1+thick2)*(rcore+thick1+thick2)*(rcore+thick1+thick2);
+	f += vol*bes*contr;
+	
+		
+	// normalize to particle volume and rescale from [Å-1] to [cm-1]
+	f2 = f*f/vol*1.0e8;
+	
+	//scale if desired
+	f2 *= scale;
+	// then add in the background
+	f2 += bkg;
+	
+	return(f2);
+}
+
+double
+ThreeShell(double dp[], double q)
+{
+	// variables are:
+	//[0] scale factor
+	//[1] radius of core [Å]
+	//[2] SLD of the core	[Å-2]
+	//[3] thickness of shell 1 [Å]
+	//[4] SLD of shell 1
+	//[5] thickness of shell 2 [Å]
+	//[6] SLD of shell 2
+	//[7] thickness of shell 3
+	//[8] SLD of shell 3
+	//[9] SLD of solvent
+	//[10] background	[cm-1]
+	
+	double x,pi;
+	double scale,rcore,thick1,rhocore,rhoshel1,rhosolv,bkg;		//my local names
+	double bes,f,vol,qr,contr,f2;
+	double rhoshel2,thick2,rhoshel3,thick3;
+	
+	pi = 4.0*atan(1.0);
+	x=q;
+	
+	scale = dp[0];
+	rcore = dp[1];
+	rhocore = dp[2];
+	thick1 = dp[3];
+	rhoshel1 = dp[4];
+	thick2 = dp[5];
+	rhoshel2 = dp[6];	
+	thick3 = dp[7];
+	rhoshel3 = dp[8];	
+	rhosolv = dp[9];
+	bkg = dp[10];
+	
+		// core first, then add in shells
+	qr=x*rcore;
+	contr = rhocore-rhoshel1;
+	bes = 3.0*(sin(qr)-qr*cos(qr))/(qr*qr*qr);
+	vol = 4.0*pi/3*rcore*rcore*rcore;
+	f = vol*bes*contr;
+	//now the shell (1)
+	qr=x*(rcore+thick1);
+	contr = rhoshel1-rhoshel2;
+	bes = 3.0*(sin(qr)-qr*cos(qr))/(qr*qr*qr);
+	vol = 4.0*pi/3.0*(rcore+thick1)*(rcore+thick1)*(rcore+thick1);
+	f += vol*bes*contr;
+	//now the shell (2)
+	qr=x*(rcore+thick1+thick2);
+	contr = rhoshel2-rhoshel3;
+	bes = 3.0*(sin(qr)-qr*cos(qr))/(qr*qr*qr);
+	vol = 4.0*pi/3.0*(rcore+thick1+thick2)*(rcore+thick1+thick2)*(rcore+thick1+thick2);
+	f += vol*bes*contr;
+	//now the shell (3)
+	qr=x*(rcore+thick1+thick2+thick3);
+	contr = rhoshel3-rhosolv;
+	bes = 3.0*(sin(qr)-qr*cos(qr))/(qr*qr*qr);
+	vol = 4.0*pi/3.0*(rcore+thick1+thick2+thick3)*(rcore+thick1+thick2+thick3)*(rcore+thick1+thick2+thick3);
+	f += vol*bes*contr;
+		
+	// normalize to particle volume and rescale from [Å-1] to [cm-1]
+	f2 = f*f/vol*1.0e8;
+	
+	//scale if desired
+	f2 *= scale;
+	// then add in the background
+	f2 += bkg;
+	
+	return(f2);
+}
+
+double
+FourShell(double dp[], double q)
+{
+	// variables are:
+	//[0] scale factor
+	//[1] radius of core [Å]
+	//[2] SLD of the core	[Å-2]
+	//[3] thickness of shell 1 [Å]
+	//[4] SLD of shell 1
+	//[5] thickness of shell 2 [Å]
+	//[6] SLD of shell 2
+	//[7] thickness of shell 3
+	//[8] SLD of shell 3
+	//[9] thickness of shell 3
+	//[10] SLD of shell 3
+	//[11] SLD of solvent
+	//[12] background	[cm-1]
+	
+	double x,pi;
+	double scale,rcore,thick1,rhocore,rhoshel1,rhosolv,bkg;		//my local names
+	double bes,f,vol,qr,contr,f2;
+	double rhoshel2,thick2,rhoshel3,thick3,rhoshel4,thick4;
+	
+	pi = 4.0*atan(1.0);
+	x=q;
+	
+	scale = dp[0];
+	rcore = dp[1];
+	rhocore = dp[2];
+	thick1 = dp[3];
+	rhoshel1 = dp[4];
+	thick2 = dp[5];
+	rhoshel2 = dp[6];	
+	thick3 = dp[7];
+	rhoshel3 = dp[8];
+	thick4 = dp[9];
+	rhoshel4 = dp[10];	
+	rhosolv = dp[11];
+	bkg = dp[12];
+	
+		// core first, then add in shells
+	qr=x*rcore;
+	contr = rhocore-rhoshel1;
+	bes = 3.0*(sin(qr)-qr*cos(qr))/(qr*qr*qr);
+	vol = 4.0*pi/3*rcore*rcore*rcore;
+	f = vol*bes*contr;
+	//now the shell (1)
+	qr=x*(rcore+thick1);
+	contr = rhoshel1-rhoshel2;
+	bes = 3.0*(sin(qr)-qr*cos(qr))/(qr*qr*qr);
+	vol = 4.0*pi/3.0*(rcore+thick1)*(rcore+thick1)*(rcore+thick1);
+	f += vol*bes*contr;
+	//now the shell (2)
+	qr=x*(rcore+thick1+thick2);
+	contr = rhoshel2-rhoshel3;
+	bes = 3.0*(sin(qr)-qr*cos(qr))/(qr*qr*qr);
+	vol = 4.0*pi/3.0*(rcore+thick1+thick2)*(rcore+thick1+thick2)*(rcore+thick1+thick2);
+	f += vol*bes*contr;
+	//now the shell (3)
+	qr=x*(rcore+thick1+thick2+thick3);
+	contr = rhoshel3-rhoshel4;
+	bes = 3.0*(sin(qr)-qr*cos(qr))/(qr*qr*qr);
+	vol = 4.0*pi/3.0*(rcore+thick1+thick2+thick3)*(rcore+thick1+thick2+thick3)*(rcore+thick1+thick2+thick3);
+	f += vol*bes*contr;
+	//now the shell (4)
+	qr=x*(rcore+thick1+thick2+thick3+thick4);
+	contr = rhoshel4-rhosolv;
+	bes = 3.0*(sin(qr)-qr*cos(qr))/(qr*qr*qr);
+	vol = 4.0*pi/3.0*(rcore+thick1+thick2+thick3+thick4)*(rcore+thick1+thick2+thick3+thick4)*(rcore+thick1+thick2+thick3+thick4);
+	f += vol*bes*contr;
+	
+		
+	// normalize to particle volume and rescale from [Å-1] to [cm-1]
+	f2 = f*f/vol*1.0e8;
+	
+	//scale if desired
+	f2 *= scale;
+	// then add in the background
+	f2 += bkg;
+	
+	return(f2);
+}
+
+double
+PolyOneShell(double dp[], double x)
+{
+	double scale,rcore,thick,rhocore,rhoshel,rhosolv,bkg,pd,zz;		//my local names
+	double va,vb,summ,yyy,zi;
+	double answer,zp1,zp2,zp3,vpoly,range,temp_1sf[7],pi;
+	int nord=76,ii;
+	
+	pi = 4.0*atan(1.0);
+	
+	scale = dp[0];
+	rcore = dp[1];
+	pd = dp[2];
+	rhocore = dp[3];
+	thick = dp[4];
+	rhoshel = dp[5];
+	rhosolv = dp[6];
+	bkg = dp[7];
+		
+	zz = (1.0/pd)*(1.0/pd)-1.0;		//polydispersity of the core only
+	
+	range = 8.0;			//std deviations for the integration
+	va = rcore*(1.0-range*pd);
+	if (va<0) {
+		va=0;		//otherwise numerical error when pd >= 0.3, making a<0
+	}
+	if (pd>0.3) {
+		range = range + (pd-0.3)*18.0;		//stretch upper range to account for skewed tail
+	}
+	vb = rcore*(1.0+range*pd);		// is this far enough past avg radius?
+	
+	//temp set scale=1 and bkg=0 for quadrature calc
+	temp_1sf[0] = 1.0;
+	temp_1sf[1] = dp[1];	//the core radius will be changed in the loop
+	temp_1sf[2] = dp[3];
+	temp_1sf[3] = dp[4];
+	temp_1sf[4] = dp[5];
+	temp_1sf[5] = dp[6];
+	temp_1sf[6] = 0.0;
+	
+	summ = 0.0;		// initialize integral
+	for(ii=0;ii<nord;ii+=1) {
+		// calculate Gauss points on integration interval (r-value for evaluation)
+		zi = ( Gauss76Z[ii]*(vb-va) + vb + va )/2.0;
+		temp_1sf[1] = zi;
+		yyy = Gauss76Wt[ii] * SchulzPoint(zi,rcore,zz) * OneShell(temp_1sf,x);
+		//un-normalize by volume
+		yyy *= 4.0*pi/3.0*pow((zi+thick),3);
+		summ += yyy;		//add to the running total of the quadrature
+   	}
+	// calculate value of integral to return
+	answer = (vb-va)/2.0*summ;
+   	
+	//re-normalize by the average volume
+	zp1 = zz + 1.0;
+	zp2 = zz + 2.0;
+	zp3 = zz + 3.0;
+	vpoly = 4.0*pi/3.0*zp3*zp2/zp1/zp1*pow((rcore+thick),3);
+	answer /= vpoly;
+//scale
+	answer *= scale;
+// add in the background
+	answer += bkg;
+		
+    return(answer);
+}
+
+double
+PolyTwoShell(double dp[], double x)
+{
+	double scale,rcore,rhocore,rhosolv,bkg,pd,zz;		//my local names
+	double va,vb,summ,yyy,zi;
+	double answer,zp1,zp2,zp3,vpoly,range,temp_2sf[9],pi;
+	int nord=76,ii;
+	double thick1,thick2;
+	double rhoshel1,rhoshel2;
+	
+	scale = dp[0];
+	rcore = dp[1];
+	pd = dp[2];
+	rhocore = dp[3];
+	thick1 = dp[4];
+	rhoshel1 = dp[5];
+	thick2 = dp[6];
+	rhoshel2 = dp[7];
+	rhosolv = dp[8];
+	bkg = dp[9];
+	
+	pi = 4.0*atan(1.0);
+		
+	zz = (1.0/pd)*(1.0/pd)-1.0;		//polydispersity of the core only
+	
+	range = 8.0;			//std deviations for the integration
+	va = rcore*(1.0-range*pd);
+	if (va<0) {
+		va=0;		//otherwise numerical error when pd >= 0.3, making a<0
+	}
+	if (pd>0.3) {
+		range = range + (pd-0.3)*18.0;		//stretch upper range to account for skewed tail
+	}
+	vb = rcore*(1.0+range*pd);		// is this far enough past avg radius?
+	
+	//temp set scale=1 and bkg=0 for quadrature calc
+	temp_2sf[0] = 1.0;
+	temp_2sf[1] = dp[1];		//the core radius will be changed in the loop
+	temp_2sf[2] = dp[3];
+	temp_2sf[3] = dp[4];
+	temp_2sf[4] = dp[5];
+	temp_2sf[5] = dp[6];
+	temp_2sf[6] = dp[7];
+	temp_2sf[7] = dp[8];
+	temp_2sf[8] = 0.0;
+	
+	summ = 0.0;		// initialize integral
+	for(ii=0;ii<nord;ii+=1) {
+		// calculate Gauss points on integration interval (r-value for evaluation)
+		zi = ( Gauss76Z[ii]*(vb-va) + vb + va )/2.0;
+		temp_2sf[1] = zi;
+		yyy = Gauss76Wt[ii] * SchulzPoint(zi,rcore,zz) * TwoShell(temp_2sf,x);
+		//un-normalize by volume
+		yyy *= 4.0*pi/3.0*pow((zi+thick1+thick2),3);
+		summ += yyy;		//add to the running total of the quadrature
+   	}
+	// calculate value of integral to return
+	answer = (vb-va)/2.0*summ;
+   	
+	//re-normalize by the average volume
+	zp1 = zz + 1.0;
+	zp2 = zz + 2.0;
+	zp3 = zz + 3.0;
+	vpoly = 4.0*pi/3.0*zp3*zp2/zp1/zp1*pow((rcore+thick1+thick2),3);
+	answer /= vpoly;
+//scale
+	answer *= scale;
+// add in the background
+	answer += bkg;
+		
+    return(answer);
+}
+
+double
+PolyThreeShell(double dp[], double x)
+{
+	double scale,rcore,rhocore,rhosolv,bkg,pd,zz;		//my local names
+	double va,vb,summ,yyy,zi;
+	double answer,zp1,zp2,zp3,vpoly,range,temp_3sf[11],pi;
+	int nord=76,ii;
+	double thick1,thick2,thick3;
+	double rhoshel1,rhoshel2,rhoshel3;
+	
+	scale = dp[0];
+	rcore = dp[1];
+	pd = dp[2];
+	rhocore = dp[3];
+	thick1 = dp[4];
+	rhoshel1 = dp[5];
+	thick2 = dp[6];
+	rhoshel2 = dp[7];
+	thick3 = dp[8];
+	rhoshel3 = dp[9];
+	rhosolv = dp[10];
+	bkg = dp[11];
+	
+	pi = 4.0*atan(1.0);
+		
+	zz = (1.0/pd)*(1.0/pd)-1.0;		//polydispersity of the core only
+	
+	range = 8.0;			//std deviations for the integration
+	va = rcore*(1.0-range*pd);
+	if (va<0) {
+		va=0;		//otherwise numerical error when pd >= 0.3, making a<0
+	}
+	if (pd>0.3) {
+		range = range + (pd-0.3)*18.0;		//stretch upper range to account for skewed tail
+	}
+	vb = rcore*(1.0+range*pd);		// is this far enough past avg radius?
+	
+	//temp set scale=1 and bkg=0 for quadrature calc
+	temp_3sf[0] = 1.0;
+	temp_3sf[1] = dp[1];		//the core radius will be changed in the loop
+	temp_3sf[2] = dp[3];
+	temp_3sf[3] = dp[4];
+	temp_3sf[4] = dp[5];
+	temp_3sf[5] = dp[6];
+	temp_3sf[6] = dp[7];
+	temp_3sf[7] = dp[8];
+	temp_3sf[8] = dp[9];
+	temp_3sf[9] = dp[10];
+	temp_3sf[10] = 0.0;
+	
+	summ = 0.0;		// initialize integral
+	for(ii=0;ii<nord;ii+=1) {
+		// calculate Gauss points on integration interval (r-value for evaluation)
+		zi = ( Gauss76Z[ii]*(vb-va) + vb + va )/2.0;
+		temp_3sf[1] = zi;
+		yyy = Gauss76Wt[ii] * SchulzPoint(zi,rcore,zz) * ThreeShell(temp_3sf,x);
+		//un-normalize by volume
+		yyy *= 4.0*pi/3.0*pow((zi+thick1+thick2+thick3),3);
+		summ += yyy;		//add to the running total of the quadrature
+   	}
+	// calculate value of integral to return
+	answer = (vb-va)/2.0*summ;
+   	
+	//re-normalize by the average volume
+	zp1 = zz + 1.0;
+	zp2 = zz + 2.0;
+	zp3 = zz + 3.0;
+	vpoly = 4.0*pi/3.0*zp3*zp2/zp1/zp1*pow((rcore+thick1+thick2+thick3),3);
+	answer /= vpoly;
+//scale
+	answer *= scale;
+// add in the background
+	answer += bkg;
+		
+    return(answer);
+}
+
+double
+PolyFourShell(double dp[], double x)
+{
+	double scale,rcore,rhocore,rhosolv,bkg,pd,zz;		//my local names
+	double va,vb,summ,yyy,zi;
+	double answer,zp1,zp2,zp3,vpoly,range,temp_4sf[13],pi;
+	int nord=76,ii;
+	double thick1,thick2,thick3,thick4;
+	double rhoshel1,rhoshel2,rhoshel3,rhoshel4;
+	
+	scale = dp[0];
+	rcore = dp[1];
+	pd = dp[2];
+	rhocore = dp[3];
+	thick1 = dp[4];
+	rhoshel1 = dp[5];
+	thick2 = dp[6];
+	rhoshel2 = dp[7];
+	thick3 = dp[8];
+	rhoshel3 = dp[9];
+	thick4 = dp[10];
+	rhoshel4 = dp[11];
+	rhosolv = dp[12];
+	bkg = dp[13];
+	
+	pi = 4.0*atan(1.0);
+		
+	zz = (1.0/pd)*(1.0/pd)-1.0;		//polydispersity of the core only
+	
+	range = 8.0;			//std deviations for the integration
+	va = rcore*(1.0-range*pd);
+	if (va<0) {
+		va=0;		//otherwise numerical error when pd >= 0.3, making a<0
+	}
+	if (pd>0.3) {
+		range = range + (pd-0.3)*18.0;		//stretch upper range to account for skewed tail
+	}
+	vb = rcore*(1.0+range*pd);		// is this far enough past avg radius?
+	
+	//temp set scale=1 and bkg=0 for quadrature calc
+	temp_4sf[0] = 1.0;
+	temp_4sf[1] = dp[1];		//the core radius will be changed in the loop
+	temp_4sf[2] = dp[3];
+	temp_4sf[3] = dp[4];
+	temp_4sf[4] = dp[5];
+	temp_4sf[5] = dp[6];
+	temp_4sf[6] = dp[7];
+	temp_4sf[7] = dp[8];
+	temp_4sf[8] = dp[9];
+	temp_4sf[9] = dp[10];
+	temp_4sf[10] = dp[11];
+	temp_4sf[11] = dp[12];
+	temp_4sf[12] = 0.0;
+		
+	summ = 0.0;		// initialize integral
+	for(ii=0;ii<nord;ii+=1) {
+		// calculate Gauss points on integration interval (r-value for evaluation)
+		zi = ( Gauss76Z[ii]*(vb-va) + vb + va )/2.0;
+		temp_4sf[1] = zi;
+		yyy = Gauss76Wt[ii] * SchulzPoint(zi,rcore,zz) * FourShell(temp_4sf,x);
+		//un-normalize by volume
+		yyy *= 4.0*pi/3.0*pow((zi+thick1+thick2+thick3+thick4),3);
+		summ += yyy;		//add to the running total of the quadrature
+   	}
+	// calculate value of integral to return
+	answer = (vb-va)/2.0*summ;
+   	
+	//re-normalize by the average volume
+	zp1 = zz + 1.0;
+	zp2 = zz + 2.0;
+	zp3 = zz + 3.0;
+	vpoly = 4.0*pi/3.0*zp3*zp2/zp1/zp1*pow((rcore+thick1+thick2+thick3+thick4),3);
+	answer /= vpoly;
+//scale
+	answer *= scale;
+// add in the background
+	answer += bkg;
+		
+    return(answer);
+}
+
+
+/*	BCC_ParaCrystal  :  calculates the form factor of a Triaxial Ellipsoid at the given x-value p->x
+
+Uses 150 pt Gaussian quadrature for both integrals
+
+*/
+double
+BCC_ParaCrystal(double w[], double x)
+{
+	int i,j;
+	double Pi;
+	double scale,Dnn,gg,Rad,contrast,background,latticeScale,sld,sldSolv;		//local variables of coefficient wave
+	int nordi=150;			//order of integration
+	int nordj=150;
+	double va,vb;		//upper and lower integration limits
+	double summ,zi,yyy,answer;			//running tally of integration
+	double summj,vaj,vbj,zij;			//for the inner integration
+	
+	Pi = 4.0*atan(1.0);
+	va = 0.0;
+	vb = 2.0*Pi;		//orintational average, outer integral
+	vaj = 0.0;
+	vbj = Pi;		//endpoints of inner integral
+	
+	summ = 0.0;			//initialize intergral
+	
+	scale = w[0];
+	Dnn = w[1];					//Nearest neighbor distance A
+	gg = w[2];					//Paracrystal distortion factor
+	Rad = w[3];					//Sphere radius
+	sld = w[4];
+	sldSolv = w[5];
+	background = w[6]; 
+	
+	contrast = sld - sldSolv;
+	
+	//Volume fraction calculated from lattice symmetry and sphere radius
+	latticeScale = 2.0*(4.0/3.0)*Pi*(Rad*Rad*Rad)/pow(Dnn/sqrt(3.0/4.0),3);
+	
+	for(i=0;i<nordi;i++) {
+		//setup inner integral over the ellipsoidal cross-section
+		summj=0.0;
+		zi = ( Gauss150Z[i]*(vb-va) + va + vb )/2.0;		//the outer dummy is phi
+		for(j=0;j<nordj;j++) {
+			//20 gauss points for the inner integral
+			zij = ( Gauss150Z[j]*(vbj-vaj) + vaj + vbj )/2.0;		//the inner dummy is theta
+			yyy = Gauss150Wt[j] * BCC_Integrand(w,x,zi,zij);
+			summj += yyy;
+		}
+		//now calculate the value of the inner integral
+		answer = (vbj-vaj)/2.0*summj;
+		
+		//now calculate outer integral
+		yyy = Gauss150Wt[i] * answer;
+		summ += yyy;
+	}		//final scaling is done at the end of the function, after the NT_FP64 case
+	
+	answer = (vb-va)/2.0*summ;
+	// Multiply by contrast^2
+	answer *= SphereForm_Paracrystal(Rad,contrast,x)*scale*latticeScale;
+	// add in the background
+	answer += background;
+	
+	return answer;
+}
+
+// xx is phi (outer)
+// yy is theta (inner)
+double
+BCC_Integrand(double w[], double qq, double xx, double yy) {
+	
+	double retVal,temp1,temp3,aa,Da,Dnn,gg,Pi;
+	
+	Dnn = w[1]; //Nearest neighbor distance A
+	gg = w[2]; //Paracrystal distortion factor
+	aa = Dnn;
+	Da = gg*aa;
+	
+	Pi = 4.0*atan(1.0);
+	temp1 = qq*qq*Da*Da;
+	temp3 = qq*aa;	
+	
+	retVal = BCCeval(yy,xx,temp1,temp3);
+	retVal /=4.0*Pi;
+	
+	return(retVal);
+}
+
+double
+BCCeval(double Theta, double Phi, double temp1, double temp3) {
+
+	double temp6,temp7,temp8,temp9,temp10;
+	double result;
+	
+	temp6 = sin(Theta);
+	temp7 = sin(Theta)*cos(Phi)+sin(Theta)*sin(Phi)+cos(Theta);
+	temp8 = -1.0*sin(Theta)*cos(Phi)-sin(Theta)*sin(Phi)+cos(Theta);
+	temp9 = -1.0*sin(Theta)*cos(Phi)+sin(Theta)*sin(Phi)-cos(Theta);
+	temp10 = exp((-1.0/8.0)*temp1*((temp7*temp7)+(temp8*temp8)+(temp9*temp9)));
+	result = pow(1.0-(temp10*temp10),3)*temp6/((1.0-2.0*temp10*cos(0.5*temp3*(temp7))+(temp10*temp10))*(1.0-2.0*temp10*cos(0.5*temp3*(temp8))+(temp10*temp10))*(1.0-2.0*temp10*cos(0.5*temp3*(temp9))+(temp10*temp10)));
+	
+	return (result);
+}
+
+double
+SphereForm_Paracrystal(double radius, double delrho, double x) {					
+	
+	double bes,f,vol,f2,pi;
+	pi = 4.0*atan(1.0);
+	//
+	//handle q==0 separately
+	if(x==0) {
+		f = 4.0/3.0*pi*radius*radius*radius*delrho*delrho*1.0e8;
+		return(f);
+	}
+	
+	bes = 3.0*(sin(x*radius)-x*radius*cos(x*radius))/(x*x*x)/(radius*radius*radius);
+	vol = 4.0*pi/3.0*radius*radius*radius;
+	f = vol*bes*delrho	;	// [=] Å
+	// normalize to single particle volume, convert to 1/cm
+	f2 = f * f / vol * 1.0e8;		// [=] 1/cm
+	
+	return (f2);
+}
+
+/*	FCC_ParaCrystal  :  calculates the form factor of a Triaxial Ellipsoid at the given x-value p->x
+
+Uses 150 pt Gaussian quadrature for both integrals
+
+*/
+double
+FCC_ParaCrystal(double w[], double x)
+{
+	int i,j;
+	double Pi;
+	double scale,Dnn,gg,Rad,contrast,background,latticeScale,sld,sldSolv;		//local variables of coefficient wave
+	int nordi=150;			//order of integration
+	int nordj=150;
+	double va,vb;		//upper and lower integration limits
+	double summ,zi,yyy,answer;			//running tally of integration
+	double summj,vaj,vbj,zij;			//for the inner integration
+	
+	Pi = 4.0*atan(1.0);
+	va = 0.0;
+	vb = 2.0*Pi;		//orintational average, outer integral
+	vaj = 0.0;
+	vbj = Pi;		//endpoints of inner integral
+	
+	summ = 0.0;			//initialize intergral
+	
+	scale = w[0];
+	Dnn = w[1];					//Nearest neighbor distance A
+	gg = w[2];					//Paracrystal distortion factor
+	Rad = w[3];					//Sphere radius
+	sld = w[4];
+	sldSolv = w[5];
+	background = w[6]; 
+	
+	contrast = sld - sldSolv;
+	//Volume fraction calculated from lattice symmetry and sphere radius
+	latticeScale = 4.0*(4.0/3.0)*Pi*(Rad*Rad*Rad)/pow(Dnn*sqrt(2.0),3);
+	
+	for(i=0;i<nordi;i++) {
+		//setup inner integral over the ellipsoidal cross-section
+		summj=0.0;
+		zi = ( Gauss150Z[i]*(vb-va) + va + vb )/2.0;		//the outer dummy is phi
+		for(j=0;j<nordj;j++) {
+			//20 gauss points for the inner integral
+			zij = ( Gauss150Z[j]*(vbj-vaj) + vaj + vbj )/2.0;		//the inner dummy is theta
+			yyy = Gauss150Wt[j] * FCC_Integrand(w,x,zi,zij);
+			summj += yyy;
+		}
+		//now calculate the value of the inner integral
+		answer = (vbj-vaj)/2.0*summj;
+		
+		//now calculate outer integral
+		yyy = Gauss150Wt[i] * answer;
+		summ += yyy;
+	}		//final scaling is done at the end of the function, after the NT_FP64 case
+	
+	answer = (vb-va)/2.0*summ;
+	// Multiply by contrast^2
+	answer *= SphereForm_Paracrystal(Rad,contrast,x)*scale*latticeScale;
+	// add in the background
+	answer += background;
+	
+	return answer;
+}
+
+
+// xx is phi (outer)
+// yy is theta (inner)
+double
+FCC_Integrand(double w[], double qq, double xx, double yy) {
+	
+	double retVal,temp1,temp3,aa,Da,Dnn,gg,Pi;
+	
+	Pi = 4.0*atan(1.0);
+	Dnn = w[1]; //Nearest neighbor distance A
+	gg = w[2]; //Paracrystal distortion factor
+	aa = Dnn;
+	Da = gg*aa;
+	
+	temp1 = qq*qq*Da*Da;
+	temp3 = qq*aa;
+	
+	retVal = FCCeval(yy,xx,temp1,temp3);
+	retVal /=4*Pi;
+	
+	return(retVal);
+}
+
+double
+FCCeval(double Theta, double Phi, double temp1, double temp3) {
+
+	double temp6,temp7,temp8,temp9,temp10;
+	double result;
+	
+	temp6 = sin(Theta);
+	temp7 = sin(Theta)*sin(Phi)+cos(Theta);
+	temp8 = -1.0*sin(Theta)*cos(Phi)+cos(Theta);
+	temp9 = -1.0*sin(Theta)*cos(Phi)+sin(Theta)*sin(Phi);
+	temp10 = exp((-1.0/8.0)*temp1*((temp7*temp7)+(temp8*temp8)+(temp9*temp9)));
+	result = pow((1.0-(temp10*temp10)),3)*temp6/((1.0-2.0*temp10*cos(0.5*temp3*(temp7))+(temp10*temp10))*(1.0-2.0*temp10*cos(0.5*temp3*(temp8))+(temp10*temp10))*(1.0-2.0*temp10*cos(0.5*temp3*(temp9))+(temp10*temp10)));
+	
+	return (result);
+}
+
+
+/*	SC_ParaCrystal  :  calculates the form factor of a Triaxial Ellipsoid at the given x-value p->x
+
+Uses 150 pt Gaussian quadrature for both integrals
+
+*/
+double
+SC_ParaCrystal(double w[], double x)
+{
+	int i,j;
+	double Pi;
+	double scale,Dnn,gg,Rad,contrast,background,latticeScale,sld,sldSolv;		//local variables of coefficient wave
+	int nordi=150;			//order of integration
+	int nordj=150;
+	double va,vb;		//upper and lower integration limits
+	double summ,zi,yyy,answer;			//running tally of integration
+	double summj,vaj,vbj,zij;			//for the inner integration
+	
+	Pi = 4.0*atan(1.0);
+	va = 0.0;
+	vb = 2.0*Pi;		//orintational average, outer integral
+	vaj = 0.0;
+	vbj = Pi;		//endpoints of inner integral
+	
+	summ = 0.0;			//initialize intergral
+	
+	scale = w[0];
+	Dnn = w[1];					//Nearest neighbor distance A
+	gg = w[2];					//Paracrystal distortion factor
+	Rad = w[3];					//Sphere radius
+	sld = w[4];
+	sldSolv = w[5];
+	background = w[6]; 
+	
+	contrast = sld - sldSolv;
+	//Volume fraction calculated from lattice symmetry and sphere radius
+	latticeScale = (4.0/3.0)*Pi*(Rad*Rad*Rad)/pow(Dnn,3);
+	
+	for(i=0;i<nordi;i++) {
+		//setup inner integral over the ellipsoidal cross-section
+		summj=0.0;
+		zi = ( Gauss150Z[i]*(vb-va) + va + vb )/2.0;		//the outer dummy is phi
+		for(j=0;j<nordj;j++) {
+			//20 gauss points for the inner integral
+			zij = ( Gauss150Z[j]*(vbj-vaj) + vaj + vbj )/2.0;		//the inner dummy is theta
+			yyy = Gauss150Wt[j] * SC_Integrand(w,x,zi,zij);
+			summj += yyy;
+		}
+		//now calculate the value of the inner integral
+		answer = (vbj-vaj)/2.0*summj;
+		
+		//now calculate outer integral
+		yyy = Gauss150Wt[i] * answer;
+		summ += yyy;
+	}		//final scaling is done at the end of the function, after the NT_FP64 case
+	
+	answer = (vb-va)/2.0*summ;
+	// Multiply by contrast^2
+	answer *= SphereForm_Paracrystal(Rad,contrast,x)*scale*latticeScale;
+	// add in the background
+	answer += background;
+	
+	return answer;
+}
+
+// xx is phi (outer)
+// yy is theta (inner)
+double
+SC_Integrand(double w[], double qq, double xx, double yy) {
+	
+	double retVal,temp1,temp2,temp3,temp4,temp5,aa,Da,Dnn,gg,Pi;
+	
+	Pi = 4.0*atan(1.0);
+	Dnn = w[1]; //Nearest neighbor distance A
+	gg = w[2]; //Paracrystal distortion factor
+	aa = Dnn;
+	Da = gg*aa;
+	
+	temp1 = qq*qq*Da*Da;
+	temp2 = pow( 1.0-exp(-1.0*temp1) ,3);
+	temp3 = qq*aa;
+	temp4 = 2.0*exp(-0.5*temp1);
+	temp5 = exp(-1.0*temp1);
+	
+	
+	retVal = temp2*SCeval(yy,xx,temp3,temp4,temp5);
+	retVal /= 4*Pi;
+	
+	return(retVal);
+}
+
+double
+SCeval(double Theta, double Phi, double temp3, double temp4, double temp5) { //Function to calculate integrand values for simple cubic structure
+
+	double temp6,temp7,temp8,temp9; //Theta and phi dependent parts of the equation
+	double result;
+	
+	temp6 = sin(Theta);
+	temp7 = -1.0*temp3*sin(Theta)*cos(Phi);
+	temp8 = temp3*sin(Theta)*sin(Phi);
+	temp9 = temp3*cos(Theta);
+	result = temp6/((1.0-temp4*cos((temp7))+temp5)*(1.0-temp4*cos((temp8))+temp5)*(1.0-temp4*cos((temp9))+temp5));
+	
+	return (result);
+}
+
