@@ -39,9 +39,11 @@ static int gCallSpinProcess = 1;		// Set to 1 to all user abort (cmd dot) and ba
 //
 //
 
+// version X uses ran3
+// version X2 uses ran1
 
 int
-Monte_SANSX(MC_ParamsPtr p) {
+Monte_SANSX2(MC_ParamsPtr p) {
 	double *inputWave;				/* pointer to double precision wave data */
 	double *ran_dev;				/* pointer to double precision wave data */
 	double *nt;				/* pointer to double precision wave data */
@@ -137,7 +139,7 @@ Monte_SANSX(MC_ParamsPtr p) {
 		seed = -1234509876;
 	}
 
-	dummy = ran3(&seed);		//initialize the random sequence by passing in a negative value
+	dummy = ran1(&seed);		//initialize the random sequence by passing in a negative value
 	seed = 12348765;		//non-negative after that does nothing
 
 	imon = (int)inputWave[0];
@@ -242,16 +244,16 @@ Monte_SANSX(MC_ParamsPtr p) {
 		coherentEvent = 0;
 		
 		do	{				//	Makes sure position is within circle.
-			ran = ran3(&seed);		//[0,1]
+			ran = ran1(&seed);		//[0,1]
 			xx = 2.0*r1*(ran-0.5);		//X beam position of neutron entering sample.
-			ran = ran3(&seed);		//[0,1]
+			ran = ran1(&seed);		//[0,1]
 			yy = 2.0*r1*(ran-0.5);		//Y beam position ...
 			rr = sqrt(xx*xx+yy*yy);		//Radial position of neutron in incident beam.
 		} while(rr>r1);
 
 		do {   //Scattering Loop, will exit when "done" == 1
 				// keep scattering multiple times until the neutron exits the sample
-			ran = ran3(&seed);		//[0,1]  RANDOM NUMBER FOR DETERMINING PATH LENGTH
+			ran = ran1(&seed);		//[0,1]  RANDOM NUMBER FOR DETERMINING PATH LENGTH
 			ll = path_len(ran,sig_total);
 			//Determine new scattering direction vector.
 			err = NewDirection(&vx,&vy,&vz,theta,phi);		//vx,vy,vz updated, theta, phi unchanged by function
@@ -275,7 +277,7 @@ Monte_SANSX(MC_ParamsPtr p) {
 				if (index == 1) {
 					n2 += 1; 		//Increment # of scat. neutrons
 				}
-				ran = ran3(&seed);		//[0,1]
+				ran = ran1(&seed);		//[0,1]
 				//Split neutron interactions into scattering and absorption events
 				if (ran > ratio ) {		//C             NEUTRON SCATTERED coherently
 					//sprintf(buf,"neutron scatters coherently\r");
@@ -288,7 +290,7 @@ Monte_SANSX(MC_ParamsPtr p) {
 						// so get it from the wave scaling instead
 //						q0 =left + binarysearchinterp(ran_dev,ran1(seed))*delta;
 						
-						q0 =left + locate_interp(ran_dev,numRows_ran_dev,ran3(&seed))*delta;
+						q0 =left + locate_interp(ran_dev,numRows_ran_dev,ran1(&seed))*delta;
 						theta = q0/2/pi*wavelength;		//SAS approximation
 						
 						find_theta = 1;		//always accept
@@ -298,7 +300,7 @@ Monte_SANSX(MC_ParamsPtr p) {
 
 					} while(!find_theta);
 					
-					ran = ran3(&seed);		//[0,1]
+					ran = ran1(&seed);		//[0,1]
 					phi = 2.0*pi*ran;			//Chooses azimuthal scattering angle.
 				} else {
 					//NEUTRON scattered incoherently
@@ -308,10 +310,10 @@ Monte_SANSX(MC_ParamsPtr p) {
 				  // phi and theta are random over the entire sphere of scattering
 					// !can't just choose random theta and phi, won't be random over sphere solid angle
 
-					ran = ran3(&seed);		//[0,1]
+					ran = ran1(&seed);		//[0,1]
 					theta = acos(2.0*ran-1);
            	  	
-					ran = ran3(&seed);		//[0,1]
+					ran = ran1(&seed);		//[0,1]
 					phi = 2.0*pi*ran;			//Chooses azimuthal scattering angle.
 				}		//(ran > ratio)
 			} else {
@@ -336,7 +338,7 @@ Monte_SANSX(MC_ParamsPtr p) {
 					// pick a random phi angle, and see if it lands on the detector
 					// since the scattering is isotropic, I can safely pick a new, random value
 					// this would not be true if simulating anisotropic scattering.
-					testPhi = ran3(&seed)*2*pi;
+					testPhi = ran1(&seed)*2*pi;
 					
 					// is it on the detector?	
 					FindPixel(testQ,testPhi,wavelength,sdd,pixSize,xCtr,yCtr,&xPixel,&yPixel);
@@ -445,271 +447,3 @@ Monte_SANSX(MC_ParamsPtr p) {
 }
 ////////	end of main function for calculating multiple scattering
 
-int
-FindPixel(double testQ, double testPhi, double lam, double sdd,
-		double pixSize, double xCtr, double yCtr, long *xPixel, long *yPixel) {
-
-	double theta,dy,dx,qx,qy,pi;
-	pi = 4.0*atan(1.0);	
-	//decompose to qx,qy
-	qx = testQ*cos(testPhi);
-	qy = testQ*sin(testPhi);
-
-	//convert qx,qy to pixel locations relative to # of pixels x, y from center
-	theta = 2*asin(qy*lam/4/pi);
-	dy = sdd*tan(theta);
-	*yPixel = round(yCtr + dy/pixSize);
-	
-	theta = 2*asin(qx*lam/4/pi);
-	dx = sdd*tan(theta);
-	*xPixel = round(xCtr + dx/pixSize);
-
-	//if on detector, return xPix and yPix values, otherwise -1
-	if(*yPixel > 127 || *yPixel < 0) {
-		*yPixel = -1;
-	}
-	if(*xPixel > 127 || *xPixel < 0) {
-		*xPixel = -1;
-	}
-	
-	return(0);
-}
-
-
-//calculates new direction (xyz) from an old direction
-//theta and phi don't change
-int
-NewDirection(double *vx, double *vy, double *vz, double theta, double phi) {
-	
-	int err=0;
-	double vx0,vy0,vz0;
-	double nx,ny,mag_xy,tx,ty,tz;
-	
-	//store old direction vector
-	vx0 = *vx;
-	vy0 = *vy;
-	vz0 = *vz;
-	
-	mag_xy = sqrt(vx0*vx0 + vy0*vy0);
-	if(mag_xy < 1e-12) {
-		//old vector lies along beam direction
-		nx = 0;
-		ny = 1;
-		tx = 1;
-		ty = 0;
-		tz = 0;
-	} else {
-		nx = -vy0 / mag_xy;
-		ny = vx0 / mag_xy;
-		tx = -vz0*vx0 / mag_xy;
-		ty = -vz0*vy0 / mag_xy;
-		tz = mag_xy ;
-	}
-	
-	//new scattered direction vector
-	*vx = cos(phi)*sin(theta)*tx + sin(phi)*sin(theta)*nx + cos(theta)*vx0;
-	*vy = cos(phi)*sin(theta)*ty + sin(phi)*sin(theta)*ny + cos(theta)*vy0;
-	*vz = cos(phi)*sin(theta)*tz + cos(theta)*vz0;
-	
-	return(err);
-}
-
-double
-path_len(double aval, double sig_tot) {
-	
-	double retval;
-	
-	retval = -1*log(1-aval)/sig_tot;
-	
-	return(retval);
-}
-
-
-#define IA 16807
-#define IM 2147483647
-#define AM (1.0/IM)
-#define IQ 127773
-#define IR 2836
-#define NTAB 32
-#define NDIV (1+(IM-1)/NTAB)
-#define EPS 1.2e-7
-#define RNMX (1.0-EPS)
-
-float ran1(long *idum)
-{
-	int j;
-	long k;
-	static long iy=0;
-	static long iv[NTAB];
-	float temp;
-
-	if (*idum <= 0 || !iy) {
-		if (-(*idum) < 1) *idum=1;
-		else *idum = -(*idum);
-		for (j=NTAB+7;j>=0;j--) {
-			k=(*idum)/IQ;
-			*idum=IA*(*idum-k*IQ)-IR*k;
-			if (*idum < 0) *idum += IM;
-			if (j < NTAB) iv[j] = *idum;
-		}
-		iy=iv[0];
-	}
-	k=(*idum)/IQ;
-	*idum=IA*(*idum-k*IQ)-IR*k;
-	if (*idum < 0) *idum += IM;
-	j=iy/NDIV;
-	iy=iv[j];
-	iv[j] = *idum;
-	if ((temp=AM*iy) > RNMX) return RNMX;
-	else return temp;
-}
-#undef IA
-#undef IM
-#undef AM
-#undef IQ
-#undef IR
-#undef NTAB
-#undef NDIV
-#undef EPS
-#undef RNMX
-
-////////////////////////
-#define MBIG 1000000000
-#define MSEED 161803398
-#define MZ 0
-#define FAC (1.0/MBIG)
-
-float ran3(long *idum)
-{
-	static int inext,inextp;
-	static long ma[56];
-	static int iff=0;
-	long mj,mk;
-	int i,ii,k;
-
-	if (*idum < 0 || iff == 0) {
-		iff=1;
-		mj=MSEED-(*idum < 0 ? -*idum : *idum);
-		mj %= MBIG;
-		ma[55]=mj;
-		mk=1;
-		for (i=1;i<=54;i++) {
-			ii=(21*i) % 55;
-			ma[ii]=mk;
-			mk=mj-mk;
-			if (mk < MZ) mk += MBIG;
-			mj=ma[ii];
-		}
-		for (k=1;k<=4;k++)
-			for (i=1;i<=55;i++) {
-				ma[i] -= ma[1+(i+30) % 55];
-				if (ma[i] < MZ) ma[i] += MBIG;
-			}
-		inext=0;
-		inextp=31;
-		*idum=1;
-	}
-	if (++inext == 56) inext=1;
-	if (++inextp == 56) inextp=1;
-	mj=ma[inext]-ma[inextp];
-	if (mj < MZ) mj += MBIG;
-	ma[inext]=mj;
-	return mj*FAC;
-}
-#undef MBIG
-#undef MSEED
-#undef MZ
-#undef FAC
-
-
-// returns the interpolated point value in xx[0,n-1] that has the value x
-double locate_interp(double xx[], long n, double x)
-{
-	unsigned long ju,jm,jl,j;
-	int ascnd;
-	double pt;
-
-//	char buf[256];
-	
-	jl=0;
-	ju=n-1;
-	ascnd=(xx[n-1] > xx[0]);
-	while (ju-jl > 1) {
-		jm=(ju+jl) >> 1;
-		if (x > xx[jm] == ascnd)
-			jl=jm;
-		else
-			ju=jm;
-	}
-	j=jl;		// the point I want is between xx[j] and xx[j+1]
-	pt = (x- xx[j])/(xx[j+1] - xx[j]);		//fractional distance, using linear interpolation
-	
-//	sprintf(buf, "x = %g, j= %ld, pt = %g\r",x,j,pt);
-//	XOPNotice(buf);
-	
-	return(pt+(double)j);
-}
-
-
-
-
-/////////////////////////////
-/*	RegisterFunction()
-	
-	Igor calls this at startup time to find the address of the
-	XFUNCs added by this XOP. See XOP manual regarding "Direct XFUNCs".
-*/
-static long
-RegisterFunction()
-{
-	int funcIndex;
-
-	funcIndex = GetXOPItem(0);		// Which function is Igor asking about?
-	switch (funcIndex) {
-		case 0:						// 
-			return((long)Monte_SANSX);
-			break;
-		case 1:						// 
-			return((long)Monte_SANSX2);
-			break;
-
-	}
-	return(NIL);
-}
-
-/*	XOPEntry()
-
-	This is the entry point from the host application to the XOP for all messages after the
-	INIT message.
-*/
-static void
-XOPEntry(void)
-{	
-	long result = 0;
-
-	switch (GetXOPMessage()) {
-		case FUNCADDRS:
-			result = RegisterFunction();
-			break;
-	}
-	SetXOPResult(result);
-}
-
-/*	main(ioRecHandle)
-
-	This is the initial entry point at which the host application calls XOP.
-	The message sent by the host must be INIT.
-	main() does any necessary initialization and then sets the XOPEntry field of the
-	ioRecHandle to the address to be called for future messages.
-*/
-HOST_IMPORT void
-main(IORecHandle ioRecHandle)
-{	
-	XOPInit(ioRecHandle);							// Do standard XOP initialization.
-	SetXOPEntry(XOPEntry);							// Set entry point for future calls.
-	
-	if (igorVersion < 600)				// Requires Igor Pro 6.00 or later.
-		SetXOPResult(OLD_IGOR);			// OLD_IGOR is defined in WaveAccess.h and there are corresponding error strings in WaveAccess.r and WaveAccessWinCustom.rc.
-	else
-		SetXOPResult(0L);
-}

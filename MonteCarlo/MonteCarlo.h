@@ -50,6 +50,7 @@ typedef struct MC_Params *MC_ParamsPtr;
 
 // function prototypes
 int Monte_SANSX(MC_ParamsPtr p);
+int Monte_SANSX2(MC_ParamsPtr p);
 int FindPixel(double testQ, double testPhi, double lam, double sdd, double pixSize, double xCtr, double yCtr, long *xPixel, long *yPixel);
 int NewDirection(double *vx, double *vy, double *vz, double theta, double phi);
 double path_len(double aval, double sig_tot);
