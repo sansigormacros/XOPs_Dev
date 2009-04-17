@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="9.00"
 	Name="SANSAnalysis"
 	ProjectGUID="{CC15D02F-3E72-48BB-B813-80E40767D72C}"
 	RootNamespace="SANSAnalysis"
 	Keyword="Win32Proj"
+	TargetFrameworkVersion="131072"
 	>
 	<Platforms>
 		<Platform
@@ -41,7 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;C:\Documents and Settings\Andrew Jackson\My Documents\Devel\XOP Toolkit 5\IgorXOPs5\XOPSupport&quot;;&quot;C:\Documents and Settings\Andrew Jackson\My Documents\Devel\managed\Analysis\branches\ajj_23APR07\XOPs\SANSAnalysis\lib&quot;"
+				AdditionalIncludeDirectories="&quot;C:\Documents and Settings\ajj\My Documents\Devel\managed\Analysis\branches\ajj_23APR07\XOPs\SANSAnalysis\lib\DANSE\include&quot;;&quot;C:\Documents and Settings\ajj\My Documents\Devel\managed\Analysis\branches\ajj_23APR07\XOPs\SANSAnalysis\lib&quot;;&quot;C:\Documents and Settings\ajj\My Documents\Devel\XOP Toolkit 5\IgorXOPs5\XOPSupport\VC8&quot;;&quot;C:\Documents and Settings\ajj\My Documents\Devel\XOP Toolkit 5\IgorXOPs5\XOPSupport&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;SANSANALYSIS_EXPORTS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -52,25 +53,28 @@
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="4"
+				CompileAs="1"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
 			/>
 			<Tool
 				Name="VCResourceCompilerTool"
-				AdditionalIncludeDirectories="&quot;C:\Documents and Settings\Andrew Jackson\My Documents\Devel\XOP Toolkit 5\IgorXOPs5\XOPSupport&quot;"
+				AdditionalIncludeDirectories="&quot;C:\Documents and Settings\ajj\My Documents\Devel\XOP Toolkit 5\IgorXOPs5\XOPSupport&quot;"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="Version.lib"
+				AdditionalDependencies="version.lib"
 				OutputFile="SANSAnalysis.xop"
 				LinkIncremental="2"
 				IgnoreDefaultLibraryNames="libcmt.lib"
 				GenerateDebugInformation="true"
 				SubSystem="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -92,9 +96,6 @@
 				Name="VCAppVerifierTool"
 			/>
 			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
 				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
@@ -105,7 +106,7 @@
 			ConfigurationType="2"
 			UseOfMFC="0"
 			CharacterSet="2"
-			WholeProgramOptimization="1"
+			WholeProgramOptimization="0"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -124,8 +125,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="&quot;C:\Documents and Settings\Andrew Jackson\My Documents\Devel\XOP Toolkit 5\IgorXOPs5\XOPSupport&quot;;&quot;C:\Documents and Settings\Andrew Jackson\My Documents\Devel\managed\Analysis\branches\ajj_23APR07\XOPs\SANSAnalysis\lib&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;SANSANALYSIS_EXPORTS"
+				AdditionalIncludeDirectories="&quot;C:\Documents and Settings\ajj\My Documents\Devel\managed\XOP_Dev\SANSAnalysis\lib\DANSE\include&quot;;&quot;C:\Documents and Settings\ajj\My Documents\Devel\managed\XOP_Dev\SANSAnalysis\lib&quot;;&quot;C:\Documents and Settings\ajj\My Documents\Devel\XOP Toolkit 5\IgorXOPs5\XOPSupport\VC8&quot;;&quot;C:\Documents and Settings\ajj\My Documents\Devel\XOP Toolkit 5\IgorXOPs5\XOPSupport&quot;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;SANSANALYSIS_EXPORTS;_STATIC_CPPLIB"
 				RuntimeLibrary="0"
 				StructMemberAlignment="2"
 				UsePrecompiledHeader="0"
@@ -133,13 +134,14 @@
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
+				CompileAs="1"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
 			/>
 			<Tool
 				Name="VCResourceCompilerTool"
-				AdditionalIncludeDirectories="&quot;C:\Documents and Settings\Andrew Jackson\My Documents\Devel\XOP Toolkit 5\IgorXOPs5\XOPSupport&quot;"
+				AdditionalIncludeDirectories="&quot;C:\Documents and Settings\ajj\My Documents\Devel\XOP Toolkit 5\IgorXOPs5\XOPSupport&quot;"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -147,13 +149,17 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="version.lib"
+				ShowProgress="2"
 				OutputFile="SANSAnalysis.xop"
 				LinkIncremental="1"
-				IgnoreDefaultLibraryNames="libcmt.lib"
-				GenerateDebugInformation="true"
+				GenerateManifest="false"
+				IgnoreDefaultLibraryNames=""
+				GenerateDebugInformation="false"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -173,9 +179,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -229,6 +232,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\XOP\Func2D.h"
+				>
+			</File>
+			<File
 				RelativePath="..\XOP\ResolutionSmearing.h"
 				>
 			</File>
@@ -260,15 +267,11 @@
 			</File>
 		</Filter>
 		<File
-			RelativePath="..\..\..\..\..\..\..\XOP Toolkit 5\IgorXOPs5\XOPSupport\IGOR.lib"
+			RelativePath="..\..\..\..\XOP Toolkit 5\IgorXOPs5\XOPSupport\IGOR.lib"
 			>
 		</File>
 		<File
-			RelativePath=".\debug\libSANSAnalysis.lib"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\..\..\..\..\XOP Toolkit 5\IgorXOPs5\XOPSupport\VC8\XOPSupport.lib"
+			RelativePath="..\..\..\..\XOP Toolkit 5\IgorXOPs5\XOPSupport\VC8\XOPSupport.lib"
 			>
 		</File>
 	</Files>

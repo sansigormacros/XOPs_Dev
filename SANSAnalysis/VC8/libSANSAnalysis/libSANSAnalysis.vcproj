@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="9.00"
 	Name="libSANSAnalysis"
 	ProjectGUID="{D9718974-CA7E-4F63-BB5F-8535AF4AB859}"
 	RootNamespace="libSANSAnalysis"
 	Keyword="Win32Proj"
+	TargetFrameworkVersion="131072"
 	>
 	<Platforms>
 		<Platform
@@ -20,7 +21,7 @@
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
-			CharacterSet="1"
+			CharacterSet="2"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -40,14 +41,17 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				AdditionalIncludeDirectories="&quot;C:\Documents and Settings\ajj\My Documents\Devel\managed\Analysis\branches\ajj_23APR07\XOPs\SANSAnalysis\lib\DANSE\include&quot;;&quot;C:\Documents and Settings\ajj\My Documents\Devel\managed\Analysis\branches\ajj_23APR07\XOPs\SANSAnalysis\lib\DANSE\c_extensions&quot;;&quot;C:\Documents and Settings\ajj\My Documents\Devel\managed\Analysis\branches\ajj_23APR07\XOPs\SANSAnalysis\lib&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
+				StructMemberAlignment="0"
 				UsePrecompiledHeader="0"
+				BrowseInformation="1"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="4"
+				CompileAs="1"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -82,8 +86,9 @@
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
-			CharacterSet="1"
-			WholeProgramOptimization="1"
+			UseOfMFC="0"
+			CharacterSet="2"
+			WholeProgramOptimization="0"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -102,12 +107,17 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
-				RuntimeLibrary="2"
-				UsePrecompiledHeader="2"
+				Optimization="0"
+				AdditionalIncludeDirectories="&quot;C:\Documents and Settings\ajj\My Documents\Devel\managed\XOP_Dev\SANSAnalysis\lib\DANSE\include&quot;;&quot;C:\Documents and Settings\ajj\My Documents\Devel\managed\XOP_Dev\SANSAnalysis\lib\DANSE\c_extensions&quot;;&quot;C:\Documents and Settings\ajj\My Documents\Devel\managed\XOP_Dev\SANSAnalysis\lib&quot;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;_STATIC_CPPLIB"
+				RuntimeLibrary="0"
+				StructMemberAlignment="0"
+				UsePrecompiledHeader="0"
+				BrowseInformation="1"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
+				CompileAs="1"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -147,10 +157,6 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\XOP\Func2D.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\lib\GaussWeights.h"
 				>
 			</File>
@@ -160,14 +166,6 @@
 			</File>
 			<File
 				RelativePath="..\..\lib\libCylinder.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\lib\libFunc2D.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\lib\libFunc2D.h"
 				>
 			</File>
 			<File
@@ -206,6 +204,118 @@
 				RelativePath="..\..\lib\winFuncs.h"
 				>
 			</File>
+			<Filter
+				Name="DANSE"
+				>
+				<Filter
+					Name="include"
+					>
+					<File
+						RelativePath="..\..\lib\DANSE\include\c_disperser.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\lib\DANSE\include\danse.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="c_extensions"
+					>
+					<File
+						RelativePath="..\..\lib\DANSE\c_extensions\core_shell.c"
+						>
+					</File>
+					<File
+						RelativePath="..\..\lib\DANSE\c_extensions\core_shell.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\lib\DANSE\c_extensions\core_shell_cylinder.c"
+						>
+					</File>
+					<File
+						RelativePath="..\..\lib\DANSE\c_extensions\core_shell_cylinder.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\lib\DANSE\c_extensions\cylinder.c"
+						>
+					</File>
+					<File
+						RelativePath="..\..\lib\DANSE\c_extensions\cylinder.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\lib\DANSE\c_extensions\ellipsoid.c"
+						>
+					</File>
+					<File
+						RelativePath="..\..\lib\DANSE\c_extensions\ellipsoid.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\lib\DANSE\c_extensions\elliptical_cylinder.c"
+						>
+					</File>
+					<File
+						RelativePath="..\..\lib\DANSE\c_extensions\elliptical_cylinder.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\lib\DANSE\c_extensions\sphere.c"
+						>
+					</File>
+					<File
+						RelativePath="..\..\lib\DANSE\c_extensions\sphere.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="igor_wrapper_src"
+					>
+					<File
+						RelativePath="..\..\lib\DANSE\igor_wrapper_src\c_disperser.c"
+						>
+					</File>
+					<File
+						RelativePath="..\..\lib\DANSE\igor_wrapper_src\disp_core_shell_cylinder.c"
+						>
+					</File>
+					<File
+						RelativePath="..\..\lib\DANSE\igor_wrapper_src\disp_cylinder.c"
+						>
+					</File>
+					<File
+						RelativePath="..\..\lib\DANSE\igor_wrapper_src\disp_ellipsoid.c"
+						>
+					</File>
+					<File
+						RelativePath="..\..\lib\DANSE\igor_wrapper_src\disp_elliptical_cylinder.c"
+						>
+					</File>
+					<File
+						RelativePath="..\..\lib\DANSE\igor_wrapper_src\erf.c"
+						>
+					</File>
+					<File
+						RelativePath="..\..\lib\DANSE\igor_wrapper_src\weighted_core_shell_cylinder.c"
+						>
+					</File>
+					<File
+						RelativePath="..\..\lib\DANSE\igor_wrapper_src\weighted_cylinder.c"
+						>
+					</File>
+					<File
+						RelativePath="..\..\lib\DANSE\igor_wrapper_src\weighted_ellipsoid.c"
+						>
+					</File>
+					<File
+						RelativePath="..\..\lib\DANSE\igor_wrapper_src\weighted_elliptical_cylinder.c"
+						>
+					</File>
+				</Filter>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
