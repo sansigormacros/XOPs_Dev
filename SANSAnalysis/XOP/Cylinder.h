@@ -33,3 +33,4 @@ int DumbbellX(FitParamsPtr p);
 int CappedCylinderX(FitParamsPtr p);
 int BarbellX(FitParamsPtr p);
 int Lamellar_ParaCrystalX(FitParamsPtr p);
+int PolyCoreBicelleX(FitParamsPtr p);

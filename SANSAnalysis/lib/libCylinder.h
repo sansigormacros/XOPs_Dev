@@ -33,6 +33,7 @@ double ConvexLens(double dp[], double q);
 double Dumbbell(double dp[], double q);
 double CappedCylinder(double dp[], double q);
 double Barbell(double dp[], double q);
+double PolyCoreBicelle(double dp[], double q);
 
 
 /* internal functions */
@@ -60,6 +61,8 @@ double paraCryst_an(double ww, double qval, double davg, long nl);
 double SphCyl_kernel(double w[], double x, double tt, double Theta);
 double ConvLens_kernel(double w[], double x, double tt, double theta);
 double Dumb_kernel(double w[], double x, double tt, double theta);
+double BicelleKernel(double qq, double rad, double radthick, double facthick, double rhoc, double rhoh, double rhor, double rhosolv, double length, double dum);
+double BicelleIntegration(double qq, double rad, double radthick, double facthick, double rhoc, double rhoh, double rhor, double rhosolv, double length);
 
 
 /////////functions for WRC implementation of flexible cylinders

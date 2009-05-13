@@ -2839,3 +2839,116 @@ Dumb_kernel(double w[], double x, double tt, double theta) {
 	
 	return(val);
 }
+
+double
+PolyCoreBicelle(double w[], double q){
+
+	int i;
+	int nord = 20;
+	double scale, length, sigma, bkg, radius, radthick, facthick;
+	double rhoc, rhoh, rhor, rhosolv;
+	double answer, Vpoly;
+	double lolim,uplim,summ=0,yyy,rad,AR,Rsqr,Rsqrsumm=0,Rsqryyy;
+	scale = w[0];
+	radius = w[1];
+	sigma = w[2];				//sigma is the standard mean deviation
+	length = w[3];
+	radthick = w[4];
+	facthick= w[5];
+	rhoc = w[6];
+	rhoh = w[7];
+	rhor=w[8];
+	rhosolv = w[9];
+	bkg = w[10];
+	
+	double Pi = 4.0*atan(1.0);
+	
+	lolim = exp(log(radius)-(4.*sigma));
+	if (lolim<0) {
+		lolim=0;		//to avoid numerical error when  va<0 (-ve r value)
+	}
+	uplim = exp(log(radius)+(4.*sigma));
+	
+	for(i=0;i<nord;i++) {
+		rad = ( Gauss20Z[i]*(uplim-lolim) + uplim + lolim )/2.0;
+		AR=(1.0/(rad*sigma*sqrt(2.0*Pi)))*exp(-(0.5*((log(radius/rad))/sigma)*((log(radius/rad))/sigma)));
+		yyy = AR* Gauss20Wt[i] * BicelleIntegration(q,rad,radthick,facthick,rhoc,rhoh,rhor,rhosolv,length);
+		Rsqryyy= Gauss20Wt[i] * AR * (rad+radthick)*(rad+radthick);		//SRK normalize to total dimensions
+		summ += yyy;
+		Rsqrsumm += Rsqryyy;
+	}
+	
+	answer = (uplim-lolim)/2.0*summ;
+	Rsqr = (uplim-lolim)/2.0*Rsqrsumm;
+	//normalize by average cylinder volume
+	Vpoly = Pi*Rsqr*(length+2*facthick);
+	answer /= Vpoly;
+	//convert to [cm-1]
+	answer *= 1.0e8;
+	//Scale
+	answer *= scale;
+	// add in the background
+	answer += bkg;
+	
+	return(answer);
+	
+}
+
+double
+BicelleIntegration(double qq, double rad, double radthick, double facthick, double rhoc, double rhoh, double rhor, double rhosolv, double length){
+
+	double answer,halfheight,Pi;
+	double lolim,uplim,summ,yyy,zi;
+	int nord,i;
+	
+	// set up the integration end points 
+	Pi = 4.0*atan(1.0);
+	nord = 76;
+	lolim = 0;
+	uplim = Pi/2;
+	halfheight = length/2.0;
+	
+	summ = 0.0;				// initialize integral
+	i=0;
+	for(i=0;i<nord;i++) {
+		zi = ( Gauss76Z[i]*(uplim-lolim) + uplim + lolim )/2.0;
+		yyy = Gauss76Wt[i] * BicelleKernel(qq, rad, radthick, facthick, rhoc, rhoh, rhor,rhosolv, halfheight, zi);
+		summ += yyy;
+	}
+	
+	// calculate value of integral to return
+	answer = (uplim-lolim)/2.0*summ;
+	return(answer);	
+}
+
+double
+BicelleKernel(double qq, double rad, double radthick, double facthick, double rhoc, double rhoh, double rhor, double rhosolv, double length, double dum){
+
+	double dr1,dr2,dr3;
+	double besarg1,besarg2;
+	double vol1,vol2,vol3;
+	double sinarg1,sinarg2;
+	double t1,t2,t3;
+	double retval;
+	
+	double Pi = 4.0*atan(1.0);
+	
+	dr1 = rhoc-rhoh;
+	dr2 = rhor-rhosolv;
+	dr3=  rhoh-rhor;
+	vol1 = Pi*rad*rad*(2*length);
+	vol2 = Pi*(rad+radthick)*(rad+radthick)*(2*length+2*facthick);
+	vol3= Pi*(rad)*(rad)*(2*length+2*facthick);
+	besarg1 = qq*rad*sin(dum);
+	besarg2 = qq*(rad+radthick)*sin(dum);
+	sinarg1 = qq*length*cos(dum);
+	sinarg2 = qq*(length+facthick)*cos(dum);
+	
+	t1 = 2*vol1*dr1*sin(sinarg1)/sinarg1*NR_BessJ1(besarg1)/besarg1;
+	t2 = 2*vol2*dr2*sin(sinarg2)/sinarg2*NR_BessJ1(besarg2)/besarg2;
+	t3 = 2*vol3*dr3*sin(sinarg2)/sinarg2*NR_BessJ1(besarg1)/besarg1;
+	
+	retval = ((t1+t2+t3)*(t1+t2+t3))*sin(dum);
+	return retval;
+	
+}

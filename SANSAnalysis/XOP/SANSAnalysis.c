@@ -318,6 +318,10 @@ RegisterFunction()
 		case 91:							// y = f(c,y,x)
 			return((long)GaussianShellX);			// This function is called using the direct method.
 			break;
+		case 92:							// y = f(c,y,x)
+			return((long)PolyCoreBicelleX);			// This function is called using the direct method.
+			break;
+			
 	}
 	return NIL;
 }

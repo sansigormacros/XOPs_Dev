@@ -31,7 +31,7 @@
 		053062470BDE9DFF00578444 /* sphereform.c in Sources */ = {isa = PBXBuildFile; fileRef = 053062460BDE9DFF00578444 /* sphereform.c */; };
 		053062480BDE9E1300578444 /* libSANSAnalysis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05305DF50BDDA45000578444 /* libSANSAnalysis.a */; };
 		0530624C0BDE9E4D00578444 /* sphereform in CopyFiles */ = {isa = PBXBuildFile; fileRef = 053062400BDE9DC800578444 /* sphereform */; };
-		058F35C80BDD341100D07487 /* libXOPSupport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 058F35C70BDD341100D07487 /* libXOPSupport.a */; };
+		05B2EB5A0EE7096D0015ADA0 /* libXOPSupport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05B2EB590EE7096D0015ADA0 /* libXOPSupport.a */; };
 		05D47DF80BF2029500335CA7 /* Func2D.c in Sources */ = {isa = PBXBuildFile; fileRef = 05D47DF60BF2029500335CA7 /* Func2D.c */; };
 		068F1E4E0D32C52D004052EB /* c_disperser.c in Sources */ = {isa = PBXBuildFile; fileRef = 068F1E440D32C52D004052EB /* c_disperser.c */; };
 		068F1E4F0D32C52D004052EB /* disp_core_shell_cylinder.c in Sources */ = {isa = PBXBuildFile; fileRef = 068F1E450D32C52D004052EB /* disp_core_shell_cylinder.c */; };
@@ -60,23 +60,6 @@
 		8D01CCCA0486CAD60068D4B7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
 		8D01CCCE0486CAD60068D4B7 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXBuildStyle section */
-		067F67CF0C5681C800BE7E0F /* Development */ = {
-			isa = PBXBuildStyle;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-			};
-			name = Development;
-		};
-		067F67D00C5681C800BE7E0F /* Deployment */ = {
-			isa = PBXBuildStyle;
-			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-			};
-			name = Deployment;
-		};
-/* End PBXBuildStyle section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		05305DB30BDDA19400578444 /* CopyFiles */ = {
@@ -139,9 +122,10 @@
 		05305DF50BDDA45000578444 /* libSANSAnalysis.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; name = libSANSAnalysis.a; path = ../lib/libSANSAnalysis.a; sourceTree = SOURCE_ROOT; };
 		05305EF00BDDB5DD00578444 /* GaussWeights.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = GaussWeights.h; path = ../lib/GaussWeights.h; sourceTree = SOURCE_ROOT; };
 		053061090BDE78A200578444 /* libSANSAnalysis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = libSANSAnalysis.h; path = ../lib/libSANSAnalysis.h; sourceTree = SOURCE_ROOT; };
-		053062400BDE9DC800578444 /* sphereform */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "compiled.mach-o.executable"; path = sphereform; sourceTree = BUILT_PRODUCTS_DIR; };
+		053062400BDE9DC800578444 /* sphereform */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = sphereform; sourceTree = BUILT_PRODUCTS_DIR; };
 		053062460BDE9DFF00578444 /* sphereform.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = sphereform.c; path = ../test/sphereform.c; sourceTree = SOURCE_ROOT; };
 		058F35C70BDD341100D07487 /* libXOPSupport.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libXOPSupport.a; path = /Users/srkline/IGOR_Programming/XOP_Toolkit_5/IgorXOPs5/XOPSupport/Xcode/libXOPSupport.a; sourceTree = "<absolute>"; };
+		05B2EB590EE7096D0015ADA0 /* libXOPSupport.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libXOPSupport.a; path = ../../../../../../IGOR/XOPSupport/Xcode/libXOPSupport.a; sourceTree = SOURCE_ROOT; };
 		05D47DF60BF2029500335CA7 /* Func2D.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Func2D.c; path = ../XOP/Func2D.c; sourceTree = SOURCE_ROOT; };
 		05D47EBF0BF20EF700335CA7 /* Func2D.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Func2D.h; path = ../XOP/Func2D.h; sourceTree = SOURCE_ROOT; };
 		068F1E440D32C52D004052EB /* c_disperser.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = c_disperser.c; sourceTree = "<group>"; };
@@ -189,8 +173,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D01CCCE0486CAD60068D4B7 /* Carbon.framework in Frameworks */,
-				058F35C80BDD341100D07487 /* libXOPSupport.a in Frameworks */,
 				05305DF60BDDA45000578444 /* libSANSAnalysis.a in Frameworks */,
+				05B2EB5A0EE7096D0015ADA0 /* libXOPSupport.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,6 +294,7 @@
 		089C166AFE841209C02AAC07 /* SANSAnalysis */ = {
 			isa = PBXGroup;
 			children = (
+				05B2EB590EE7096D0015ADA0 /* libXOPSupport.a */,
 				06D661430D132F9D0025E5AA /* Source */,
 				089C167CFE841241C02AAC07 /* Resources */,
 				089C1671FE841209C02AAC07 /* External Frameworks and Libraries */,
@@ -435,15 +420,11 @@
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = 4FADC23708B4156C00ABE55E /* Build configuration list for PBXProject "SANSAnalysis" */;
-			buildSettings = {
-			};
-			buildStyles = (
-				067F67CF0C5681C800BE7E0F /* Development */,
-				067F67D00C5681C800BE7E0F /* Deployment */,
-			);
+			compatibilityVersion = "Xcode 2.4";
 			hasScannedForEncodings = 1;
 			mainGroup = 089C166AFE841209C02AAC07 /* SANSAnalysis */;
 			projectDirPath = "";
+			projectRoot = "";
 			targets = (
 				8D01CCC60486CAD60068D4B7 /* SANSAnalysis */,
 				05305C200BDD755300578444 /* libSANSAnalysis */,
@@ -653,24 +634,22 @@
 		058F37850BDD631000D07487 /* Release - PPC */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = ppc;
+				ARCHS = (
+					i386,
+					ppc,
+				);
 				EXPORTED_SYMBOLS_FILE = ./Exports.exp;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = SANSAnalysis_Prefix.pch;
-				HEADER_SEARCH_PATHS = "${SRCROOT}/../../XOPSupport";
+				HEADER_SEARCH_PATHS = "${inherited}";
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
-				);
-				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../XOPSupport/Xcode\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../lib\"";
-				OTHER_REZFLAGS = "-i ${SRCROOT}/../../XOPSupport -d TARGET_RT_MAC_MACHO";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_REZFLAGS = "-d TARGET_RT_MAC_MACHO";
 				PRODUCT_NAME = SANSAnalysis;
+				REZ_SEARCH_PATHS = "$(inherited)";
 				WRAPPER_EXTENSION = xop;
 				ZERO_LINK = NO;
 			};
@@ -679,19 +658,27 @@
 		058F37860BDD631000D07487 /* Release - PPC */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
+				GCC_MODEL_TUNING = G5;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				LIBRARY_SEARCH_PATHS = /Users/srkline/IGOR_Programming/XOP_Toolkit_5/IgorXOPs5/XOPSupport/Xcode;
+				LIBRARY_SEARCH_PATHS = /Users/ajj/Documents/Work/Devel/IGOR/XOPSupport/Xcode;
+				OTHER_REZFLAGS = "-i /Users/ajj/Documents/Work/Devel/IGOR/XOPSupport -d TARGET_RT_MAC_MACHO";
 				PREBINDING = NO;
-				REZ_SEARCH_PATHS = /Users/srkline/IGOR_Programming/XOP_Toolkit_5/IgorXOPs5/XOPSupport;
+				REZ_SEARCH_PATHS = /Users/ajj/Documents/Work/Devel/IGOR/XOPSupport;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
-				USER_HEADER_SEARCH_PATHS = /Users/srkline/IGOR_Programming/XOP_Toolkit_5/IgorXOPs5/XOPSupport;
+				USER_HEADER_SEARCH_PATHS = /Users/ajj/Documents/Work/Devel/IGOR/XOPSupport;
 			};
 			name = "Release - PPC";
 		};
 		4FADC23408B4156C00ABE55E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					i386,
+					ppc,
+				);
 				COPY_PHASE_STRIP = NO;
 				EXPORTED_SYMBOLS_FILE = ./Exports.exp;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -700,18 +687,13 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = SANSAnalysis_Prefix.pch;
-				HEADER_SEARCH_PATHS = "${SRCROOT}/../../XOPSupport";
+				HEADER_SEARCH_PATHS = "${inherited}";
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
-				);
-				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../XOPSupport/Xcode\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../lib\"";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_REZFLAGS = "-i ${SRCROOT}/../../XOPSupport -d TARGET_RT_MAC_MACHO";
 				PRODUCT_NAME = SANSAnalysis;
+				REZ_SEARCH_PATHS = "$(inherited)";
 				WRAPPER_EXTENSION = xop;
 				ZERO_LINK = NO;
 			};
@@ -721,29 +703,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = (
-					ppc,
 					i386,
+					ppc,
 				);
 				EXPORTED_SYMBOLS_FILE = ./Exports.exp;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = SANSAnalysis_Prefix.pch;
-				HEADER_SEARCH_PATHS = (
-					"${SRCROOT}/../../XOPSupport",
-					"${SRCROOT}/../lib",
-				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
-				);
-				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../XOPSupport/Xcode\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../lib\"";
-				OTHER_REZFLAGS = "-i ${SRCROOT}/../../XOPSupport -d TARGET_RT_MAC_MACHO";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_REZFLAGS = " -d TARGET_RT_MAC_MACHO";
 				PRODUCT_NAME = SANSAnalysis;
+				REZ_SEARCH_PATHS = "$(inherited)";
 				WRAPPER_EXTENSION = xop;
 				ZERO_LINK = NO;
 			};
@@ -752,26 +725,34 @@
 		4FADC23808B4156C00ABE55E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
+				GCC_MODEL_TUNING = G5;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				LIBRARY_SEARCH_PATHS = /Users/srkline/IGOR_Programming/XOP_Toolkit_5/IgorXOPs5/XOPSupport/Xcode;
+				LIBRARY_SEARCH_PATHS = /Users/ajj/Documents/Work/Devel/IGOR/XOPSupport/Xcode;
+				OTHER_REZFLAGS = "-i /Users/ajj/Documents/Work/Devel/IGOR/XOPSupport -d TARGET_RT_MAC_MACHO";
 				PREBINDING = NO;
-				REZ_SEARCH_PATHS = /Users/srkline/IGOR_Programming/XOP_Toolkit_5/IgorXOPs5/XOPSupport;
+				REZ_SEARCH_PATHS = /Users/ajj/Documents/Work/Devel/IGOR/XOPSupport;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
-				USER_HEADER_SEARCH_PATHS = /Users/srkline/IGOR_Programming/XOP_Toolkit_5/IgorXOPs5/XOPSupport;
+				USER_HEADER_SEARCH_PATHS = /Users/ajj/Documents/Work/Devel/IGOR/XOPSupport;
 			};
 			name = Debug;
 		};
 		4FADC23908B4156C00ABE55E /* Release - Universal */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
+				GCC_MODEL_TUNING = G5;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				LIBRARY_SEARCH_PATHS = /Users/srkline/IGOR_Programming/XOP_Toolkit_5/IgorXOPs5/XOPSupport/Xcode;
+				LIBRARY_SEARCH_PATHS = /Users/ajj/Documents/Work/Devel/IGOR/XOPSupport/Xcode;
+				OTHER_REZFLAGS = "-i /Users/ajj/Documents/Work/Devel/IGOR/XOPSupport -d TARGET_RT_MAC_MACHO";
 				PREBINDING = NO;
-				REZ_SEARCH_PATHS = /Users/srkline/IGOR_Programming/XOP_Toolkit_5/IgorXOPs5/XOPSupport;
+				REZ_SEARCH_PATHS = /Users/ajj/Documents/Work/Devel/IGOR/XOPSupport;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
-				USER_HEADER_SEARCH_PATHS = /Users/srkline/IGOR_Programming/XOP_Toolkit_5/IgorXOPs5/XOPSupport;
+				USER_HEADER_SEARCH_PATHS = /Users/ajj/Documents/Work/Devel/IGOR/XOPSupport;
 			};
 			name = "Release - Universal";
 		};
