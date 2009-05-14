@@ -678,7 +678,7 @@ PolyCoShCylinder(double dp[], double q)
 	double uplim,lolim;		//upper and lower integration limits
 	double summ,yyy,answer,Vpoly;			//running tally of integration
 	double Pi,AR,Rsqrsumm,Rsqryyy,Rsqr;
-	
+		
 	Pi = 4.0*atan(1.0);
 	
 	summ = 0.0;			//initialize intergral
@@ -2840,34 +2840,45 @@ Dumb_kernel(double w[], double x, double tt, double theta) {
 	return(val);
 }
 
-double
-PolyCoreBicelle(double w[], double q){
-
+double PolyCoreBicelle(double dp[], double q)
+{
 	int i;
 	int nord = 20;
 	double scale, length, sigma, bkg, radius, radthick, facthick;
 	double rhoc, rhoh, rhor, rhosolv;
 	double answer, Vpoly;
-	double lolim,uplim,summ=0,yyy,rad,AR,Rsqr,Rsqrsumm=0,Rsqryyy;
-	scale = w[0];
-	radius = w[1];
-	sigma = w[2];				//sigma is the standard mean deviation
-	length = w[3];
-	radthick = w[4];
-	facthick= w[5];
-	rhoc = w[6];
-	rhoh = w[7];
-	rhor=w[8];
-	rhosolv = w[9];
-	bkg = w[10];
+	double Pi,lolim,uplim,summ,yyy,rad,AR,Rsqr,Rsqrsumm,Rsqryyy;
 	
-	double Pi = 4.0*atan(1.0);
+	scale = dp[0];
+	radius = dp[1];
+	sigma = dp[2];				//sigma is the standard mean deviation
+	length = dp[3];
+	radthick = dp[4];
+	facthick= dp[5];
+	rhoc = dp[6];
+	rhoh = dp[7];
+	rhor=dp[8];
+	rhosolv = dp[9];
+	bkg = dp[10];
+	
+	char temp[256];
+	
+	/*sprintf(temp, "%f; %f; %f; %f; %f; %f; %f; %f; %f; %f; %f;\r", scale, radius, sigma,length,radthick,facthick,rhoc,rhoh,rhor,rhosolv,bkg);
+	XOPNotice(temp);*/
+	
+	Pi = 4.0*atan(1.0);
 	
 	lolim = exp(log(radius)-(4.*sigma));
 	if (lolim<0) {
 		lolim=0;		//to avoid numerical error when  va<0 (-ve r value)
 	}
 	uplim = exp(log(radius)+(4.*sigma));
+	
+	/*sprintf(temp, "%f; %f;\r", lolim,uplim);
+	XOPNotice(temp);*/
+	
+	summ = 0.0;
+	Rsqrsumm = 0.0;
 	
 	for(i=0;i<nord;i++) {
 		rad = ( Gauss20Z[i]*(uplim-lolim) + uplim + lolim )/2.0;
@@ -2890,7 +2901,10 @@ PolyCoreBicelle(double w[], double q){
 	// add in the background
 	answer += bkg;
 	
-	return(answer);
+	/*sprintf(temp, "Q = %f : summ = %f : Rsqrsumm = %f : Ans = %f\r", q, summ, Rsqrsumm,answer);
+	XOPNotice(temp);*/
+		
+	return answer;
 	
 }
 
@@ -2949,6 +2963,160 @@ BicelleKernel(double qq, double rad, double radthick, double facthick, double rh
 	t3 = 2*vol3*dr3*sin(sinarg2)/sinarg2*NR_BessJ1(besarg1)/besarg1;
 	
 	retval = ((t1+t2+t3)*(t1+t2+t3))*sin(dum);
-	return retval;
+	return(retval);
 	
+}
+
+
+double
+CSParallelpiped(double dp[], double q){
+
+	double scale,aa,bb,cc,ta,tb,tc,rhoA,rhoB,rhoC,rhoP,rhosolv,bkg,inten;
+	double yyy,summ,va,vb,zi;
+	int i;
+	int nord=76;
+	
+	scale = dp[0];
+	aa = dp[1];
+	bb = dp[2];
+	cc = dp[3];
+	ta  = dp[4];
+	tb  = dp[5];
+	tc  = dp[6];   // is 0 at the moment  
+	rhoA=dp[7];   //rim A SLD
+	rhoB=dp[8];   //rim B SLD
+	rhoC=dp[9];    //rim C SLD
+	rhoP = dp[10];   //Parallelpiped core SLD
+	rhosolv=dp[11];  // Solvent SLD
+	bkg = dp[12];
+	
+	//inten = IntegrateFn20(CSPP_Outer,0,1,w,x)
+	//	inten = IntegrateFn76(PP_Outer,0,1,w,x)
+	
+	//Do integral of outer
+	va = 0;
+	vb = 1;
+	
+	summ = 0.0;
+	
+	for(i=0;i<nord;i++){
+		zi = (Gauss76Z[i]*(vb-va)+vb+va)/2.0;
+		yyy = Gauss76Wt[i]*CSPP_Outer(dp,q,zi);
+		summ += yyy;
+	}
+	inten = (vb-va)/2.0*summ;
+	
+	inten /= (aa*bb*cc+2*ta*bb*cc+2*aa*tb*cc+2*aa*bb*tc);		//divide by outer volume (=Volume of core+edges)
+	inten *= 1e8;		//convert to cm^-1
+	inten *= scale;
+	inten += bkg;
+	
+	return (inten);	
+	
+}
+
+
+double
+CSPP_Outer(double dp[], double q, double dum){
+	double retVal,mu,aa,bb,cc,mudum,arg ; 
+	double summ,yyy,va,vb,zi;
+	double retval;
+	int i;
+	int nord=76;
+	aa = dp[1];
+	bb = dp[2];
+	cc = dp[3];
+	
+	mu= bb*q;
+	mudum = mu*sqrt(1-(dum*dum));
+	
+	va = 0;
+	vb = 1;
+	
+	//Do Inner integral
+	for(i=0;i<nord;i++){
+		zi = (Gauss76Z[i]*(vb-va)+vb+va)/2.0;
+		yyy = Gauss76Wt[i]*CSPP_Inner(dp,mudum,zi);
+		summ += yyy;
+	}
+	retval = (vb-va)/2.0*summ;
+	
+	
+	cc = cc/bb;
+	arg = mu*cc*dum/2;
+	if(arg==0){
+		retval *= 1;
+	} else {
+		retval *= (sin(arg)/arg)*(sin(arg)/arg);
+	}
+			
+	return(retVal);
+
+}
+
+double
+CSPP_Inner(double dp[], double mu, double uu){
+	
+	double aa,bb,cc, ta,tb,tc; 
+	double Vin,Vot,V1,V2;
+	double rhoA,rhoB,rhoC, rhoP, rhosolv;
+	double dr0, drA,drB, drC,retVal;
+	double arg1,arg2,arg3,arg4,t1,t2, t3, t4;
+	double Pi,retval;
+
+	aa = dp[1];
+	bb = dp[2];
+	cc = dp[3];
+	ta = dp[4];
+	tb = dp[5];
+	tc = dp[6];
+	rhoA=dp[7];
+	rhoB=dp[8];
+	rhoC=dp[9];
+	rhoP=dp[10];
+	rhosolv=dp[11];
+	dr0=rhoP-rhosolv;
+	drA=rhoA-rhosolv;
+	drB=rhoB-rhosolv;
+	drC=rhoC-rhosolv; 
+	Vin=(aa*bb*cc);
+	Vot=(aa*bb*cc+2*ta*bb*cc+2*aa*tb*cc+2*aa*bb*tc);
+	V1=(2*ta*bb*cc);   //  incorrect V1 (aa*bb*cc+2*ta*bb*cc)
+	V2=(2*aa*tb*cc);  // incorrect V2(aa*bb*cc+2*aa*tb*cc)
+	aa = aa/bb;
+	ta=(aa+2*ta)/bb;
+	tb=(aa+2*tb)/bb;
+	
+	Pi = 4.0*atan(1.0);
+	
+	arg1 = (mu*aa/2)*sin(Pi*uu/2);
+	arg2 = (mu/2)*cos(Pi*uu/2);
+	arg3=  (mu*ta/2)*sin(Pi*uu/2);
+	arg4=  (mu*tb/2)*cos(Pi*uu/2);
+			 
+	if(arg1==0){
+		t1 = 1;
+	} else {
+		t1 = (sin(arg1)/arg1);                //defn for CSPP model sin(arg1)/arg1    test:  (sin(arg1)/arg1)*(sin(arg1)/arg1)   
+	}
+	if(arg2==0){
+		t2 = 1;
+	} else {
+		t2 = (sin(arg2)/arg2);           //defn for CSPP model sin(arg2)/arg2   test: (sin(arg2)/arg2)*(sin(arg2)/arg2)    
+	}	
+	if(arg3==0){
+		t3 = 1;
+	} else {
+		t3 = sin(arg3)/arg3;
+	}
+	if(arg4==0){
+		t4 = 1;
+	} else {
+		t4 = sin(arg4)/arg4;
+	}
+	retval =( dr0*t1*t2*Vin + drA*(t3-t1)*t2*V1+ drB*t1*(t4-t2)*V2 )*( dr0*t1*t2*Vin + drA*(t3-t1)*t2*V1+ drB*t1*(t4-t2)*V2 );   //  correct FF : square of sum of phase factors
+	return(retVal); 
+	
+
+
 }

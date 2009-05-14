@@ -15,48 +15,46 @@
 		05305C4D0BDD76E400578444 /* StructureFactor.c in Sources */ = {isa = PBXBuildFile; fileRef = 05305C440BDD76E400578444 /* StructureFactor.c */; };
 		05305C4E0BDD76E400578444 /* TwoPhase.c in Sources */ = {isa = PBXBuildFile; fileRef = 05305C460BDD76E400578444 /* TwoPhase.c */; };
 		05305C850BDD79F500578444 /* libCylinder.c in Sources */ = {isa = PBXBuildFile; fileRef = 05305C7D0BDD79F500578444 /* libCylinder.c */; };
-		05305C860BDD79F500578444 /* libCylinder.h in Headers */ = {isa = PBXBuildFile; fileRef = 05305C7E0BDD79F500578444 /* libCylinder.h */; };
 		05305C870BDD79F500578444 /* libSphere.c in Sources */ = {isa = PBXBuildFile; fileRef = 05305C7F0BDD79F500578444 /* libSphere.c */; };
-		05305C880BDD79F500578444 /* libSphere.h in Headers */ = {isa = PBXBuildFile; fileRef = 05305C800BDD79F500578444 /* libSphere.h */; };
 		05305C890BDD79F500578444 /* libStructureFactor.c in Sources */ = {isa = PBXBuildFile; fileRef = 05305C810BDD79F500578444 /* libStructureFactor.c */; };
-		05305C8A0BDD79F500578444 /* libStructureFactor.h in Headers */ = {isa = PBXBuildFile; fileRef = 05305C820BDD79F500578444 /* libStructureFactor.h */; };
 		05305C8B0BDD79F500578444 /* libTwoPhase.c in Sources */ = {isa = PBXBuildFile; fileRef = 05305C830BDD79F500578444 /* libTwoPhase.c */; };
-		05305C8C0BDD79F500578444 /* libTwoPhase.h in Headers */ = {isa = PBXBuildFile; fileRef = 05305C840BDD79F500578444 /* libTwoPhase.h */; };
 		05305CDD0BDD9D1A00578444 /* StandardHeaders.h in Headers */ = {isa = PBXBuildFile; fileRef = 05305CDC0BDD9D1A00578444 /* StandardHeaders.h */; };
 		05305DDC0BDDA3A900578444 /* libSANSAnalysis.a in CopyFiles */ = {isa = PBXBuildFile; fileRef = 05305C210BDD755300578444 /* libSANSAnalysis.a */; };
 		05305DF60BDDA45000578444 /* libSANSAnalysis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05305DF50BDDA45000578444 /* libSANSAnalysis.a */; };
 		05305EF10BDDB5DD00578444 /* GaussWeights.h in Headers */ = {isa = PBXBuildFile; fileRef = 05305EF00BDDB5DD00578444 /* GaussWeights.h */; };
 		05305F290BDDB81200578444 /* SANSAnalysis.xop in Copy Files */ = {isa = PBXBuildFile; fileRef = 8D01CCD20486CAD60068D4B7 /* SANSAnalysis.xop */; };
 		0530610A0BDE78A200578444 /* libSANSAnalysis.h in Headers */ = {isa = PBXBuildFile; fileRef = 053061090BDE78A200578444 /* libSANSAnalysis.h */; };
-		053062470BDE9DFF00578444 /* sphereform.c in Sources */ = {isa = PBXBuildFile; fileRef = 053062460BDE9DFF00578444 /* sphereform.c */; };
 		053062480BDE9E1300578444 /* libSANSAnalysis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05305DF50BDDA45000578444 /* libSANSAnalysis.a */; };
 		0530624C0BDE9E4D00578444 /* sphereform in CopyFiles */ = {isa = PBXBuildFile; fileRef = 053062400BDE9DC800578444 /* sphereform */; };
 		05B2EB5A0EE7096D0015ADA0 /* libXOPSupport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05B2EB590EE7096D0015ADA0 /* libXOPSupport.a */; };
+		05C1153A0FBB5924003353A3 /* libSANSAnalysis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05305C210BDD755300578444 /* libSANSAnalysis.a */; };
+		05C115410FBB59A9003353A3 /* bicelletest.c in Sources */ = {isa = PBXBuildFile; fileRef = 05C115400FBB59A9003353A3 /* bicelletest.c */; };
+		05C115430FBB59B7003353A3 /* sphereform.c in Sources */ = {isa = PBXBuildFile; fileRef = 05C115420FBB59B7003353A3 /* sphereform.c */; };
+		05C116490FBB684D003353A3 /* c_disperser.c in Sources */ = {isa = PBXBuildFile; fileRef = 068F1E440D32C52D004052EB /* c_disperser.c */; };
+		05C1164A0FBB684D003353A3 /* disp_core_shell_cylinder.c in Sources */ = {isa = PBXBuildFile; fileRef = 068F1E450D32C52D004052EB /* disp_core_shell_cylinder.c */; };
+		05C1164B0FBB684D003353A3 /* disp_cylinder.c in Sources */ = {isa = PBXBuildFile; fileRef = 068F1E460D32C52D004052EB /* disp_cylinder.c */; };
+		05C1164C0FBB684D003353A3 /* disp_ellipsoid.c in Sources */ = {isa = PBXBuildFile; fileRef = 068F1E470D32C52D004052EB /* disp_ellipsoid.c */; };
+		05C1164D0FBB684D003353A3 /* disp_elliptical_cylinder.c in Sources */ = {isa = PBXBuildFile; fileRef = 068F1E480D32C52D004052EB /* disp_elliptical_cylinder.c */; };
+		05C1164E0FBB684D003353A3 /* erf.c in Sources */ = {isa = PBXBuildFile; fileRef = 068F1E490D32C52D004052EB /* erf.c */; };
+		05C1164F0FBB684D003353A3 /* weighted_core_shell_cylinder.c in Sources */ = {isa = PBXBuildFile; fileRef = 068F1E4A0D32C52D004052EB /* weighted_core_shell_cylinder.c */; };
+		05C116500FBB684D003353A3 /* weighted_cylinder.c in Sources */ = {isa = PBXBuildFile; fileRef = 068F1E4B0D32C52D004052EB /* weighted_cylinder.c */; };
+		05C116510FBB684D003353A3 /* weighted_ellipsoid.c in Sources */ = {isa = PBXBuildFile; fileRef = 068F1E4C0D32C52D004052EB /* weighted_ellipsoid.c */; };
+		05C116520FBB684D003353A3 /* weighted_elliptical_cylinder.c in Sources */ = {isa = PBXBuildFile; fileRef = 068F1E4D0D32C52D004052EB /* weighted_elliptical_cylinder.c */; };
+		05C116530FBB685C003353A3 /* c_disperser.h in Headers */ = {isa = PBXBuildFile; fileRef = 068F1EC00D3403B0004052EB /* c_disperser.h */; };
+		05C116540FBB685C003353A3 /* danse.h in Headers */ = {isa = PBXBuildFile; fileRef = 068F1EC10D3403B0004052EB /* danse.h */; };
+		05C116550FBB686C003353A3 /* core_shell.h in Headers */ = {isa = PBXBuildFile; fileRef = 068F1E9B0D3403A2004052EB /* core_shell.h */; };
+		05C116560FBB686C003353A3 /* core_shell_cylinder.h in Headers */ = {isa = PBXBuildFile; fileRef = 068F1E9D0D3403A2004052EB /* core_shell_cylinder.h */; };
+		05C116570FBB686C003353A3 /* cylinder.h in Headers */ = {isa = PBXBuildFile; fileRef = 068F1EA00D3403A2004052EB /* cylinder.h */; };
+		05C116580FBB686C003353A3 /* ellipsoid.h in Headers */ = {isa = PBXBuildFile; fileRef = 068F1EA30D3403A2004052EB /* ellipsoid.h */; };
+		05C116590FBB686C003353A3 /* elliptical_cylinder.h in Headers */ = {isa = PBXBuildFile; fileRef = 068F1EA50D3403A2004052EB /* elliptical_cylinder.h */; };
+		05C1165A0FBB686C003353A3 /* sphere.h in Headers */ = {isa = PBXBuildFile; fileRef = 068F1EA80D3403A2004052EB /* sphere.h */; };
+		05C116600FBB68B5003353A3 /* core_shell.c in Sources */ = {isa = PBXBuildFile; fileRef = 068F1E9A0D3403A2004052EB /* core_shell.c */; };
+		05C116610FBB68B5003353A3 /* core_shell_cylinder.c in Sources */ = {isa = PBXBuildFile; fileRef = 068F1E9C0D3403A2004052EB /* core_shell_cylinder.c */; };
+		05C116620FBB68B5003353A3 /* cylinder.c in Sources */ = {isa = PBXBuildFile; fileRef = 068F1E9F0D3403A2004052EB /* cylinder.c */; };
+		05C116630FBB68B5003353A3 /* ellipsoid.c in Sources */ = {isa = PBXBuildFile; fileRef = 068F1EA20D3403A2004052EB /* ellipsoid.c */; };
+		05C116640FBB68B5003353A3 /* elliptical_cylinder.c in Sources */ = {isa = PBXBuildFile; fileRef = 068F1EA40D3403A2004052EB /* elliptical_cylinder.c */; };
+		05C116650FBB68B5003353A3 /* sphere.c in Sources */ = {isa = PBXBuildFile; fileRef = 068F1EA70D3403A2004052EB /* sphere.c */; };
 		05D47DF80BF2029500335CA7 /* Func2D.c in Sources */ = {isa = PBXBuildFile; fileRef = 05D47DF60BF2029500335CA7 /* Func2D.c */; };
-		068F1E4E0D32C52D004052EB /* c_disperser.c in Sources */ = {isa = PBXBuildFile; fileRef = 068F1E440D32C52D004052EB /* c_disperser.c */; };
-		068F1E4F0D32C52D004052EB /* disp_core_shell_cylinder.c in Sources */ = {isa = PBXBuildFile; fileRef = 068F1E450D32C52D004052EB /* disp_core_shell_cylinder.c */; };
-		068F1E500D32C52D004052EB /* disp_cylinder.c in Sources */ = {isa = PBXBuildFile; fileRef = 068F1E460D32C52D004052EB /* disp_cylinder.c */; };
-		068F1E510D32C52D004052EB /* disp_ellipsoid.c in Sources */ = {isa = PBXBuildFile; fileRef = 068F1E470D32C52D004052EB /* disp_ellipsoid.c */; };
-		068F1E520D32C52D004052EB /* disp_elliptical_cylinder.c in Sources */ = {isa = PBXBuildFile; fileRef = 068F1E480D32C52D004052EB /* disp_elliptical_cylinder.c */; };
-		068F1E530D32C52D004052EB /* erf.c in Sources */ = {isa = PBXBuildFile; fileRef = 068F1E490D32C52D004052EB /* erf.c */; };
-		068F1E540D32C52D004052EB /* weighted_core_shell_cylinder.c in Sources */ = {isa = PBXBuildFile; fileRef = 068F1E4A0D32C52D004052EB /* weighted_core_shell_cylinder.c */; };
-		068F1E550D32C52D004052EB /* weighted_cylinder.c in Sources */ = {isa = PBXBuildFile; fileRef = 068F1E4B0D32C52D004052EB /* weighted_cylinder.c */; };
-		068F1E560D32C52D004052EB /* weighted_ellipsoid.c in Sources */ = {isa = PBXBuildFile; fileRef = 068F1E4C0D32C52D004052EB /* weighted_ellipsoid.c */; };
-		068F1E570D32C52D004052EB /* weighted_elliptical_cylinder.c in Sources */ = {isa = PBXBuildFile; fileRef = 068F1E4D0D32C52D004052EB /* weighted_elliptical_cylinder.c */; };
-		068F1EB00D3403A2004052EB /* core_shell.c in Sources */ = {isa = PBXBuildFile; fileRef = 068F1E9A0D3403A2004052EB /* core_shell.c */; };
-		068F1EB10D3403A2004052EB /* core_shell.h in Headers */ = {isa = PBXBuildFile; fileRef = 068F1E9B0D3403A2004052EB /* core_shell.h */; };
-		068F1EB20D3403A2004052EB /* core_shell_cylinder.c in Sources */ = {isa = PBXBuildFile; fileRef = 068F1E9C0D3403A2004052EB /* core_shell_cylinder.c */; };
-		068F1EB30D3403A2004052EB /* core_shell_cylinder.h in Headers */ = {isa = PBXBuildFile; fileRef = 068F1E9D0D3403A2004052EB /* core_shell_cylinder.h */; };
-		068F1EB50D3403A2004052EB /* cylinder.c in Sources */ = {isa = PBXBuildFile; fileRef = 068F1E9F0D3403A2004052EB /* cylinder.c */; };
-		068F1EB60D3403A2004052EB /* cylinder.h in Headers */ = {isa = PBXBuildFile; fileRef = 068F1EA00D3403A2004052EB /* cylinder.h */; };
-		068F1EB80D3403A2004052EB /* ellipsoid.c in Sources */ = {isa = PBXBuildFile; fileRef = 068F1EA20D3403A2004052EB /* ellipsoid.c */; };
-		068F1EB90D3403A2004052EB /* ellipsoid.h in Headers */ = {isa = PBXBuildFile; fileRef = 068F1EA30D3403A2004052EB /* ellipsoid.h */; };
-		068F1EBA0D3403A2004052EB /* elliptical_cylinder.c in Sources */ = {isa = PBXBuildFile; fileRef = 068F1EA40D3403A2004052EB /* elliptical_cylinder.c */; };
-		068F1EBB0D3403A2004052EB /* elliptical_cylinder.h in Headers */ = {isa = PBXBuildFile; fileRef = 068F1EA50D3403A2004052EB /* elliptical_cylinder.h */; };
-		068F1EBD0D3403A2004052EB /* sphere.c in Sources */ = {isa = PBXBuildFile; fileRef = 068F1EA70D3403A2004052EB /* sphere.c */; };
-		068F1EBE0D3403A2004052EB /* sphere.h in Headers */ = {isa = PBXBuildFile; fileRef = 068F1EA80D3403A2004052EB /* sphere.h */; };
-		068F1EC20D3403B0004052EB /* c_disperser.h in Headers */ = {isa = PBXBuildFile; fileRef = 068F1EC00D3403B0004052EB /* c_disperser.h */; };
-		068F1EC30D3403B0004052EB /* danse.h in Headers */ = {isa = PBXBuildFile; fileRef = 068F1EC10D3403B0004052EB /* danse.h */; };
 		8D01CCCA0486CAD60068D4B7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
 		8D01CCCE0486CAD60068D4B7 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */; };
 /* End PBXBuildFile section */
@@ -123,9 +121,11 @@
 		05305EF00BDDB5DD00578444 /* GaussWeights.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = GaussWeights.h; path = ../lib/GaussWeights.h; sourceTree = SOURCE_ROOT; };
 		053061090BDE78A200578444 /* libSANSAnalysis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = libSANSAnalysis.h; path = ../lib/libSANSAnalysis.h; sourceTree = SOURCE_ROOT; };
 		053062400BDE9DC800578444 /* sphereform */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = sphereform; sourceTree = BUILT_PRODUCTS_DIR; };
-		053062460BDE9DFF00578444 /* sphereform.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = sphereform.c; path = ../test/sphereform.c; sourceTree = SOURCE_ROOT; };
 		058F35C70BDD341100D07487 /* libXOPSupport.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libXOPSupport.a; path = /Users/srkline/IGOR_Programming/XOP_Toolkit_5/IgorXOPs5/XOPSupport/Xcode/libXOPSupport.a; sourceTree = "<absolute>"; };
 		05B2EB590EE7096D0015ADA0 /* libXOPSupport.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libXOPSupport.a; path = ../../../../../../IGOR/XOPSupport/Xcode/libXOPSupport.a; sourceTree = SOURCE_ROOT; };
+		05C115350FBB591B003353A3 /* bicelletest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = bicelletest; sourceTree = BUILT_PRODUCTS_DIR; };
+		05C115400FBB59A9003353A3 /* bicelletest.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = bicelletest.c; path = ../test/bicelletest.c; sourceTree = SOURCE_ROOT; };
+		05C115420FBB59B7003353A3 /* sphereform.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = sphereform.c; path = ../test/sphereform.c; sourceTree = SOURCE_ROOT; };
 		05D47DF60BF2029500335CA7 /* Func2D.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Func2D.c; path = ../XOP/Func2D.c; sourceTree = SOURCE_ROOT; };
 		05D47EBF0BF20EF700335CA7 /* Func2D.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Func2D.h; path = ../XOP/Func2D.h; sourceTree = SOURCE_ROOT; };
 		068F1E440D32C52D004052EB /* c_disperser.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = c_disperser.c; sourceTree = "<group>"; };
@@ -165,6 +165,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				053062480BDE9E1300578444 /* libSANSAnalysis.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		05C115330FBB591B003353A3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				05C1153A0FBB5924003353A3 /* libSANSAnalysis.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,7 +240,6 @@
 		06D661430D132F9D0025E5AA /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				06D661510D13309E0025E5AA /* testing */,
 				06D6614E0D1330600025E5AA /* libDANSE */,
 				06D6614B0D13303B0025E5AA /* libSANS */,
 				05305C3B0BDD76E400578444 /* Cylinder.c */,
@@ -283,17 +290,11 @@
 			name = libDANSE;
 			sourceTree = "<group>";
 		};
-		06D661510D13309E0025E5AA /* testing */ = {
-			isa = PBXGroup;
-			children = (
-				053062460BDE9DFF00578444 /* sphereform.c */,
-			);
-			name = testing;
-			sourceTree = "<group>";
-		};
 		089C166AFE841209C02AAC07 /* SANSAnalysis */ = {
 			isa = PBXGroup;
 			children = (
+				05C115420FBB59B7003353A3 /* sphereform.c */,
+				05C115400FBB59A9003353A3 /* bicelletest.c */,
 				05B2EB590EE7096D0015ADA0 /* libXOPSupport.a */,
 				06D661430D132F9D0025E5AA /* Source */,
 				089C167CFE841241C02AAC07 /* Resources */,
@@ -328,6 +329,7 @@
 				8D01CCD20486CAD60068D4B7 /* SANSAnalysis.xop */,
 				05305C210BDD755300578444 /* libSANSAnalysis.a */,
 				053062400BDE9DC800578444 /* sphereform */,
+				05C115350FBB591B003353A3 /* bicelletest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -339,21 +341,17 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				05305C860BDD79F500578444 /* libCylinder.h in Headers */,
-				05305C880BDD79F500578444 /* libSphere.h in Headers */,
-				05305C8A0BDD79F500578444 /* libStructureFactor.h in Headers */,
-				05305C8C0BDD79F500578444 /* libTwoPhase.h in Headers */,
+				05C116550FBB686C003353A3 /* core_shell.h in Headers */,
+				05C116560FBB686C003353A3 /* core_shell_cylinder.h in Headers */,
+				05C116570FBB686C003353A3 /* cylinder.h in Headers */,
+				05C116580FBB686C003353A3 /* ellipsoid.h in Headers */,
+				05C116590FBB686C003353A3 /* elliptical_cylinder.h in Headers */,
+				05C1165A0FBB686C003353A3 /* sphere.h in Headers */,
+				05C116530FBB685C003353A3 /* c_disperser.h in Headers */,
+				05C116540FBB685C003353A3 /* danse.h in Headers */,
 				05305CDD0BDD9D1A00578444 /* StandardHeaders.h in Headers */,
 				05305EF10BDDB5DD00578444 /* GaussWeights.h in Headers */,
 				0530610A0BDE78A200578444 /* libSANSAnalysis.h in Headers */,
-				068F1EB10D3403A2004052EB /* core_shell.h in Headers */,
-				068F1EB30D3403A2004052EB /* core_shell_cylinder.h in Headers */,
-				068F1EB60D3403A2004052EB /* cylinder.h in Headers */,
-				068F1EB90D3403A2004052EB /* ellipsoid.h in Headers */,
-				068F1EBB0D3403A2004052EB /* elliptical_cylinder.h in Headers */,
-				068F1EBE0D3403A2004052EB /* sphere.h in Headers */,
-				068F1EC20D3403B0004052EB /* c_disperser.h in Headers */,
-				068F1EC30D3403B0004052EB /* danse.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -394,6 +392,22 @@
 			productReference = 053062400BDE9DC800578444 /* sphereform */;
 			productType = "com.apple.product-type.tool";
 		};
+		05C115340FBB591B003353A3 /* bicelletest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 05C1153C0FBB5943003353A3 /* Build configuration list for PBXNativeTarget "bicelletest" */;
+			buildPhases = (
+				05C115320FBB591B003353A3 /* Sources */,
+				05C115330FBB591B003353A3 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = bicelletest;
+			productName = bicelletest;
+			productReference = 05C115350FBB591B003353A3 /* bicelletest */;
+			productType = "com.apple.product-type.tool";
+		};
 		8D01CCC60486CAD60068D4B7 /* SANSAnalysis */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4FADC23308B4156C00ABE55E /* Build configuration list for PBXNativeTarget "SANSAnalysis" */;
@@ -429,6 +443,7 @@
 				8D01CCC60486CAD60068D4B7 /* SANSAnalysis */,
 				05305C200BDD755300578444 /* libSANSAnalysis */,
 				0530623F0BDE9DC800578444 /* sphereform */,
+				05C115340FBB591B003353A3 /* bicelletest */,
 			);
 		};
 /* End PBXProject section */
@@ -460,26 +475,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05C116600FBB68B5003353A3 /* core_shell.c in Sources */,
+				05C116610FBB68B5003353A3 /* core_shell_cylinder.c in Sources */,
+				05C116620FBB68B5003353A3 /* cylinder.c in Sources */,
+				05C116630FBB68B5003353A3 /* ellipsoid.c in Sources */,
+				05C116640FBB68B5003353A3 /* elliptical_cylinder.c in Sources */,
+				05C116650FBB68B5003353A3 /* sphere.c in Sources */,
+				05C116490FBB684D003353A3 /* c_disperser.c in Sources */,
+				05C1164A0FBB684D003353A3 /* disp_core_shell_cylinder.c in Sources */,
+				05C1164B0FBB684D003353A3 /* disp_cylinder.c in Sources */,
+				05C1164C0FBB684D003353A3 /* disp_ellipsoid.c in Sources */,
+				05C1164D0FBB684D003353A3 /* disp_elliptical_cylinder.c in Sources */,
+				05C1164E0FBB684D003353A3 /* erf.c in Sources */,
+				05C1164F0FBB684D003353A3 /* weighted_core_shell_cylinder.c in Sources */,
+				05C116500FBB684D003353A3 /* weighted_cylinder.c in Sources */,
+				05C116510FBB684D003353A3 /* weighted_ellipsoid.c in Sources */,
+				05C116520FBB684D003353A3 /* weighted_elliptical_cylinder.c in Sources */,
 				05305C850BDD79F500578444 /* libCylinder.c in Sources */,
 				05305C870BDD79F500578444 /* libSphere.c in Sources */,
 				05305C890BDD79F500578444 /* libStructureFactor.c in Sources */,
 				05305C8B0BDD79F500578444 /* libTwoPhase.c in Sources */,
-				068F1E4E0D32C52D004052EB /* c_disperser.c in Sources */,
-				068F1E4F0D32C52D004052EB /* disp_core_shell_cylinder.c in Sources */,
-				068F1E500D32C52D004052EB /* disp_cylinder.c in Sources */,
-				068F1E510D32C52D004052EB /* disp_ellipsoid.c in Sources */,
-				068F1E520D32C52D004052EB /* disp_elliptical_cylinder.c in Sources */,
-				068F1E530D32C52D004052EB /* erf.c in Sources */,
-				068F1E540D32C52D004052EB /* weighted_core_shell_cylinder.c in Sources */,
-				068F1E550D32C52D004052EB /* weighted_cylinder.c in Sources */,
-				068F1E560D32C52D004052EB /* weighted_ellipsoid.c in Sources */,
-				068F1E570D32C52D004052EB /* weighted_elliptical_cylinder.c in Sources */,
-				068F1EB00D3403A2004052EB /* core_shell.c in Sources */,
-				068F1EB20D3403A2004052EB /* core_shell_cylinder.c in Sources */,
-				068F1EB50D3403A2004052EB /* cylinder.c in Sources */,
-				068F1EB80D3403A2004052EB /* ellipsoid.c in Sources */,
-				068F1EBA0D3403A2004052EB /* elliptical_cylinder.c in Sources */,
-				068F1EBD0D3403A2004052EB /* sphere.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -487,7 +502,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				053062470BDE9DFF00578444 /* sphereform.c in Sources */,
+				05C115430FBB59B7003353A3 /* sphereform.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		05C115320FBB591B003353A3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				05C115410FBB59A9003353A3 /* bicelletest.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -672,6 +695,45 @@
 			};
 			name = "Release - PPC";
 		};
+		05C115370FBB591C003353A3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INSTALL_PATH = /usr/local/bin;
+				PREBINDING = NO;
+				PRODUCT_NAME = bicelletest;
+			};
+			name = Debug;
+		};
+		05C115380FBB591C003353A3 /* Release - Universal */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				INSTALL_PATH = /usr/local/bin;
+				PREBINDING = NO;
+				PRODUCT_NAME = bicelletest;
+			};
+			name = "Release - Universal";
+		};
+		05C115390FBB591C003353A3 /* Release - PPC */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				INSTALL_PATH = /usr/local/bin;
+				PREBINDING = NO;
+				PRODUCT_NAME = bicelletest;
+			};
+			name = "Release - PPC";
+		};
 		4FADC23408B4156C00ABE55E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -745,6 +807,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
 				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
 				GCC_MODEL_TUNING = G5;
+				GCC_VERSION = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				LIBRARY_SEARCH_PATHS = /Users/ajj/Documents/Work/Devel/IGOR/XOPSupport/Xcode;
@@ -775,6 +838,16 @@
 				053062430BDE9DFC00578444 /* Debug */,
 				053062440BDE9DFC00578444 /* Release - Universal */,
 				053062450BDE9DFC00578444 /* Release - PPC */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = "Release - Universal";
+		};
+		05C1153C0FBB5943003353A3 /* Build configuration list for PBXNativeTarget "bicelletest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				05C115370FBB591C003353A3 /* Debug */,
+				05C115380FBB591C003353A3 /* Release - Universal */,
+				05C115390FBB591C003353A3 /* Release - PPC */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release - Universal";

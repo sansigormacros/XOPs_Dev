@@ -6,20 +6,20 @@
 
 resource 'vers' (1) {						/* XOP version info */
 0x01, 0x02, final, 0x00, 0,				/* version bytes and country integer */
-"1.02",
-"1.02, © 1996 WaveMetrics, Inc., all rights reserved."
+"1.1",
+"1.1, NIST Center for Neutron Research"
 };
 
 resource 'vers' (2) {						/* Igor version info */
 0x02, 0x00, release, 0x00, 0,			/* version bytes and country integer */
-"2.00",
-"(for Igor 2.00 or later)"
+"6.00",
+"(for Igor 6.00 or later)"
 };
 
 resource 'STR#' (1100) {					/* custom error messages */
 {
 	/* [1] */
-	"CylinderFit requires Igor Pro 2.0 or later",
+	"SANS Analysis requires Igor Pro 6.0 or later",
 	/* [2] */
 	"Wave does not exist.",
 	/* [3] */
@@ -815,7 +815,14 @@ resource 'XOPF' (1100) {
 			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
 			NT_FP64,					/* double precision x */
 		},
-
+		"PolyCoreBicelleX",		//case # 92
+		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
+		NT_FP64,						/* return value type */			
+		{
+			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
+			NT_FP64,					/* double precision x */
+		},
+	
 
 	}
 };

@@ -7,7 +7,14 @@
  *
  */
 
+#include "libCylinder.h"
+#include "libSphere.h"
+#include "libStructureFactor.h"
+#include "libTwoPhase.h"
+
+/*This should not be necessary AJJ May 09*/
 /* IGOR Fit Functions */
+/*
 double CylinderForm(double dp[], double q);
 double EllipCyl76(double dp[], double q);
 double EllipCyl20(double dp[], double q);
@@ -37,9 +44,11 @@ double ConvexLens(double dp[], double q);
 double Dumbbell(double dp[], double q);
 double CappedCylinder(double dp[], double q);
 double Barbell(double dp[], double q);
-
+double PolyCoreBicelle(double dp[], double q);
+*/
 
 /* internal functions */
+/*
 double CylKernel(double qq, double rr,double h, double theta);
 double NR_BessJ1(double x);
 double EllipCylKernel(double qq, double ra,double nu, double theta);
@@ -59,9 +68,14 @@ double EllipticalCross_fn(double qq, double a, double b);
 double CScyl(double qq, double rad, double radthick, double facthick, double rhoc, double rhos, double rhosolv, double length, double dum);
 double CSCylIntegration(double qq, double rad, double radthick, double facthick, double rhoc, double rhos, double rhosolv, double length);
 double Stackdisc_kern(double qq, double rcore, double rhoc, double rhol, double rhosolv, double length, double thick, double dum, double gsd, double d, double N);
+double BicelleKernel(double qq, double rad, double radthick, double facthick, double rhoc, double rhoh, double rhor, double rhosolv, double length, double dum);
+double BicelleIntegration(double qq, double rad, double radthick, double facthick, double rhoc, double rhoh, double rhor, double rhosolv, double length);
+*/
+
 
 //
 /* IGOR Fit Functions */
+/*
 double MultiShell(double dp[], double q);
 double PolyMultiShell(double dp[], double q);
 double SphereForm(double dp[], double q);
@@ -111,9 +125,10 @@ double DiamEllip(double a, double b);
 double sqhcal(double qq);
 int sqfun(int ix, int ir);
 int sqcoef(int ir);
-
+*/
 ////
 /* IGOR Fit Functions */
+/*
 double TeubnerStreyModel(double dp[], double q);
 double Power_Law_Model(double dp[], double q);
 double Peak_Lorentz_Model(double dp[], double q);
@@ -133,7 +148,7 @@ double TwoPowerLaw(double dp[], double q);
 double PolyGaussCoil(double dp[], double q);
 double GaussLorentzGel(double dp[], double q);
 double GaussianShell(double dp[], double q);
-
+*/
 
 // since the XOP and the library are separate chunks of compiled code
 // it is imperative to set ALL the structure alignments to be two-byte

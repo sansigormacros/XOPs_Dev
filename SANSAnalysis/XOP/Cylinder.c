@@ -1052,7 +1052,6 @@ PolyCoreBicelleX(FitParamsPtr p)
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
 		case NT_FP64:
 			dp= WaveData(p->waveHandle);
-			
 			p->result = PolyCoreBicelle(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.
