@@ -554,175 +554,175 @@ BEGIN
 
 /// new models in 2008 (starts index 68)
 
-		"SpherocylinderX",
+		"SpherocylinderX\0",
 		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
 		NT_FP64,						/* return value type */			
 			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
 			NT_FP64,					/* double precision x */
 			0,
 		
-		"ConvexLensX",
+		"ConvexLensX\0",
 		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
 		NT_FP64,						/* return value type */			
 			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
 			NT_FP64,					/* double precision x */
 			0,
 		
-		"DumbbellX",
+		"DumbbellX\0",
 		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
 		NT_FP64,						/* return value type */			
 			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
 			NT_FP64,					/* double precision x */
 			0,
 		
-		"CappedCylinderX",
+		"CappedCylinderX\0",
 		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
 		NT_FP64,						/* return value type */			
 			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
 			NT_FP64,					/* double precision x */
 			0,
 		
-		"BarbellX",
+		"BarbellX\0",
 		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
 		NT_FP64,						/* return value type */			
 			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
 			NT_FP64,					/* double precision x */
 			0,
 // index # 73 is Lamellar_ParaCrystalX		
-		"Lamellar_ParaCrystalX",				
+		"Lamellar_ParaCrystalX\0",				
 		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
 		NT_FP64,						/* return value type */			
 			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
 			NT_FP64,					/* double precision x */
 			0,
 		
-		"BCC_ParaCrystalX",				
+		"BCC_ParaCrystalX\0",				
 		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
 		NT_FP64,						/* return value type */			
 			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
 			NT_FP64,					/* double precision x */
 			0,
 		
-		"FCC_ParaCrystalX",				
+		"FCC_ParaCrystalX\0",				
 		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
 		NT_FP64,						/* return value type */			
 			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
 			NT_FP64,					/* double precision x */
 			0,
 		
-		"SC_ParaCrystalX",				
+		"SC_ParaCrystalX\0",				
 		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
 		NT_FP64,						/* return value type */			
 			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
 			NT_FP64,					/* double precision x */
 			0,
 		
-		"OneShellX",				
+		"OneShellX\0",				
 		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
 		NT_FP64,						/* return value type */			
 			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
 			NT_FP64,					/* double precision x */
 			0,
 		
-		"TwoShellX",				
+		"TwoShellX\0",				
 		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
 		NT_FP64,						/* return value type */			
 			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
 			NT_FP64,					/* double precision x */
 			0,
 		
-		"ThreeShellX",				
+		"ThreeShellX\0",				
 		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
 		NT_FP64,						/* return value type */			
 			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
 			NT_FP64,					/* double precision x */
 			0,
 		
-		"FourShellX",				
+		"FourShellX\0",				
 		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
 		NT_FP64,						/* return value type */			
 			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
 			NT_FP64,					/* double precision x */
 			0,
 		
-		"PolyOneShellX",				
+		"PolyOneShellX\0",				
 		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
 		NT_FP64,						/* return value type */			
 			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
 			NT_FP64,					/* double precision x */
 			0,
 		
-		"PolyTwoShellX",				
+		"PolyTwoShellX\0",				
 		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
 		NT_FP64,						/* return value type */			
 			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
 			NT_FP64,					/* double precision x */
 			0,
 		
-		"PolyThreeShellX",				
+		"PolyThreeShellX\0",				
 		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
 		NT_FP64,						/* return value type */			
 			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
 			NT_FP64,					/* double precision x */
 			0,
 		
-		"PolyFourShellX",		//case # 84
+		"PolyFourShellX\0",		//case # 84
 		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
 		NT_FP64,						/* return value type */			
 			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
 			NT_FP64,					/* double precision x */
 			0,
 				
-		"BroadPeakX",		//case # 85
+		"BroadPeakX\0",		//case # 85
 		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
 		NT_FP64,						/* return value type */			
 			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
 			NT_FP64,					/* double precision x */
 			0,
 		
-		"CorrLengthX",		//case # 86
+		"CorrLengthX\0",		//case # 86
 		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
 		NT_FP64,						/* return value type */			
 			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
 			NT_FP64,					/* double precision x */
 			0,
 		
-		"TwoLorentzianX",		//case # 87
+		"TwoLorentzianX\0",		//case # 87
 		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
 		NT_FP64,						/* return value type */			
 			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
 			NT_FP64,					/* double precision x */
 			0,
 		
-		"TwoPowerLawX",		//case # 88
+		"TwoPowerLawX\0",		//case # 88
 		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
 		NT_FP64,						/* return value type */			
 			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
 			NT_FP64,					/* double precision x */
 			0,
 
-		"PolyGaussCoilX",		//case # 89
+		"PolyGaussCoilX\0",		//case # 89
 		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
 		NT_FP64,						/* return value type */			
 			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
 			NT_FP64,					/* double precision x */
 			0,
 		
-		"GaussLorentzGelX",		//case # 90
+		"GaussLorentzGelX\0",		//case # 90
 		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
 		NT_FP64,						/* return value type */			
 			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
 			NT_FP64,					/* double precision x */
 			0,
 
-		"GaussianShellX",		//case # 91
+		"GaussianShellX\0",		//case # 91
 		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
 		NT_FP64,						/* return value type */			
 			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
 			NT_FP64,					/* double precision x */
 			0,
 		
-		"PolyCoreBicelleX",		//case # 92
+		"PolyCoreBicelleX\0",		//case # 92
 		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
 		NT_FP64,						/* return value type */			
 			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
