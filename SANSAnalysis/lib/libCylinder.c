@@ -2958,7 +2958,7 @@ BicelleKernel(double qq, double rad, double radthick, double facthick, double rh
 
 
 double
-CSParallelpiped(double dp[], double q){
+CSParallelepiped(double dp[], double q){
 
 	double scale,aa,bb,cc,ta,tb,tc,rhoA,rhoB,rhoC,rhoP,rhosolv,bkg,inten;
 	double yyy,summ,va,vb,zi;

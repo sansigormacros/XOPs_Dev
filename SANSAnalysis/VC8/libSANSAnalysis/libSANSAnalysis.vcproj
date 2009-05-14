@@ -157,15 +157,7 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\lib\GaussWeights.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\lib\libCylinder.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\lib\libCylinder.h"
 				>
 			</File>
 			<File
@@ -173,15 +165,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\lib\libSphere.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\lib\libStructureFactor.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\lib\libStructureFactor.h"
 				>
 			</File>
 			<File
@@ -189,19 +173,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\lib\libTwoPhase.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\lib\StandardHeaders.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\lib\winFuncs.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\lib\winFuncs.h"
 				>
 			</File>
 			<Filter
@@ -322,6 +294,38 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath="..\..\lib\GaussWeights.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\libCylinder.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\libSANSAnalysis.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\libSphere.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\libStructureFactor.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\libTwoPhase.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\StandardHeaders.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\winFuncs.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"

@@ -822,7 +822,13 @@ resource 'XOPF' (1100) {
 			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
 			NT_FP64,					/* double precision x */
 		},
-	
+		"CSParallelepipedX",		//case # 92
+		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
+		NT_FP64,						/* return value type */			
+		{
+			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
+			NT_FP64,					/* double precision x */
+		},
 
 	}
 };

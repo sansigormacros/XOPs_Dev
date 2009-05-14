@@ -141,7 +141,7 @@
 			/>
 			<Tool
 				Name="VCResourceCompilerTool"
-				AdditionalIncludeDirectories="&quot;C:\Documents and Settings\ajj\My Documents\Devel\XOP Toolkit 5\IgorXOPs5\XOPSupport&quot;"
+				AdditionalIncludeDirectories="&quot;C:\Documents and Settings\ajj\My Documents\Devel\managed\XOP_Dev\SANSAnalysis\XOP&quot;;&quot;C:\Documents and Settings\ajj\My Documents\Devel\XOP Toolkit 5\IgorXOPs5\XOPSupport&quot;"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -233,6 +233,10 @@
 			</File>
 			<File
 				RelativePath="..\XOP\Func2D.h"
+				>
+			</File>
+			<File
+				RelativePath="..\lib\libSANSAnalysis.h"
 				>
 			</File>
 			<File
