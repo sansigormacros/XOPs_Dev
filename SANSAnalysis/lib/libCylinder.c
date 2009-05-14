@@ -2861,11 +2861,6 @@ double PolyCoreBicelle(double dp[], double q)
 	rhosolv = dp[9];
 	bkg = dp[10];
 	
-	char temp[256];
-	
-	/*sprintf(temp, "%f; %f; %f; %f; %f; %f; %f; %f; %f; %f; %f;\r", scale, radius, sigma,length,radthick,facthick,rhoc,rhoh,rhor,rhosolv,bkg);
-	XOPNotice(temp);*/
-	
 	Pi = 4.0*atan(1.0);
 	
 	lolim = exp(log(radius)-(4.*sigma));
@@ -2873,9 +2868,6 @@ double PolyCoreBicelle(double dp[], double q)
 		lolim=0;		//to avoid numerical error when  va<0 (-ve r value)
 	}
 	uplim = exp(log(radius)+(4.*sigma));
-	
-	/*sprintf(temp, "%f; %f;\r", lolim,uplim);
-	XOPNotice(temp);*/
 	
 	summ = 0.0;
 	Rsqrsumm = 0.0;
@@ -2900,9 +2892,6 @@ double PolyCoreBicelle(double dp[], double q)
 	answer *= scale;
 	// add in the background
 	answer += bkg;
-	
-	/*sprintf(temp, "Q = %f : summ = %f : Rsqrsumm = %f : Ans = %f\r", q, summ, Rsqrsumm,answer);
-	XOPNotice(temp);*/
 		
 	return answer;
 	
@@ -3033,6 +3022,9 @@ CSPP_Outer(double dp[], double q, double dum){
 	va = 0;
 	vb = 1;
 	
+	summ = 0.0;
+	retval = 0.0;
+
 	//Do Inner integral
 	for(i=0;i<nord;i++){
 		zi = (Gauss76Z[i]*(vb-va)+vb+va)/2.0;
