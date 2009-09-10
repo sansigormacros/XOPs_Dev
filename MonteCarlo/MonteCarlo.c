@@ -67,6 +67,7 @@ Monte_SANSX(MC_ParamsPtr p) {
 	double sigabs_0,num_bins;
 	long NSingleIncoherent,NSingleCoherent,NScatterEvents,incoherentEvent,coherentEvent;
 	long NDoubleCoherent,NMultipleScatter,isOn,xCtr_long,yCtr_long;
+	long NMultipleCoherent,NCoherentEvents;
 
 	// for accessing the 2D wave data, direct method (see the WaveAccess example XOP)
 	waveHndl wavH;
@@ -216,6 +217,9 @@ Monte_SANSX(MC_ParamsPtr p) {
 	NDoubleCoherent = 0;
 	NMultipleScatter = 0;
 	NScatterEvents = 0;
+	NMultipleCoherent = 0;
+	NCoherentEvents = 0;
+
 	isOn = 0;
 	
 //C     MONITOR LOOP - looping over the number of incedent neutrons
@@ -280,7 +284,7 @@ Monte_SANSX(MC_ParamsPtr p) {
 				if (ran > ratio ) {		//C             NEUTRON SCATTERED coherently
 					//sprintf(buf,"neutron scatters coherently\r");
 					//XOPNotice(buf);
-					coherentEvent = 1;
+					coherentEvent += 1;
 					find_theta = 0;			//false
 					do {
 						// pick a q-value from the deviate function
@@ -289,7 +293,7 @@ Monte_SANSX(MC_ParamsPtr p) {
 //						q0 =left + binarysearchinterp(ran_dev,ran1(seed))*delta;
 						
 						q0 =left + locate_interp(ran_dev,numRows_ran_dev,ran3(&seed))*delta;
-						theta = q0/2/pi*wavelength;		//SAS approximation
+						theta = q0/2/pi*wavelength;		//SAS approximation. 1% error at theta=30 degrees
 						
 						find_theta = 1;		//always accept
 
@@ -304,7 +308,7 @@ Monte_SANSX(MC_ParamsPtr p) {
 					//NEUTRON scattered incoherently
 					//sprintf(buf,"neutron scatters incoherent\r");
 					//XOPNotice(buf);
-					incoherentEvent = 1;
+					incoherentEvent += 1;
 				  // phi and theta are random over the entire sphere of scattering
 					// !can't just choose random theta and phi, won't be random over sphere solid angle
 
@@ -389,12 +393,27 @@ Monte_SANSX(MC_ParamsPtr p) {
 					if(index > 1) {
 						NMultipleScatter += 1;
 					}
+					if(coherentEvent >= 1 && incoherentEvent == 0) {
+						NCoherentEvents += 1;
+					}
+					if(coherentEvent > 1 && incoherentEvent == 0) {
+						NMultipleCoherent += 1;
+					}
+
 				} else {	// index was zero, neutron must be transmitted, so just increment the proper counters and data
 						isOn += 1;
 						nt[0] += 1;
 						MemClear(indices, sizeof(indices)); // Must be 0 for unused dimensions.
-						indices[0] = xCtr_long;
-						indices[1] = yCtr_long;
+						//indices[0] = xCtr_long;		//don't put everything in one pixel
+						//indices[1] = yCtr_long;
+						indices[0] = (long)round(xCtr+xx/pixSize);
+						indices[1] = (long)round(yCtr+yy/pixSize);
+						// check for valid indices - got an XOP error, probably from here
+						if(indices[0] > 127) indices[0] = 127;
+						if(indices[0] < 0) indices[0] = 0;
+						if(indices[1] > 127) indices[1] = 127;
+						if(indices[1] < 0) indices[1] = 0;
+						
 						if (result = MDGetNumericWavePointValue(wavH, indices, value))
 							return result;
 						value[0] += 1; // Real part
@@ -428,12 +447,16 @@ Monte_SANSX(MC_ParamsPtr p) {
 	indices[0] = 4;
 	if (result = MDSetNumericWavePointValue(p->resultsH, indices, value))
 		return result;
-	value[0] = (double)NDoubleCoherent;
+	value[0] = (double)NMultipleCoherent;
 	indices[0] = 5;
 	if (result = MDSetNumericWavePointValue(p->resultsH, indices, value))
 		return result;
 	value[0] = (double)NMultipleScatter;
 	indices[0] = 6;
+	if (result = MDSetNumericWavePointValue(p->resultsH, indices, value))
+		return result;	
+	value[0] = (double)NCoherentEvents;
+	indices[0] = 7;
 	if (result = MDSetNumericWavePointValue(p->resultsH, indices, value))
 		return result;	
 
