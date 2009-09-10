@@ -115,6 +115,8 @@ Fractal(double dp[], double q)
 	return(ans);
 }
 
+// 6 JUL 2009 SRK changed definition of Izero scale factor to be uncorrelated with range
+//
 double
 DAB_Model(double dp[], double q)
 {
@@ -126,7 +128,7 @@ DAB_Model(double dp[], double q)
 	range = dp[1];
 	incoh = dp[2]; 
 	
-	inten = Izero/pow((1.0 + (qval*range)*(qval*range)),2) + incoh;
+	inten = (Izero*range*range*range)/pow((1.0 + (qval*range)*(qval*range)),2) + incoh;
 	
 	return(inten);
 }

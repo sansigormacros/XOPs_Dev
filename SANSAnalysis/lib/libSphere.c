@@ -2037,9 +2037,9 @@ SC_ParaCrystal(double w[], double x)
 	
 	Pi = 4.0*atan(1.0);
 	va = 0.0;
-	vb = 2.0*Pi;		//orintational average, outer integral
+	vb = Pi/2.0;		//orintational average, outer integral
 	vaj = 0.0;
-	vbj = Pi;		//endpoints of inner integral
+	vbj = Pi/2.0;		//endpoints of inner integral
 	
 	summ = 0.0;			//initialize intergral
 	
@@ -2103,7 +2103,7 @@ SC_Integrand(double w[], double qq, double xx, double yy) {
 	
 	
 	retVal = temp2*SCeval(yy,xx,temp3,temp4,temp5);
-	retVal /= 4*Pi;
+	retVal *= 2.0/Pi;
 	
 	return(retVal);
 }
