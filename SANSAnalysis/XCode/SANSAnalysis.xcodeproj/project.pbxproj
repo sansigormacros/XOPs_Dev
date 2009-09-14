@@ -690,7 +690,7 @@
 				OTHER_REZFLAGS = "-i /Users/ajj/Documents/Work/Devel/IGOR/XOPSupport -d TARGET_RT_MAC_MACHO";
 				PREBINDING = NO;
 				REZ_SEARCH_PATHS = /Users/ajj/Documents/Work/Devel/IGOR/XOPSupport;
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
 				USER_HEADER_SEARCH_PATHS = /Users/ajj/Documents/Work/Devel/IGOR/XOPSupport;
 			};
 			name = "Release - PPC";
@@ -796,7 +796,7 @@
 				OTHER_REZFLAGS = "-i /Users/ajj/Documents/Work/Devel/IGOR/XOPSupport -d TARGET_RT_MAC_MACHO";
 				PREBINDING = NO;
 				REZ_SEARCH_PATHS = /Users/ajj/Documents/Work/Devel/IGOR/XOPSupport;
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
 				USER_HEADER_SEARCH_PATHS = /Users/ajj/Documents/Work/Devel/IGOR/XOPSupport;
 			};
 			name = Debug;
@@ -814,7 +814,7 @@
 				OTHER_REZFLAGS = "-i /Users/ajj/Documents/Work/Devel/IGOR/XOPSupport -d TARGET_RT_MAC_MACHO";
 				PREBINDING = NO;
 				REZ_SEARCH_PATHS = /Users/ajj/Documents/Work/Devel/IGOR/XOPSupport;
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
 				USER_HEADER_SEARCH_PATHS = /Users/ajj/Documents/Work/Devel/IGOR/XOPSupport;
 			};
 			name = "Release - Universal";
