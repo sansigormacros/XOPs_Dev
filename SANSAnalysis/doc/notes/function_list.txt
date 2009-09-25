@@ -1,5 +1,3 @@
-
-
 XOP					Need Q=0?	Done?	Checked?
 CylinderForm			Yes 
 EllipCyl76;				Yes 
