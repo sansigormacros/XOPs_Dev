@@ -1,0 +1,107 @@
+
+
+XOP					Need Q=0?	Done?	Checked?
+CylinderForm			Yes 
+EllipCyl76;				Yes 
+EllipCyl20;				Yes 
+TriaxialEllipsoid;		Yes 
+Parallelepiped;			Yes		Yes		No
+HollowCylinder;			Yes
+EllipsoidForm;			Yes
+Cyl_PolyRadius;			Yes
+Cyl_PolyLength;			Yes	
+CoreShellCylinder;		Yes
+OblateForm;				Yes
+ProlateForm;			Yes
+FlexExclVolCyl;			Yes
+FlexCyl_PolyLen;		Yes
+FlexCyl_PolyRad;		Yes
+FlexCyl_Ellip;			Yes
+PolyCoShCylinder;		Yes
+StackedDiscs;			Yes
+LamellarFF;				Yes
+LamellarFF_HG;			Yes
+LamellarPS;				Yes
+LamellarPS_HG;			Yes
+//
+Lamellar_ParaCrystal;	Yes
+Spherocylinder;			Yes
+ConvexLens;				Yes
+Dumbbell;				Yes
+CappedCylinder;			Yes
+Barbell;				Yes
+PolyCoreBicelle;		Yes
+//
+MultiShell;				Yes
+PolyMultiShell;			Yes
+SphereForm;				Yes		Yes		No
+CoreShellForm;			Yes
+PolyCoreForm;			Yes
+PolyCoreShellRatio;		Yes
+VesicleForm;			Yes
+SchulzSpheres;			Yes
+PolyRectSpheres;		Yes
+PolyHardSphereIntensity;Yes
+BimodalSchulzSpheres;	Yes
+GaussPolySphere;		Yes
+LogNormalPolySphere;	Yes
+BinaryHS;				Yes
+BinaryHS_PSF11;			Yes
+BinaryHS_PSF12;			Yes
+BinaryHS_PSF22;			Yes
+//
+OneShell;				Yes
+TwoShell;				Yes
+ThreeShell;				Yes
+FourShell;				Yes
+PolyOneShell;			Yes
+PolyTwoShell;			Yes
+PolyThreeShell;			Yes
+PolyFourShell;			Yes
+BCC_ParaCrystal;		Yes
+FCC_ParaCrystal;		Yes
+SC_ParaCrystal;			Yes
+
+//function prototypes
+F_func;
+MultiShellGuts;
+fnt2;
+fnt3;
+SchulzSphere_Fn;
+ashcroft;
+
+
+////
+HardSphereStruct;
+SquareWellStruct;
+StickyHS_Struct;
+HayterPenfoldMSA;
+DiamCyl;
+DiamEllip;
+sqhcal;
+int sqfun;
+int sqcoef;
+*/
+////
+/* IGOR Fit Functions */
+/*
+TeubnerStreyModel;		Yes
+Power_Law_Model;		Yes
+Peak_Lorentz_Model;		Yes
+Peak_Gauss_Model;		Yes
+Lorentz_Model;			Yes
+Fractal;				Yes
+DAB_Model;				Yes
+OneLevel;				Yes	
+TwoLevel;				Yes
+ThreeLevel;				Yes
+FourLevel;				Yes
+//
+BroadPeak;				Yes
+CorrLength;				Yes
+TwoLorentzian;			Yes	
+TwoPowerLaw;			Yes
+PolyGaussCoil;			Yes
+GaussLorentzGel;		Yes
+GaussianShell;			Yes
+*/
