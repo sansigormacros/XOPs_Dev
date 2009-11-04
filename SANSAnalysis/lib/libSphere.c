@@ -2123,3 +2123,73 @@ SCeval(double Theta, double Phi, double temp3, double temp4, double temp5) { //F
 	return (result);
 }
 
+// scattering from a uniform sphere with a Gaussian size distribution
+//
+double
+FuzzySpheres(double dp[], double q)
+{
+	double pi,x;
+	double scale,rad,pd,sig,rho,rhos,bkg,delrho,sig_surf,f2,bes,vol,f;		//my local names
+	double va,vb,zi,yy,summ,inten;
+	int nord=20,ii;
+	
+	pi = 4.0*atan(1.0);
+	x= q;
+	
+	scale=dp[0];
+	rad=dp[1];
+	pd=dp[2];
+	sig=pd*rad;
+	sig_surf = dp[3];
+	rho=dp[4];
+	rhos=dp[5];
+	delrho=rho-rhos;
+	bkg=dp[6];
+	
+			
+	va = -4.0*sig + rad;
+	if (va<0) {
+		va=0;		//to avoid numerical error when  va<0 (-ve q-value)
+	}
+	vb = 4.0*sig +rad;
+	
+	summ = 0.0;		// initialize integral
+	for(ii=0;ii<nord;ii+=1) {
+		// calculate Gauss points on integration interval (r-value for evaluation)
+		zi = ( Gauss20Z[ii]*(vb-va) + vb + va )/2.0;
+		// calculate sphere scattering
+		//
+		//handle q==0 separately
+		if (x==0.0) {
+			f2 = 4.0/3.0*pi*zi*zi*zi*delrho*delrho*1.0e8;
+			f2 *= exp(-0.5*sig_surf*sig_surf*x*x);
+			f2 *= exp(-0.5*sig_surf*sig_surf*x*x);
+		} else {
+			bes = 3.0*(sin(x*zi)-x*zi*cos(x*zi))/(x*x*x)/(zi*zi*zi);
+			vol = 4.0*pi/3.0*zi*zi*zi;
+			f = vol*bes*delrho;		// [=] A
+			f *= exp(-0.5*sig_surf*sig_surf*x*x);
+			// normalize to single particle volume, convert to 1/cm
+			f2 = f * f / vol * 1.0e8;		// [=] 1/cm
+		}
+	
+		yy = Gauss20Wt[ii] *  Gauss_distr(sig,rad,zi) * f2;
+		yy *= 4.0*pi/3.0*zi*zi*zi;		//un-normalize by current sphere volume
+		
+		summ += yy;		//add to the running total of the quadrature
+		
+		
+   	}
+	// calculate value of integral to return
+	inten = (vb-va)/2.0*summ;
+	
+	//re-normalize by polydisperse sphere volume
+	inten /= (4.0*pi/3.0*rad*rad*rad)*(1.0+3.0*pd*pd);
+	
+	inten *= scale;
+	inten += bkg;
+	
+    return(inten);	//scale, and add in the background
+}
+
+
