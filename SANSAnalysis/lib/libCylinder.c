@@ -2925,8 +2925,8 @@ BicelleIntegration(double qq, double rad, double radthick, double facthick, doub
 }
 
 double
-BicelleKernel(double qq, double rad, double radthick, double facthick, double rhoc, double rhoh, double rhor, double rhosolv, double length, double dum){
-
+BicelleKernel(double qq, double rad, double radthick, double facthick, double rhoc, double rhoh, double rhor, double rhosolv, double length, double dum)
+{
 	double dr1,dr2,dr3;
 	double besarg1,besarg2;
 	double vol1,vol2,vol3;
@@ -2958,103 +2958,14 @@ BicelleKernel(double qq, double rad, double radthick, double facthick, double rh
 
 
 double
-CSParallelepiped(double dp[], double q){
-
-	double scale,aa,bb,cc,ta,tb,tc,rhoA,rhoB,rhoC,rhoP,rhosolv,bkg,inten;
-	double yyy,summ,va,vb,zi;
-	int i;
-	int nord=76;
-	
-	scale = dp[0];
-	aa = dp[1];
-	bb = dp[2];
-	cc = dp[3];
-	ta  = dp[4];
-	tb  = dp[5];
-	tc  = dp[6];   // is 0 at the moment  
-	rhoA=dp[7];   //rim A SLD
-	rhoB=dp[8];   //rim B SLD
-	rhoC=dp[9];    //rim C SLD
-	rhoP = dp[10];   //Parallelpiped core SLD
-	rhosolv=dp[11];  // Solvent SLD
-	bkg = dp[12];
-	
-	//inten = IntegrateFn20(CSPP_Outer,0,1,w,x)
-	//	inten = IntegrateFn76(PP_Outer,0,1,w,x)
-	
-	//Do integral of outer
-	va = 0;
-	vb = 1;
-	
-	summ = 0.0;
-	
-	for(i=0;i<nord;i++){
-		zi = (Gauss76Z[i]*(vb-va)+vb+va)/2.0;
-		yyy = Gauss76Wt[i]*CSPP_Outer(dp,q,zi);
-		summ += yyy;
-	}
-	inten = (vb-va)/2.0*summ;
-	
-	inten /= (aa*bb*cc+2*ta*bb*cc+2*aa*tb*cc+2*aa*bb*tc);		//divide by outer volume (=Volume of core+edges)
-	inten *= 1e8;		//convert to cm^-1
-	inten *= scale;
-	inten += bkg;
-	
-	return (inten);	
-	
-}
-
-
-double
-CSPP_Outer(double dp[], double q, double dum){
-	double retVal,mu,aa,bb,cc,mudum,arg ; 
-	double summ,yyy,va,vb,zi;
-	double retval;
-	int i;
-	int nord=76;
-	aa = dp[1];
-	bb = dp[2];
-	cc = dp[3];
-	
-	mu= bb*q;
-	mudum = mu*sqrt(1-(dum*dum));
-	
-	va = 0;
-	vb = 1;
-	
-	summ = 0.0;
-	retval = 0.0;
-
-	//Do Inner integral
-	for(i=0;i<nord;i++){
-		zi = (Gauss76Z[i]*(vb-va)+vb+va)/2.0;
-		yyy = Gauss76Wt[i]*CSPP_Inner(dp,mudum,zi);
-		summ += yyy;
-	}
-	retval = (vb-va)/2.0*summ;
-	
-	
-	cc = cc/bb;
-	arg = mu*cc*dum/2;
-	if(arg==0){
-		retval *= 1;
-	} else {
-		retval *= (sin(arg)/arg)*(sin(arg)/arg);
-	}
-			
-	return(retVal);
-
-}
-
-double
-CSPP_Inner(double dp[], double mu, double uu){
-	
+CSPPKernel(double dp[], double mu, double uu)
+{	
 	double aa,bb,cc, ta,tb,tc; 
 	double Vin,Vot,V1,V2;
 	double rhoA,rhoB,rhoC, rhoP, rhosolv;
-	double dr0, drA,drB, drC,retVal;
+	double dr0, drA,drB, drC;
 	double arg1,arg2,arg3,arg4,t1,t2, t3, t4;
-	double Pi,retval;
+	double Pi,retVal;
 
 	aa = dp[1];
 	bb = dp[2];
@@ -3072,43 +2983,132 @@ CSPP_Inner(double dp[], double mu, double uu){
 	drB=rhoB-rhosolv;
 	drC=rhoC-rhosolv; 
 	Vin=(aa*bb*cc);
-	Vot=(aa*bb*cc+2*ta*bb*cc+2*aa*tb*cc+2*aa*bb*tc);
-	V1=(2*ta*bb*cc);   //  incorrect V1 (aa*bb*cc+2*ta*bb*cc)
-	V2=(2*aa*tb*cc);  // incorrect V2(aa*bb*cc+2*aa*tb*cc)
+	Vot=(aa*bb*cc+2.0*ta*bb*cc+2.0*aa*tb*cc+2.0*aa*bb*tc);
+	V1=(2.0*ta*bb*cc);   //  incorrect V1 (aa*bb*cc+2*ta*bb*cc)
+	V2=(2.0*aa*tb*cc);  // incorrect V2(aa*bb*cc+2*aa*tb*cc)
 	aa = aa/bb;
-	ta=(aa+2*ta)/bb;
-	tb=(aa+2*tb)/bb;
+	ta=(aa+2.0*ta)/bb;
+	tb=(aa+2.0*tb)/bb;
 	
 	Pi = 4.0*atan(1.0);
 	
-	arg1 = (mu*aa/2)*sin(Pi*uu/2);
-	arg2 = (mu/2)*cos(Pi*uu/2);
-	arg3=  (mu*ta/2)*sin(Pi*uu/2);
-	arg4=  (mu*tb/2)*cos(Pi*uu/2);
+	arg1 = (mu*aa/2.0)*sin(Pi*uu/2.0);
+	arg2 = (mu/2.0)*cos(Pi*uu/2.0);
+	arg3=  (mu*ta/2.0)*sin(Pi*uu/2.0);
+	arg4=  (mu*tb/2.0)*cos(Pi*uu/2.0);
 			 
 	if(arg1==0){
-		t1 = 1;
+		t1 = 1.0;
 	} else {
 		t1 = (sin(arg1)/arg1);                //defn for CSPP model sin(arg1)/arg1    test:  (sin(arg1)/arg1)*(sin(arg1)/arg1)   
 	}
 	if(arg2==0){
-		t2 = 1;
+		t2 = 1.0;
 	} else {
 		t2 = (sin(arg2)/arg2);           //defn for CSPP model sin(arg2)/arg2   test: (sin(arg2)/arg2)*(sin(arg2)/arg2)    
 	}	
 	if(arg3==0){
-		t3 = 1;
+		t3 = 1.0;
 	} else {
 		t3 = sin(arg3)/arg3;
 	}
 	if(arg4==0){
-		t4 = 1;
+		t4 = 1.0;
 	} else {
 		t4 = sin(arg4)/arg4;
 	}
-	retval =( dr0*t1*t2*Vin + drA*(t3-t1)*t2*V1+ drB*t1*(t4-t2)*V2 )*( dr0*t1*t2*Vin + drA*(t3-t1)*t2*V1+ drB*t1*(t4-t2)*V2 );   //  correct FF : square of sum of phase factors
+	retVal =( dr0*t1*t2*Vin + drA*(t3-t1)*t2*V1+ drB*t1*(t4-t2)*V2 )*( dr0*t1*t2*Vin + drA*(t3-t1)*t2*V1+ drB*t1*(t4-t2)*V2 );   //  correct FF : square of sum of phase factors
 	return(retVal); 
-	
-
 
 }
+
+/*	CSParallelepiped  :  calculates the form factor of a Parallelepiped with a core-shell structure
+ -- different SLDs can be used for the face and rim
+
+Uses 76 pt Gaussian quadrature for both integrals
+*/
+double
+CSParallelepiped(double dp[], double q)
+{
+	int i,j;
+	double scale,aa,bb,cc,ta,tb,tc,rhoA,rhoB,rhoC,rhoP,rhosolv,bkg;		//local variables of coefficient wave
+	int nordi=76;			//order of integration
+	int nordj=76;
+	double va,vb;		//upper and lower integration limits
+	double summ,yyy,answer;			//running tally of integration
+	double summj,vaj,vbj;			//for the inner integration
+	double mu,mudum,arg,sigma,uu,vol;
+	
+	
+	//	Pi = 4.0*atan(1.0);
+	va = 0.0;
+	vb = 1.0;		//orintational average, outer integral
+	vaj = 0.0;
+	vbj = 1.0;		//endpoints of inner integral
+	
+	summ = 0.0;			//initialize intergral
+	
+	scale = dp[0];
+	aa = dp[1];
+	bb = dp[2];
+	cc = dp[3];
+	ta  = dp[4];
+	tb  = dp[5];
+	tc  = dp[6];   // is 0 at the moment  
+	rhoA=dp[7];   //rim A SLD
+	rhoB=dp[8];   //rim B SLD
+	rhoC=dp[9];    //rim C SLD
+	rhoP = dp[10];   //Parallelpiped core SLD
+	rhosolv=dp[11];  // Solvent SLD
+	bkg = dp[12];
+	
+	mu = q*bb;
+	vol = aa*bb*cc+2.0*ta*bb*cc+2.0*aa*tb*cc+2.0*aa*bb*tc;		//calculate volume before rescaling
+	
+	// do the rescaling here, not in the kernel
+	// normalize all WRT bb
+	aa = aa/bb;
+	cc = cc/bb;
+	
+	for(i=0;i<nordi;i++) {
+		//setup inner integral over the ellipsoidal cross-section
+		summj=0;
+		sigma = ( Gauss76Z[i]*(vb-va) + va + vb )/2.0;		//the outer dummy
+		
+		for(j=0;j<nordj;j++) {
+			//76 gauss points for the inner integral
+			uu = ( Gauss76Z[j]*(vbj-vaj) + vaj + vbj )/2.0;		//the inner dummy
+			mudum = mu*sqrt(1.0-sigma*sigma);
+			yyy = Gauss76Wt[j] * CSPPKernel(dp,mudum,uu);
+			summj += yyy;
+		}
+		//now calculate the value of the inner integral
+		answer = (vbj-vaj)/2.0*summj;
+		
+		//finish the outer integral cc already scaled
+		arg = mu*cc*sigma/2.0;
+		if ( arg == 0 ) {
+			answer *= 1.0;
+		} else {
+			answer *= sin(arg)*sin(arg)/arg/arg;
+		}
+		
+		//now sum up the outer integral
+		yyy = Gauss76Wt[i] * answer;
+		summ += yyy;
+	}		//final scaling is done at the end of the function, after the NT_FP64 case
+	
+	answer = (vb-va)/2.0*summ;
+
+	//normalize by volume
+	answer /= vol;
+	//convert to [cm-1]
+	answer *= 1.0e8;
+	//Scale
+	answer *= scale;
+	// add in the background
+	answer += bkg;
+	
+	return answer;
+}
+

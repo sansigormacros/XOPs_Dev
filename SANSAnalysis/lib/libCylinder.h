@@ -63,8 +63,7 @@ double ConvLens_kernel(double w[], double x, double tt, double theta);
 double Dumb_kernel(double w[], double x, double tt, double theta);
 double BicelleKernel(double qq, double rad, double radthick, double facthick, double rhoc, double rhoh, double rhor, double rhosolv, double length, double dum);
 double BicelleIntegration(double qq, double rad, double radthick, double facthick, double rhoc, double rhoh, double rhor, double rhosolv, double length);
-double CSPP_Outer(double *, double q, double dum);
-double CSPP_Inner(double *, double mu, double uu);
+double CSPPKernel(double dp[], double mu, double uu);
 
 /////////functions for WRC implementation of flexible cylinders
 static double Sk_WR(double q, double L, double b);
