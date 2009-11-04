@@ -319,12 +319,15 @@ RegisterFunction()
 			return((long)GaussianShellX);			// This function is called using the direct method.
 			break;
 		case 92:							// y = f(c,y,x)
+			return((long)FuzzySpheresX);			// This function is called using the direct method.
+			break;
+		case 93:							// y = f(c,y,x)
 			return((long)PolyCoreBicelleX);			// This function is called using the direct method.
 			break;
-		case 93:
-			return((long)CSParallelepipedX);
+		case 94:							// y = f(c,y,x)
+			return((long)CSParallelepipedX);			// This function is called using the direct method.
 			break;
-			
+
 	}
 	return NIL;
 }

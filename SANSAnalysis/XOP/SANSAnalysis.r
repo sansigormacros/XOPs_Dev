@@ -1,5 +1,5 @@
-/*	CylinderFit.r -- resources for CylinderFit
-//now compatible with Project Builder
+/*	SANSAnalysis.r -- resources for SANSAnalysis
+//now compatible with XCode
 */
 
 #include "XOPStandardHeaders.r"
@@ -31,7 +31,7 @@ resource 'STR#' (1101) {					// Misc strings for XOP.
 {
 	"-1",								// -1 means we don't want to add a menu item.
 	"No Menu Item",						// Igor ignores item 2 because item 1 is -1.
-	"SANS_Model_Docs_v3.01",					// Name of XOP's help file.
+	"SANS_Model_Docs_v4.10",					// Name of XOP's help file.
 }
 };
 
@@ -815,14 +815,8 @@ resource 'XOPF' (1100) {
 			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
 			NT_FP64,					/* double precision x */
 		},
-		"PolyCoreBicelleX",		//case # 92
-		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
-		NT_FP64,						/* return value type */			
-		{
-			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
-			NT_FP64,					/* double precision x */
-		},
-		"CSParallelepipedX",		//case # 92
+
+		"FuzzySpheresX",		//case # 92
 		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
 		NT_FP64,						/* return value type */			
 		{
@@ -830,5 +824,23 @@ resource 'XOPF' (1100) {
 			NT_FP64,					/* double precision x */
 		},
 
+		"PolyCoreBicelleX",		//case # 93
+		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
+		NT_FP64,						/* return value type */			
+		{
+			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
+			NT_FP64,					/* double precision x */
+		},
+
+		"CSParallelepipedX",		//case # 94
+		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
+		NT_FP64,						/* return value type */			
+		{
+			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
+			NT_FP64,					/* double precision x */
+		},
+
+
 	}
+
 };

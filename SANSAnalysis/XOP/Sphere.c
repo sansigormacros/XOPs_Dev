@@ -939,3 +939,33 @@ SC_ParaCrystalX(FitParamsPtr p)
 	return 0;
 }
 
+int
+FuzzySpheresX(FitParamsPtr p)
+{
+	double *dp;				// Pointer to double precision wave data.
+	float *fp;				// Pointer to single precision wave data.
+	double q;		//local variables of coefficient wave
+	
+	if (p->waveHandle == NIL) {
+		SetNaN64(&p->result);
+		return NON_EXISTENT_WAVE;
+	}
+	
+	q= p->x;
+	
+	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
+		case NT_FP32:
+			fp= WaveData(p->waveHandle);
+			SetNaN64(&p->result);
+			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
+		case NT_FP64:
+			dp= WaveData(p->waveHandle);
+			p->result = FuzzySpheres(dp,q);
+			return 0;
+		default:								// We can't handle this wave data type.
+			SetNaN64(&p->result);
+			return REQUIRES_SP_OR_DP_WAVE;
+	}	
+	return 0;
+}
+

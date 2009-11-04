@@ -30,3 +30,4 @@ int PolyFourShellX(FitParamsPtr p);
 int BCC_ParaCrystalX(FitParamsPtr p);
 int FCC_ParaCrystalX(FitParamsPtr p);
 int SC_ParaCrystalX(FitParamsPtr p);
+int FuzzySpheresX(FitParamsPtr p);
