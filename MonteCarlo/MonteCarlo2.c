@@ -52,7 +52,7 @@ Monte_SANSX2(MC_ParamsPtr p) {
 	double *nn;				/* pointer to double precision wave data */
 //	double *MC_linear_data;				/* pointer to double precision wave data */
 	double *results;				/* pointer to double precision wave data */
-	double result;				//return value
+	double retVal;				//return value
 
 	long imon;
 	double r1,r2,xCtr,yCtr,sdd,pixSize,thick,wavelength,sig_incoh,sig_sas;
@@ -88,39 +88,39 @@ Monte_SANSX2(MC_ParamsPtr p) {
 		
 	/* check that wave handles are all valid */
 	if (p->inputWaveH == NIL) {
-		SetNaN64(&p->result);					/* return NaN if wave is not valid */
+		SetNaN64(&p->retVal);					/* return NaN if wave is not valid */
 		return(NON_EXISTENT_WAVE);
 	}
 	if (p->ran_devH == NIL) {
-		SetNaN64(&p->result);					/* return NaN if wave is not valid */
+		SetNaN64(&p->retVal);					/* return NaN if wave is not valid */
 		return(NON_EXISTENT_WAVE);
 	}	
 	if (p->ntH == NIL) {
-		SetNaN64(&p->result);					/* return NaN if wave is not valid */
+		SetNaN64(&p->retVal);					/* return NaN if wave is not valid */
 		return(NON_EXISTENT_WAVE);
 	}
 	if (p->j1H == NIL) {
-		SetNaN64(&p->result);					/* return NaN if wave is not valid */
+		SetNaN64(&p->retVal);					/* return NaN if wave is not valid */
 		return(NON_EXISTENT_WAVE);
 	}
 	if (p->j2H == NIL) {
-		SetNaN64(&p->result);					/* return NaN if wave is not valid */
+		SetNaN64(&p->retVal);					/* return NaN if wave is not valid */
 		return(NON_EXISTENT_WAVE);
 	}
 	if (p->nnH == NIL) {
-		SetNaN64(&p->result);					/* return NaN if wave is not valid */
+		SetNaN64(&p->retVal);					/* return NaN if wave is not valid */
 		return(NON_EXISTENT_WAVE);
 	}
 	if (p->MC_linear_dataH == NIL) {
-		SetNaN64(&p->result);					/* return NaN if wave is not valid */
+		SetNaN64(&p->retVal);					/* return NaN if wave is not valid */
 		return(NON_EXISTENT_WAVE);
 	}
 	if (p->resultsH == NIL) {
-		SetNaN64(&p->result);					/* return NaN if wave is not valid */
+		SetNaN64(&p->retVal);					/* return NaN if wave is not valid */
 		return(NON_EXISTENT_WAVE);
 	}
 	
-	p->result = 0;
+	p->retVal = 0;
 	
 // trusting that all inputs are DOUBLE PRECISION WAVES!!!
 	inputWave = WaveData(p->inputWaveH);
@@ -159,8 +159,8 @@ Monte_SANSX2(MC_ParamsPtr p) {
 	yCtr_long = round(yCtr);
 	
 	dummy = MDGetWaveScaling(p->ran_devH, 0, &delta, &left);		//0 is the rows
-	if (result = MDGetWaveDimensions(p->ran_devH, &numDimensions, dimensionSizes))
-		return result;
+	if (retVal = MDGetWaveDimensions(p->ran_devH, &numDimensions, dimensionSizes))
+		return retVal;
 	numRows_ran_dev = dimensionSizes[0];
 	
 	pi = 4.0*atan(1.0);	
@@ -175,13 +175,13 @@ Monte_SANSX2(MC_ParamsPtr p) {
 //		return NO_COMPLEX_WAVE;
 //	if (waveType==TEXT_WAVE_TYPE)
 //		return NUMERIC_ACCESS_ON_TEXT_WAVE;
-//	if (result = MDGetWaveDimensions(wavH, &numDimensions, dimensionSizes))
-//		return result;
+//	if (retVal = MDGetWaveDimensions(wavH, &numDimensions, dimensionSizes))
+//		return retVal;
 //	numRows = dimensionSizes[0];
 //	numColumns = dimensionSizes[1];
 	
-//	if (result = MDAccessNumericWaveData(wavH, kMDWaveAccessMode0, &dataOffset))
-//		return result;
+//	if (retVal = MDAccessNumericWaveData(wavH, kMDWaveAccessMode0, &dataOffset))
+//		return retVal;
 		
 //	hState = MoveLockHandle(wavH);		// So wave data can't move. Remember to call HSetState when done.
 //	dataStartPtr = (char*)(*wavH) + dataOffset;
@@ -231,7 +231,7 @@ Monte_SANSX2(MC_ParamsPtr p) {
 	do {
 		////SpinProcess() IS A CALLBACK, and not good for Threading!
 //		if ((n1 % 1000 == 0) && gCallSpinProcess && SpinProcess()) {		// Spins cursor and allows background processing.
-//				result = -1;								// User aborted.
+//				retVal = -1;								// User aborted.
 //				break;
 //		}
 	
@@ -328,11 +328,11 @@ Monte_SANSX2(MC_ParamsPtr p) {
 				MemClear(indices, sizeof(indices)); // Must be 0 for unused dimensions.
 				indices[0] =index;			//this sets access to nn[index]
 				if (index <= n_index) {
-					if (result = MDGetNumericWavePointValue(p->nnH, indices, value))
-						return result;
+					if (retVal = MDGetNumericWavePointValue(p->nnH, indices, value))
+						return retVal;
 					value[0] += 1; // add one to the value
-					if (result = MDSetNumericWavePointValue(p->nnH, indices, value))
-						return result;
+					if (retVal = MDSetNumericWavePointValue(p->nnH, indices, value))
+						return retVal;
 				//	nn[index] += 1;
 				}
 												
@@ -353,11 +353,11 @@ Monte_SANSX2(MC_ParamsPtr p) {
 						MemClear(indices, sizeof(indices)); // Must be 0 for unused dimensions.
 						indices[0] = xPixel;
 						indices[1] = yPixel;
-						if (result = MDGetNumericWavePointValue(wavH, indices, value))
-							return result;
+						if (retVal = MDGetNumericWavePointValue(wavH, indices, value))
+							return retVal;
 						value[0] += 1; // Real part
-						if (result = MDSetNumericWavePointValue(wavH, indices, value))
-							return result;
+						if (retVal = MDSetNumericWavePointValue(wavH, indices, value))
+							return retVal;
 						//if(index==1)  // only the single scattering events
 							//dp = dp0 + xPixel + yPixel*numColumns;		//offset the pointer to the exact memory location
 							//*dp += 1;		//increment the value there
@@ -417,11 +417,11 @@ Monte_SANSX2(MC_ParamsPtr p) {
 						if(indices[1] > 127) indices[1] = 127;
 						if(indices[1] < 0) indices[1] = 0;
 						
-						if (result = MDGetNumericWavePointValue(wavH, indices, value))
-							return result;
+						if (retVal = MDGetNumericWavePointValue(wavH, indices, value))
+							return retVal;
 						value[0] += 1; // Real part
-						if (result = MDSetNumericWavePointValue(wavH, indices, value))
-							return result;
+						if (retVal = MDSetNumericWavePointValue(wavH, indices, value))
+							return retVal;
 					}	
 			}
 		 } while (!done);
@@ -432,36 +432,36 @@ Monte_SANSX2(MC_ParamsPtr p) {
 	MemClear(indices, sizeof(indices)); // Must be 0 for unused dimensions.
 	value[0] = (double)n1;
 	indices[0] = 0;
-	if (result = MDSetNumericWavePointValue(p->resultsH, indices, value))
-		return result;
+	if (retVal = MDSetNumericWavePointValue(p->resultsH, indices, value))
+		return retVal;
 	value[0] = (double)n2;
 	indices[0] = 1;
-	if (result = MDSetNumericWavePointValue(p->resultsH, indices, value))
-		return result;
+	if (retVal = MDSetNumericWavePointValue(p->resultsH, indices, value))
+		return retVal;
 	value[0] = (double)isOn;
 	indices[0] = 2;
-	if (result = MDSetNumericWavePointValue(p->resultsH, indices, value))
-		return result;
+	if (retVal = MDSetNumericWavePointValue(p->resultsH, indices, value))
+		return retVal;
 	value[0] = (double)NScatterEvents;
 	indices[0] = 3;
-	if (result = MDSetNumericWavePointValue(p->resultsH, indices, value))
-		return result;
+	if (retVal = MDSetNumericWavePointValue(p->resultsH, indices, value))
+		return retVal;
 	value[0] = (double)NSingleCoherent;
 	indices[0] = 4;
-	if (result = MDSetNumericWavePointValue(p->resultsH, indices, value))
-		return result;
+	if (retVal = MDSetNumericWavePointValue(p->resultsH, indices, value))
+		return retVal;
 	value[0] = (double)NMultipleCoherent;
 	indices[0] = 5;
-	if (result = MDSetNumericWavePointValue(p->resultsH, indices, value))
-		return result;
+	if (retVal = MDSetNumericWavePointValue(p->resultsH, indices, value))
+		return retVal;
 	value[0] = (double)NMultipleScatter;
 	indices[0] = 6;
-	if (result = MDSetNumericWavePointValue(p->resultsH, indices, value))
-		return result;	
+	if (retVal = MDSetNumericWavePointValue(p->resultsH, indices, value))
+		return retVal;	
 	value[0] = (double)NCoherentEvents;
 	indices[0] = 7;
-	if (result = MDSetNumericWavePointValue(p->resultsH, indices, value))
-		return result;
+	if (retVal = MDSetNumericWavePointValue(p->resultsH, indices, value))
+		return retVal;
 
 //	HSetState((Handle)wavH, hState);		//release the handle of the 2D data wave
 //	WaveHandleModified(wavH);			// Inform Igor that we have changed the wave. (CALLBACK! needed, but not allowed in Threading)
