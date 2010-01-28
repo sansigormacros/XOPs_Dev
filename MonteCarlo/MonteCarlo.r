@@ -62,5 +62,46 @@ resource 'XOPF' (1100) {
 			NT_FP64 + WAVE_TYPE,
 		},
 		
+		"DebyeSpheresX",						/* function name */
+		F_UTIL | F_THREADSAFE | F_EXTERNAL,				/* function category == Utility */
+		NT_FP64,							/* return value type */	
+		{
+						NT_FP64,			/* single precision wave (q-wave) */
+			NT_FP32 + WAVE_TYPE,				/* single precision wave (x coordinates) */
+			NT_FP32 + WAVE_TYPE,				/* single precision wave (y coordinates) */
+			NT_FP32 + WAVE_TYPE,				/* single precision wave (z coordinates) */
+			NT_FP32 + WAVE_TYPE,				/* single precision wave (rho at xyz) */
+                        NT_FP64,				// Rprimary, the primary sphere radius
+                        NT_FP64,				// grid, should be passed as 0.62*Rprimary
+		},
+		
+		"Monte_SANSX3",		/* function name */
+		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
+		NT_FP64,							/* return value type */			
+		{
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,
+		},
+		
+		"Monte_SANSX4",		/* function name */
+		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
+		NT_FP64,							/* return value type */			
+		{
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,
+		},
+		
 	}
 };

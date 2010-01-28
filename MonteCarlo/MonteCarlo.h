@@ -40,7 +40,7 @@ struct MC_Params {     // This structure must be 2-byte-aligned because it recei
 	waveHndl ran_devH;
 	waveHndl inputWaveH;
 	void* tp;				//unused void for ThreadSafe functions
-	double result;		// return value is unused, save for error if needed
+	double retVal;		// return value is unused, save for error if needed
 };
 typedef struct MC_Params MC_Params;
 typedef struct MC_Params *MC_ParamsPtr;
@@ -51,9 +51,13 @@ typedef struct MC_Params *MC_ParamsPtr;
 // function prototypes
 int Monte_SANSX(MC_ParamsPtr p);
 int Monte_SANSX2(MC_ParamsPtr p);
+int Monte_SANSX3(MC_ParamsPtr p);
+int Monte_SANSX4(MC_ParamsPtr p);
 int FindPixel(double testQ, double testPhi, double lam, double sdd, double pixSize, double xCtr, double yCtr, long *xPixel, long *yPixel);
 int NewDirection(double *vx, double *vy, double *vz, double theta, double phi);
 double path_len(double aval, double sig_tot);
 float ran1(long *idum);
 float ran3(long *idum);
+float ran1a(long *idum);
+float ran3a(long *idum);
 double locate_interp(double xx[], long n, double x);

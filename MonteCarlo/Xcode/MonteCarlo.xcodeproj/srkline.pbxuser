@@ -2,100 +2,160 @@
 {
 	0651C06A0EDDC6E300823BAB /* MonteCarlo2.c */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {900, 6622}}";
-			sepNavSelRange = "{1836, 6}";
-			sepNavVisRect = "{{0, 547}, {900, 404}}";
+			sepNavIntBoundsRect = "{{0, 0}, {900, 18424}}";
+			sepNavSelRange = "{613, 4}";
+			sepNavVisRect = "{{0, 0}, {900, 736}}";
 		};
 	};
-	0651C0720EDDDEDD00823BAB /* PBXTextBookmark */ = {
+	067461511111FE60007269DF /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
-		fRef = 06C8DC600EA7CB1600E49E7B /* MonteCarlo.h */;
-		name = "MonteCarlo.h: FindPixel";
+		fRef = 06DA0F6710D81DD000ACEE13 /* DebyeSpheres.h */;
+		name = "DebyeSpheres.h: 8";
 		rLen = 0;
-		rLoc = 1185;
+		rLoc = 125;
 		rType = 0;
-		vrLen = 1344;
-		vrLoc = 225;
+		vrLen = 301;
+		vrLoc = 442;
 	};
-	0651C0730EDDDEDD00823BAB /* PBXTextBookmark */ = {
+	067461531111FE60007269DF /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
-		fRef = AA53F5630587C7410055F2C1 /* MonteCarlo.r */;
-		name = "MonteCarlo.r: 51";
+		fRef = 06DA0F6710D81DD000ACEE13 /* DebyeSpheres.h */;
+		name = "DebyeSpheres.h: 8";
 		rLen = 0;
-		rLoc = 1288;
+		rLoc = 125;
 		rType = 0;
-		vrLen = 1042;
-		vrLoc = 601;
+		vrLen = 301;
+		vrLoc = 442;
 	};
-	06628CBB1092384D00F7FB01 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 0651C06A0EDDC6E300823BAB /* MonteCarlo2.c */;
-		name = "MonteCarlo2.c: 398";
-		rLen = 186;
-		rLoc = 13752;
-		rType = 0;
-		vrLen = 1132;
-		vrLoc = 15248;
-	};
-	06628CBC1092384D00F7FB01 /* PBXTextBookmark */ = {
+	0674615F11120540007269DF /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 06C8DC5F0EA7CB1600E49E7B /* MonteCarlo.c */;
-		name = "MonteCarlo.c: 616";
+		name = "MonteCarlo.c: 805";
 		rLen = 0;
-		rLoc = 19155;
+		rLoc = 22547;
 		rType = 0;
-		vrLen = 603;
-		vrLoc = 18736;
+		vrLen = 436;
+		vrLoc = 21164;
 	};
-	06863A521059483A003A0897 /* PBXTextBookmark */ = {
+	0674616011120540007269DF /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = AA53F5630587C7410055F2C1 /* MonteCarlo.r */;
+		name = "MonteCarlo.r: 92";
+		rLen = 0;
+		rLoc = 2679;
+		rType = 0;
+		vrLen = 1511;
+		vrLoc = 1389;
+	};
+	0674616111120540007269DF /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 0651C06A0EDDC6E300823BAB /* MonteCarlo2.c */;
 		name = "MonteCarlo2.c: 378";
 		rLen = 0;
-		rLoc = 13144;
+		rLoc = 12467;
 		rType = 0;
-		vrLen = 1374;
-		vrLoc = 12385;
+		vrLen = 1966;
+		vrLoc = 11158;
 	};
-	06863A531059483A003A0897 /* PBXTextBookmark */ = {
+	0674616211120540007269DF /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 06C8DC5F0EA7CB1600E49E7B /* MonteCarlo.c */;
+		name = "MonteCarlo.c: 700";
+		rLen = 0;
+		rLoc = 20583;
+		rType = 0;
+		vrLen = 476;
+		vrLoc = 20486;
+	};
+	0674616311120540007269DF /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 0651C06A0EDDC6E300823BAB /* MonteCarlo2.c */;
+		name = "MonteCarlo2.c: 378";
+		rLen = 0;
+		rLoc = 12467;
+		rType = 0;
+		vrLen = 1071;
+		vrLoc = 11569;
+	};
+	0674616411120540007269DF /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 06C8DC5F0EA7CB1600E49E7B /* MonteCarlo.c */;
+		name = "MonteCarlo.c: 805";
+		rLen = 0;
+		rLoc = 22547;
+		rType = 0;
+		vrLen = 436;
+		vrLoc = 21164;
+	};
+	0674616511120540007269DF /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = AA53F5630587C7410055F2C1 /* MonteCarlo.r */;
-		name = "MonteCarlo.r: 39";
+		name = "MonteCarlo.r: 92";
 		rLen = 0;
-		rLoc = 1027;
+		rLoc = 2679;
 		rType = 0;
-		vrLen = 1028;
-		vrLoc = 601;
+		vrLen = 1511;
+		vrLoc = 1389;
+	};
+	0674616711120540007269DF /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 06C8DC5F0EA7CB1600E49E7B /* MonteCarlo.c */;
+		name = "MonteCarlo.c: 683";
+		rLen = 0;
+		rLoc = 22073;
+		rType = 0;
+		vrLen = 223;
+		vrLoc = 20252;
+	};
+	0674616811120540007269DF /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 06C8DC600EA7CB1600E49E7B /* MonteCarlo.h */;
+		name = "MonteCarlo.h: 15";
+		rLen = 0;
+		rLoc = 224;
+		rType = 0;
+		vrLen = 388;
+		vrLoc = 682;
+	};
+	0674616911120540007269DF /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 06C8DC5F0EA7CB1600E49E7B /* MonteCarlo.c */;
+		name = "MonteCarlo.c: 683";
+		rLen = 0;
+		rLoc = 22073;
+		rType = 0;
+		vrLen = 223;
+		vrLoc = 20252;
+	};
+	0674616D11120725007269DF /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 0651C06A0EDDC6E300823BAB /* MonteCarlo2.c */;
+		name = ran1;
+		rLen = 4;
+		rLoc = 613;
+		rType = 0;
+		vrLen = 1853;
+		vrLoc = 0;
+	};
+	0674616E11120725007269DF /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 06C8DC600EA7CB1600E49E7B /* MonteCarlo.h */;
+		name = "MonteCarlo.h: Monte_SANSX4";
+		rLen = 0;
+		rLoc = 1253;
+		rType = 0;
+		vrLen = 643;
+		vrLoc = 991;
 	};
 	06863A561059483A003A0897 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 0651C06A0EDDC6E300823BAB /* MonteCarlo2.c */;
 		name = "MonteCarlo2.c: 378";
 		rLen = 0;
-		rLoc = 13144;
+		rLoc = 12467;
 		rType = 0;
 		vrLen = 1374;
 		vrLoc = 12385;
-	};
-	06BEBC1010A075AA00F47EA7 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 0651C06A0EDDC6E300823BAB /* MonteCarlo2.c */;
-		name = result;
-		rLen = 6;
-		rLoc = 1836;
-		rType = 0;
-		vrLen = 1016;
-		vrLoc = 1294;
-	};
-	06BEBC1110A075AA00F47EA7 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 06C8DC5F0EA7CB1600E49E7B /* MonteCarlo.c */;
-		name = "MonteCarlo.c: 27";
-		rLen = 0;
-		rLoc = 739;
-		rType = 0;
-		vrLen = 1608;
-		vrLoc = 380;
 	};
 	06C8DBF40EA7B37900E49E7B /* Source Control */ = {
 		isa = PBXSourceControlManager;
@@ -111,16 +171,16 @@
 	};
 	06C8DC5F0EA7CB1600E49E7B /* MonteCarlo.c */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1004, 10346}}";
-			sepNavSelRange = "{739, 0}";
-			sepNavVisRect = "{{0, 203}, {900, 589}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1142, 11872}}";
+			sepNavSelRange = "{22498, 31}";
+			sepNavVisRect = "{{0, 11136}, {1142, 256}}";
 		};
 	};
 	06C8DC600EA7CB1600E49E7B /* MonteCarlo.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {900, 840}}";
-			sepNavSelRange = "{1185, 0}";
-			sepNavVisRect = "{{0, 211}, {900, 615}}";
+			sepNavIntBoundsRect = "{{0, 0}, {900, 896}}";
+			sepNavSelRange = "{1253, 0}";
+			sepNavVisRect = "{{0, 610}, {900, 258}}";
 		};
 	};
 	06C8DC6F0EA7CD8C00E49E7B /* XCBreakpointsBucket */ = {
@@ -179,28 +239,82 @@
 		vrLen = 128;
 		vrLoc = 0;
 	};
-	06C8DD2B0EA7E5C900E49E7B /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 06C8DC5F0EA7CB1600E49E7B /* MonteCarlo.c */;
-		name = "MonteCarlo.c: 48";
-		rLen = 0;
-		rLoc = 1963;
-		rType = 0;
-		vrLen = 676;
-		vrLoc = 3322;
+	06DA0F6610D81DD000ACEE13 /* DebyeSpheres.c */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {900, 1974}}";
+			sepNavSelRange = "{1804, 0}";
+			sepNavVisRect = "{{0, 948}, {900, 807}}";
+		};
 	};
-	06FC64500EBF4BDA00F1F7E9 /* PBXTextBookmark */ = {
+	06DA0F6710D81DD000ACEE13 /* DebyeSpheres.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {900, 392}}";
+			sepNavSelRange = "{125, 0}";
+			sepNavVisRect = "{{0, 210}, {900, 117}}";
+		};
+	};
+	06DA0F6C10D81F9400ACEE13 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = AA53F5630587C7410055F2C1 /* MonteCarlo.r */;
+		name = "MonteCarlo.r: 51";
+		rLen = 0;
+		rLoc = 1285;
+		rType = 0;
+		vrLen = 1138;
+		vrLoc = 1100;
+	};
+	06DA0F7410D81F9400ACEE13 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 06DA0F6710D81DD000ACEE13 /* DebyeSpheres.h */;
+		name = "DebyeSpheres.h: 11";
+		rLen = 0;
+		rLoc = 157;
+		rType = 0;
+		vrLen = 777;
+		vrLoc = 0;
+	};
+	06DA0F8810D8253900ACEE13 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 0651C06A0EDDC6E300823BAB /* MonteCarlo2.c */;
+		name = "MonteCarlo2.c: 378";
+		rLen = 0;
+		rLoc = 12467;
+		rType = 0;
+		vrLen = 2660;
+		vrLoc = 11569;
+	};
+	06DA0F8C10D8253900ACEE13 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 06DA0F6610D81DD000ACEE13 /* DebyeSpheres.c */;
+		name = "DebyeSpheres.c: 192";
+		rLen = 0;
+		rLoc = 2328;
+		rType = 0;
+		vrLen = 0;
+		vrLoc = 3284;
+	};
+	06DA0FC910D83CCB00ACEE13 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 06C8DC600EA7CB1600E49E7B /* MonteCarlo.h */;
-		name = "MonteCarlo.h: Monte_SANSX2";
+		name = "MonteCarlo.h: 15";
 		rLen = 0;
-		rLoc = 1203;
+		rLoc = 224;
 		rType = 0;
-		vrLen = 1535;
+		vrLen = 1093;
+		vrLoc = 476;
+	};
+	06DA0FCA10D83CCB00ACEE13 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 06DA0F6610D81DD000ACEE13 /* DebyeSpheres.c */;
+		name = "DebyeSpheres.c: 19";
+		rLen = 0;
+		rLoc = 452;
+		rType = 0;
+		vrLen = 1169;
 		vrLoc = 0;
 	};
 	089C1669FE841209C02AAC07 /* Project object */ = {
-		activeBuildConfigurationName = Default;
+		activeBuildConfigurationName = Release;
 		activeBuildStyle = 4F9091AC011F3BD104CA0E50 /* Development */;
 		activeTarget = 8D01CCC60486CAD60068D4B7 /* MonteCarlo */;
 		addToTargets = (
@@ -255,36 +369,53 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 278950944;
-			PBXWorkspaceStateSaveDate = 278950944;
+			PBXPerProjectTemplateStateSaveDate = 286391858;
+			PBXWorkspaceStateSaveDate = 286391858;
 		};
 		perUserProjectItems = {
-			0651C0720EDDDEDD00823BAB /* PBXTextBookmark */ = 0651C0720EDDDEDD00823BAB /* PBXTextBookmark */;
-			0651C0730EDDDEDD00823BAB /* PBXTextBookmark */ = 0651C0730EDDDEDD00823BAB /* PBXTextBookmark */;
-			06628CBB1092384D00F7FB01 /* PBXTextBookmark */ = 06628CBB1092384D00F7FB01 /* PBXTextBookmark */;
-			06628CBC1092384D00F7FB01 /* PBXTextBookmark */ = 06628CBC1092384D00F7FB01 /* PBXTextBookmark */;
-			06863A521059483A003A0897 /* PBXTextBookmark */ = 06863A521059483A003A0897 /* PBXTextBookmark */;
-			06863A531059483A003A0897 /* PBXTextBookmark */ = 06863A531059483A003A0897 /* PBXTextBookmark */;
+			067461511111FE60007269DF /* PBXTextBookmark */ = 067461511111FE60007269DF /* PBXTextBookmark */;
+			067461531111FE60007269DF /* PBXTextBookmark */ = 067461531111FE60007269DF /* PBXTextBookmark */;
+			0674615F11120540007269DF /* PBXTextBookmark */ = 0674615F11120540007269DF /* PBXTextBookmark */;
+			0674616011120540007269DF /* PBXTextBookmark */ = 0674616011120540007269DF /* PBXTextBookmark */;
+			0674616111120540007269DF /* PBXTextBookmark */ = 0674616111120540007269DF /* PBXTextBookmark */;
+			0674616211120540007269DF /* PBXTextBookmark */ = 0674616211120540007269DF /* PBXTextBookmark */;
+			0674616311120540007269DF /* PBXTextBookmark */ = 0674616311120540007269DF /* PBXTextBookmark */;
+			0674616411120540007269DF /* PBXTextBookmark */ = 0674616411120540007269DF /* PBXTextBookmark */;
+			0674616511120540007269DF /* PBXTextBookmark */ = 0674616511120540007269DF /* PBXTextBookmark */;
+			0674616711120540007269DF /* PBXTextBookmark */ = 0674616711120540007269DF /* PBXTextBookmark */;
+			0674616811120540007269DF /* PBXTextBookmark */ = 0674616811120540007269DF /* PBXTextBookmark */;
+			0674616911120540007269DF /* PBXTextBookmark */ = 0674616911120540007269DF /* PBXTextBookmark */;
+			0674616D11120725007269DF /* PBXTextBookmark */ = 0674616D11120725007269DF /* PBXTextBookmark */;
+			0674616E11120725007269DF /* PBXTextBookmark */ = 0674616E11120725007269DF /* PBXTextBookmark */;
 			06863A561059483A003A0897 /* PBXTextBookmark */ = 06863A561059483A003A0897 /* PBXTextBookmark */;
-			06BEBC1010A075AA00F47EA7 /* PBXTextBookmark */ = 06BEBC1010A075AA00F47EA7 /* PBXTextBookmark */;
-			06BEBC1110A075AA00F47EA7 /* PBXTextBookmark */ = 06BEBC1110A075AA00F47EA7 /* PBXTextBookmark */;
 			06C8DC810EA7CF3000E49E7B /* PBXTextBookmark */ = 06C8DC810EA7CF3000E49E7B /* PBXTextBookmark */;
 			06C8DC820EA7CF3000E49E7B /* PBXTextBookmark */ = 06C8DC820EA7CF3000E49E7B /* PBXTextBookmark */;
 			06C8DC850EA7CF3000E49E7B /* PBXTextBookmark */ = 06C8DC850EA7CF3000E49E7B /* PBXTextBookmark */;
 			06C8DC860EA7CF3000E49E7B /* PBXTextBookmark */ = 06C8DC860EA7CF3000E49E7B /* PBXTextBookmark */;
 			06C8DCE60EA7D5DA00E49E7B /* PBXTextBookmark */ = 06C8DCE60EA7D5DA00E49E7B /* PBXTextBookmark */;
-			06C8DD2B0EA7E5C900E49E7B /* PBXTextBookmark */ = 06C8DD2B0EA7E5C900E49E7B /* PBXTextBookmark */;
-			06FC64500EBF4BDA00F1F7E9 /* PBXTextBookmark */ = 06FC64500EBF4BDA00F1F7E9 /* PBXTextBookmark */;
+			06DA0F6C10D81F9400ACEE13 /* PBXTextBookmark */ = 06DA0F6C10D81F9400ACEE13 /* PBXTextBookmark */;
+			06DA0F7410D81F9400ACEE13 /* PBXTextBookmark */ = 06DA0F7410D81F9400ACEE13 /* PBXTextBookmark */;
+			06DA0F8810D8253900ACEE13 /* PBXTextBookmark */ = 06DA0F8810D8253900ACEE13 /* PBXTextBookmark */;
+			06DA0F8C10D8253900ACEE13 /* PBXTextBookmark */ = 06DA0F8C10D8253900ACEE13 /* PBXTextBookmark */;
+			06DA0FC910D83CCB00ACEE13 /* PBXTextBookmark */ = 06DA0FC910D83CCB00ACEE13 /* PBXTextBookmark */;
+			06DA0FCA10D83CCB00ACEE13 /* PBXTextBookmark */ = 06DA0FCA10D83CCB00ACEE13 /* PBXTextBookmark */;
 		};
 		sourceControlManager = 06C8DBF40EA7B37900E49E7B /* Source Control */;
 		userBuildSettings = {
 		};
 	};
+	089C167EFE841241C02AAC07 /* English */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1142, 429}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRect = "{{0, 0}, {1142, 429}}";
+		};
+	};
 	32BAE0B30371A71500C91783 /* MonteCarlo_Prefix.pch */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {919, 726}}";
+			sepNavIntBoundsRect = "{{0, 0}, {900, 488}}";
 			sepNavSelRange = "{128, 0}";
-			sepNavVisRect = "{{0, 0}, {919, 726}}";
+			sepNavVisRect = "{{0, 0}, {900, 488}}";
 			sepNavWindowFrame = "{{15, 268}, {937, 905}}";
 		};
 	};
@@ -293,9 +424,9 @@
 	};
 	AA53F5630587C7410055F2C1 /* MonteCarlo.r */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {900, 938}}";
-			sepNavSelRange = "{1027, 0}";
-			sepNavVisRect = "{{0, 329}, {900, 535}}";
+			sepNavIntBoundsRect = "{{0, 0}, {900, 1512}}";
+			sepNavSelRange = "{2679, 0}";
+			sepNavVisRect = "{{0, 729}, {900, 643}}";
 		};
 	};
 }
