@@ -145,8 +145,8 @@ SquareWellStruct(double dp[], double q)
 	eta = phis;
 	eta2 = eta*eta;
 	eta3 = eta*eta2;
-	eta4 = eta*eta3;      
-	etam1 = 1. - eta; 
+	eta4 = eta*eta3;
+	etam1 = 1. - eta;
 	etam14 = etam1*etam1*etam1*etam1;
 	alpha = (  pow((1. + 2.*eta),2) + eta3*( eta-4.0 )  )/etam14;
 	beta = -(eta/3.0) * ( 18. + 20.*eta - 12.*eta2 + eta4 )/etam14;
@@ -186,10 +186,10 @@ HayterPenfoldMSA(double dp[], double q)
 	
 	pi = 4.0*atan(1.);
 	QQ= q;
-	
-	diam=dp[0];		//in  
+
+	diam=dp[0];		//in A
 	zz = dp[1];		//# of charges
-	VolFrac=dp[2];	
+	VolFrac=dp[2];
 	Temp=dp[3];		//in degrees Kelvin
 	csalt=dp[4];		//in molarity
 	dialec=dp[5];		// unitless
@@ -390,7 +390,7 @@ sqfun(int ix, int ir)
 	dak4 = dak2*dak2;
 	d = 1.0-reta;
 	d2 = d*d;
-	dak = d/rak;                                                  
+	dak = d/rak;
 	dd2 = 1.0/d2;
 	dd4 = dd2*dd2;
 	dd45 = dd4*2.0e-1;
@@ -658,7 +658,9 @@ DiamCyl(double hcyl, double rcyl)
 	double pi;
 	
 	pi = 4.0*atan(1.0);
-	
+	if (rcyl == 0 || hcyl == 0) {
+		return 0.0;
+	}
 	a = rcyl;
 	b = hcyl/2.0;
 	t1 = a*a*2.0*b/2.0;
@@ -681,7 +683,13 @@ DiamEllip(double aa, double bb)
 {
 	
 	double ee,e1,bd,b1,bL,b2,del,ddd,diam;
-	
+
+	if (aa == 0 || bb == 0) {
+		return 0.0;
+	}
+	if (aa == bb) {
+		return 2.0*aa;
+	}
 	if(aa>bb) {
 		ee = (aa*aa - bb*bb)/(aa*aa);
 	}else{

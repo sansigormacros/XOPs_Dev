@@ -416,7 +416,7 @@ PolyGaussCoil(double dp[], double x)
 	bkg = dp[3]; 
 	
 	uval = Mw_Mn - 1.0;
-	if(uval == 0) {
+	if(uval == 0.0) {
 		uval = 1e-6;		//avoid divide by zero error
 	}
 	
@@ -452,7 +452,7 @@ GaussLorentzGel(double dp[], double x)
 	ll = dp[3];
 	bgd = dp[4]; 
 	
-	inten = Ig0*exp(-1.0*x*x*gg*gg/2.0) + Il0/(1 + (x*ll)*(x*ll)) + bgd;
+	inten = Ig0*exp(-1.0*x*x*gg*gg/2.0) + Il0/(1.0 + (x*ll)*(x*ll)) + bgd;
 	
 	return(inten);
 }
