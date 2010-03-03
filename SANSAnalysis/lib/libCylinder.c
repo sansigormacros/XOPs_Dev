@@ -1918,7 +1918,7 @@ CScyl(double qq, double rad, double radthick, double facthick, double rhoc, doub
 	}else{
 		si1 = sin(sinarg1)/sinarg1;
 	}
-	if (besarg2 == 0.0){
+	if (sinarg2 == 0.0){
 		si2 = 1.0;
 	}else{
 		si2 = sin(sinarg2)/sinarg2;
@@ -1967,7 +1967,7 @@ CoreShellCylKernel(double qq, double rcore, double thick, double rhoc, double rh
 	}else{
 		si1 = sin(sinarg1)/sinarg1;
 	}
-	if (besarg2 == 0.0){
+	if (sinarg2 == 0.0){
 		si2 = 1.0;
 	}else{
 		si2 = sin(sinarg2)/sinarg2;
@@ -2057,7 +2057,7 @@ Stackdisc_kern(double qq, double rcore, double rhoc, double rhol, double rhosolv
 	}else{
 		si1 = sin(sinarg1)/sinarg1;
 	}
-	if (besarg2 == 0.0){
+	if (sinarg2 == 0.0){
 		si2 = 1.0;
 	}else{
 		si2 = sin(sinarg2)/sinarg2;
@@ -2455,7 +2455,7 @@ Spherocylinder(double w[], double x)
 	double va,vb;		//upper and lower integration limits
 	double summ,zi,yyy,answer;			//running tally of integration
 	double summj,vaj,vbj,zij;			//for the inner integration
-	double SphCyl_tmp[7],arg1,arg2,inner;
+	double SphCyl_tmp[7],arg1,arg2,inner,be;
 	
 	
 	scale = w[0];
@@ -2505,11 +2505,17 @@ Spherocylinder(double w[], double x)
 		arg1 = x*len/2.0*cos(zi);
 		arg2 = x*rad*sin(zi);
 		yyy = inner;
+
+		if(arg2 == 0) {
+			be = 0.5;
+		} else {
+			be = NR_BessJ1(arg2)/arg2;
+		}
 		
 		if(arg1 == 0.0) {		//limiting value of sinc(0) is 1; sinc is not defined in math.h
-			yyy += Pi*rad*rad*len*2.0*NR_BessJ1(arg2)/arg2;
+			yyy += Pi*rad*rad*len*2.0*be;
 		} else {
-			yyy += Pi*rad*rad*len*sin(arg1)/arg1*2.0*NR_BessJ1(arg2)/arg2;
+			yyy += Pi*rad*rad*len*sin(arg1)/arg1*2.0*be;
 		}
 		yyy *= yyy;
 		yyy *= sin(zi);		// = |A(q)|^2*sin(theta)
@@ -2536,7 +2542,7 @@ SphCyl_kernel(double w[], double x, double tt, double theta) {
 
 	double val,arg1,arg2;
 	double scale,bkg,sldc,slds;
-	double len,rad,hDist,endRad;
+	double len,rad,hDist,endRad,be;
 	scale = w[0];
 	rad = w[1];
 	len = w[2];
@@ -2550,7 +2556,12 @@ SphCyl_kernel(double w[], double x, double tt, double theta) {
 	arg1 = x*cos(theta)*(endRad*tt+hDist+len/2.0);
 	arg2 = x*endRad*sin(theta)*sqrt(1.0-tt*tt);
 	
-	val = cos(arg1)*(1.0-tt*tt)*NR_BessJ1(arg2)/arg2;
+	if(arg2 == 0) {
+		be = 0.5;
+	} else {
+		be = NR_BessJ1(arg2)/arg2;
+	}
+	val = cos(arg1)*(1.0-tt*tt)*be;
 	
 	return(val);
 }
@@ -2572,7 +2583,7 @@ ConvexLens(double w[], double x)
 	double va,vb;		//upper and lower integration limits
 	double summ,zi,yyy,answer;			//running tally of integration
 	double summj,vaj,vbj,zij;			//for the inner integration
-	double CLens_tmp[7],arg1,arg2,inner,hh;
+	double CLens_tmp[7],arg1,arg2,inner,hh,be;
 	
 	
 	scale = w[0];
@@ -2625,10 +2636,16 @@ ConvexLens(double w[], double x)
 		arg2 = x*rad*sin(zi);
 		yyy = inner;
 		
-		if(arg1 == 0.0) {		//limiting value of sinc(0) is 1; sinc is not defined in math.h
-			yyy += Pi*rad*rad*len*2.0*NR_BessJ1(arg2)/arg2;
+		if(arg2 == 0) {
+			be = 0.5;
 		} else {
-			yyy += Pi*rad*rad*len*sin(arg1)/arg1*2.0*NR_BessJ1(arg2)/arg2;
+			be = NR_BessJ1(arg2)/arg2;
+		}
+		
+		if(arg1 == 0.0) {		//limiting value of sinc(0) is 1; sinc is not defined in math.h
+			yyy += Pi*rad*rad*len*2.0*be;
+		} else {
+			yyy += Pi*rad*rad*len*sin(arg1)/arg1*2.0*be;
 		}
 		yyy *= yyy;
 		yyy *= sin(zi);		// = |A(q)|^2*sin(theta)
@@ -2666,7 +2683,7 @@ CappedCylinder(double w[], double x)
 	double va,vb;		//upper and lower integration limits
 	double summ,zi,yyy,answer;			//running tally of integration
 	double summj,vaj,vbj,zij;			//for the inner integration
-	double arg1,arg2,inner,hh;
+	double arg1,arg2,inner,hh,be;
 	
 	
 	scale = w[0];
@@ -2709,11 +2726,20 @@ CappedCylinder(double w[], double x)
 		arg2 = x*rad*sin(zi);
 		yyy = inner;
 		
-		if(arg1 == 0.0) {		//limiting value of sinc(0) is 1; sinc is not defined in math.h
-			yyy += Pi*rad*rad*len*2.0*NR_BessJ1(arg2)/arg2;
+		if(arg2 == 0) {
+			be = 0.5;
 		} else {
-			yyy += Pi*rad*rad*len*sin(arg1)/arg1*2.0*NR_BessJ1(arg2)/arg2;
+			be = NR_BessJ1(arg2)/arg2;
 		}
+		
+		if(arg1 == 0.0) {		//limiting value of sinc(0) is 1; sinc is not defined in math.h
+			yyy += Pi*rad*rad*len*2.0*be;
+		} else {
+			yyy += Pi*rad*rad*len*sin(arg1)/arg1*2.0*be;
+		}
+		
+		
+		
 		yyy *= yyy;
 		yyy *= sin(zi);		// = |A(q)|^2*sin(theta)
 		yyy *= Gauss76Wt[i];
@@ -2741,7 +2767,7 @@ ConvLens_kernel(double w[], double x, double tt, double theta) {
 
 	double val,arg1,arg2;
 	double scale,bkg,sldc,slds;
-	double len,rad,hDist,endRad;
+	double len,rad,hDist,endRad,be;
 	scale = w[0];
 	rad = w[1];
 	len = w[2];
@@ -2755,7 +2781,13 @@ ConvLens_kernel(double w[], double x, double tt, double theta) {
 	arg1 = x*cos(theta)*(endRad*tt+hDist+len/2.0);
 	arg2 = x*endRad*sin(theta)*sqrt(1.0-tt*tt);
 	
-	val = cos(arg1)*(1.0-tt*tt)*NR_BessJ1(arg2)/arg2;
+	if(arg2 == 0) {
+		be = 0.5;
+	} else {
+		be = NR_BessJ1(arg2)/arg2;
+	}
+	
+	val = cos(arg1)*(1.0-tt*tt)*be;
 	
 	return(val);
 }
@@ -2777,7 +2809,7 @@ Dumbbell(double w[], double x)
 	double va,vb;		//upper and lower integration limits
 	double summ,zi,yyy,answer;			//running tally of integration
 	double summj,vaj,vbj,zij;			//for the inner integration
-	double Dumb_tmp[7],arg1,arg2,inner;
+	double Dumb_tmp[7],arg1,arg2,inner,be;
 	
 	
 	scale = w[0];
@@ -2830,10 +2862,16 @@ Dumbbell(double w[], double x)
 		arg2 = x*rad*sin(zi);
 		yyy = inner;
 		
-		if(arg1 == 0.0) {		//limiting value of sinc(0) is 1; sinc is not defined in math.h
-			yyy += Pi*rad*rad*len*2.0*NR_BessJ1(arg2)/arg2;
+		if(arg2 == 0) {
+			be = 0.5;
 		} else {
-			yyy += Pi*rad*rad*len*sin(arg1)/arg1*2.0*NR_BessJ1(arg2)/arg2;
+			be = NR_BessJ1(arg2)/arg2;
+		}
+		
+		if(arg1 == 0.0) {		//limiting value of sinc(0) is 1; sinc is not defined in math.h
+			yyy += Pi*rad*rad*len*2.0*be;
+		} else {
+			yyy += Pi*rad*rad*len*sin(arg1)/arg1*2.0*be;
 		}
 		yyy *= yyy;
 		yyy *= sin(zi);		// = |A(q)|^2*sin(theta)
@@ -2871,7 +2909,7 @@ Barbell(double w[], double x)
 	double va,vb;		//upper and lower integration limits
 	double summ,zi,yyy,answer;			//running tally of integration
 	double summj,vaj,vbj,zij;			//for the inner integration
-	double arg1,arg2,inner;
+	double arg1,arg2,inner,be;
 	
 	
 	scale = w[0];
@@ -2914,10 +2952,16 @@ Barbell(double w[], double x)
 		arg2 = x*rad*sin(zi);
 		yyy = inner;
 		
-		if(arg1 == 0.0) {		//limiting value of sinc(0) is 1; sinc is not defined in math.h
-			yyy += Pi*rad*rad*len*2.0*NR_BessJ1(arg2)/arg2;
+		if(arg2 == 0) {
+			be = 0.5;
 		} else {
-			yyy += Pi*rad*rad*len*sin(arg1)/arg1*2.0*NR_BessJ1(arg2)/arg2;
+			be = NR_BessJ1(arg2)/arg2;
+		}
+		
+		if(arg1 == 0.0) {		//limiting value of sinc(0) is 1; sinc is not defined in math.h
+			yyy += Pi*rad*rad*len*2.0*be;
+		} else {
+			yyy += Pi*rad*rad*len*sin(arg1)/arg1*2.0*be;
 		}
 		yyy *= yyy;
 		yyy *= sin(zi);		// = |A(q)|^2*sin(theta)
@@ -2947,7 +2991,7 @@ Dumb_kernel(double w[], double x, double tt, double theta) {
 
 	double val,arg1,arg2;
 	double scale,bkg,sldc,slds;
-	double len,rad,hDist,endRad;
+	double len,rad,hDist,endRad,be;
 	scale = w[0];
 	rad = w[1];
 	len = w[2];
@@ -2961,7 +3005,12 @@ Dumb_kernel(double w[], double x, double tt, double theta) {
 	arg1 = x*cos(theta)*(endRad*tt+hDist+len/2.0);
 	arg2 = x*endRad*sin(theta)*sqrt(1.0-tt*tt);
 	
-	val = cos(arg1)*(1.0-tt*tt)*NR_BessJ1(arg2)/arg2;
+	if(arg2 == 0) {
+		be = 0.5;
+	} else {
+		be = NR_BessJ1(arg2)/arg2;
+	}
+	val = cos(arg1)*(1.0-tt*tt)*be;
 	
 	return(val);
 }
@@ -3058,7 +3107,7 @@ BicelleKernel(double qq, double rad, double radthick, double facthick, double rh
 	double vol1,vol2,vol3;
 	double sinarg1,sinarg2;
 	double t1,t2,t3;
-	double retval;
+	double retval,si1,si2,be1,be2;
 	
 	double Pi = 4.0*atan(1.0);
 	
@@ -3073,9 +3122,29 @@ BicelleKernel(double qq, double rad, double radthick, double facthick, double rh
 	sinarg1 = qq*length*cos(dum);
 	sinarg2 = qq*(length+facthick)*cos(dum);
 	
-	t1 = 2.0*vol1*dr1*sin(sinarg1)/sinarg1*NR_BessJ1(besarg1)/besarg1;
-	t2 = 2.0*vol2*dr2*sin(sinarg2)/sinarg2*NR_BessJ1(besarg2)/besarg2;
-	t3 = 2.0*vol3*dr3*sin(sinarg2)/sinarg2*NR_BessJ1(besarg1)/besarg1;
+	if(besarg1 == 0) {
+		be1 = 0.5;
+	} else {
+		be1 = NR_BessJ1(besarg1)/besarg1;
+	}
+	if(besarg2 == 0) {
+		be2 = 0.5;
+	} else {
+		be2 = NR_BessJ1(besarg2)/besarg2;
+	}	
+	if(sinarg1 == 0) {
+		si1 = 1.0;
+	} else {
+		si1 = sin(sinarg1)/sinarg1;
+	}
+	if(sinarg2 == 0) {
+		si2 = 1.0;
+	} else {
+		si2 = sin(sinarg2)/sinarg2;
+	}
+	t1 = 2.0*vol1*dr1*si1*be1;
+	t2 = 2.0*vol2*dr2*si2*be2;
+	t3 = 2.0*vol3*dr3*si2*be1;
 	
 	retval = ((t1+t2+t3)*(t1+t2+t3))*sin(dum);
 	return(retval);

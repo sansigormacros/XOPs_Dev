@@ -1286,13 +1286,21 @@ OneShell(double dp[], double q)
 	// core first, then add in shell
 	qr=x*rcore;
 	contr = rhocore-rhoshel;
-	bes = 3.0*(sin(qr)-qr*cos(qr))/(qr*qr*qr);
+	if(qr == 0){
+		bes = 1.0;
+	}else{
+		bes = 3.0*(sin(qr)-qr*cos(qr))/(qr*qr*qr);
+	}
 	vol = 4.0*pi/3.0*rcore*rcore*rcore;
 	f = vol*bes*contr;
 	//now the shell
 	qr=x*(rcore+thick);
 	contr = rhoshel-rhosolv;
-	bes = 3.0*(sin(qr)-qr*cos(qr))/(qr*qr*qr);
+	if(qr == 0){
+		bes = 1.0;
+	}else{
+		bes = 3.0*(sin(qr)-qr*cos(qr))/(qr*qr*qr);
+	}
 	vol = 4.0*pi/3.0*pow((rcore+thick),3);
 	f += vol*bes*contr;
 	
@@ -1341,19 +1349,31 @@ TwoShell(double dp[], double q)
 		// core first, then add in shells
 	qr=x*rcore;
 	contr = rhocore-rhoshel1;
-	bes = 3.0*(sin(qr)-qr*cos(qr))/(qr*qr*qr);
+	if(qr == 0){
+		bes = 1.0;
+	}else{
+		bes = 3.0*(sin(qr)-qr*cos(qr))/(qr*qr*qr);
+	}
 	vol = 4.0*pi/3.0*rcore*rcore*rcore;
 	f = vol*bes*contr;
 	//now the shell (1)
 	qr=x*(rcore+thick1);
 	contr = rhoshel1-rhoshel2;
-	bes = 3.0*(sin(qr)-qr*cos(qr))/(qr*qr*qr);
+	if(qr == 0){
+		bes = 1.0;
+	}else{
+		bes = 3.0*(sin(qr)-qr*cos(qr))/(qr*qr*qr);
+	}
 	vol = 4.0*pi/3.0*(rcore+thick1)*(rcore+thick1)*(rcore+thick1);
 	f += vol*bes*contr;
 	//now the shell (2)
 	qr=x*(rcore+thick1+thick2);
 	contr = rhoshel2-rhosolv;
-	bes = 3.0*(sin(qr)-qr*cos(qr))/(qr*qr*qr);
+	if(qr == 0){
+		bes = 1.0;
+	}else{
+		bes = 3.0*(sin(qr)-qr*cos(qr))/(qr*qr*qr);
+	}
 	vol = 4.0*pi/3.0*(rcore+thick1+thick2)*(rcore+thick1+thick2)*(rcore+thick1+thick2);
 	f += vol*bes*contr;
 	
@@ -1408,25 +1428,41 @@ ThreeShell(double dp[], double q)
 		// core first, then add in shells
 	qr=x*rcore;
 	contr = rhocore-rhoshel1;
-	bes = 3.0*(sin(qr)-qr*cos(qr))/(qr*qr*qr);
+	if(qr == 0){
+		bes = 1.0;
+	}else{
+		bes = 3.0*(sin(qr)-qr*cos(qr))/(qr*qr*qr);
+	}
 	vol = 4.0*pi/3.0*rcore*rcore*rcore;
 	f = vol*bes*contr;
 	//now the shell (1)
 	qr=x*(rcore+thick1);
 	contr = rhoshel1-rhoshel2;
-	bes = 3.0*(sin(qr)-qr*cos(qr))/(qr*qr*qr);
+	if(qr == 0){
+		bes = 1.0;
+	}else{
+		bes = 3.0*(sin(qr)-qr*cos(qr))/(qr*qr*qr);
+	}
 	vol = 4.0*pi/3.0*(rcore+thick1)*(rcore+thick1)*(rcore+thick1);
 	f += vol*bes*contr;
 	//now the shell (2)
 	qr=x*(rcore+thick1+thick2);
 	contr = rhoshel2-rhoshel3;
-	bes = 3.0*(sin(qr)-qr*cos(qr))/(qr*qr*qr);
+	if(qr == 0){
+		bes = 1.0;
+	}else{
+		bes = 3.0*(sin(qr)-qr*cos(qr))/(qr*qr*qr);
+	}
 	vol = 4.0*pi/3.0*(rcore+thick1+thick2)*(rcore+thick1+thick2)*(rcore+thick1+thick2);
 	f += vol*bes*contr;
 	//now the shell (3)
 	qr=x*(rcore+thick1+thick2+thick3);
 	contr = rhoshel3-rhosolv;
-	bes = 3.0*(sin(qr)-qr*cos(qr))/(qr*qr*qr);
+	if(qr == 0){
+		bes = 1.0;
+	}else{
+		bes = 3.0*(sin(qr)-qr*cos(qr))/(qr*qr*qr);
+	}
 	vol = 4.0*pi/3.0*(rcore+thick1+thick2+thick3)*(rcore+thick1+thick2+thick3)*(rcore+thick1+thick2+thick3);
 	f += vol*bes*contr;
 		
@@ -1484,31 +1520,51 @@ FourShell(double dp[], double q)
 		// core first, then add in shells
 	qr=x*rcore;
 	contr = rhocore-rhoshel1;
-	bes = 3.0*(sin(qr)-qr*cos(qr))/(qr*qr*qr);
+	if(qr == 0){
+		bes = 1.0;
+	}else{
+		bes = 3.0*(sin(qr)-qr*cos(qr))/(qr*qr*qr);
+	}
 	vol = 4.0*pi/3.0*rcore*rcore*rcore;
 	f = vol*bes*contr;
 	//now the shell (1)
 	qr=x*(rcore+thick1);
 	contr = rhoshel1-rhoshel2;
-	bes = 3.0*(sin(qr)-qr*cos(qr))/(qr*qr*qr);
+	if(qr == 0){
+		bes = 1.0;
+	}else{
+		bes = 3.0*(sin(qr)-qr*cos(qr))/(qr*qr*qr);
+	}
 	vol = 4.0*pi/3.0*(rcore+thick1)*(rcore+thick1)*(rcore+thick1);
 	f += vol*bes*contr;
 	//now the shell (2)
 	qr=x*(rcore+thick1+thick2);
 	contr = rhoshel2-rhoshel3;
-	bes = 3.0*(sin(qr)-qr*cos(qr))/(qr*qr*qr);
+	if(qr == 0){
+		bes = 1.0;
+	}else{
+		bes = 3.0*(sin(qr)-qr*cos(qr))/(qr*qr*qr);
+	}
 	vol = 4.0*pi/3.0*(rcore+thick1+thick2)*(rcore+thick1+thick2)*(rcore+thick1+thick2);
 	f += vol*bes*contr;
 	//now the shell (3)
 	qr=x*(rcore+thick1+thick2+thick3);
 	contr = rhoshel3-rhoshel4;
-	bes = 3.0*(sin(qr)-qr*cos(qr))/(qr*qr*qr);
+	if(qr == 0){
+		bes = 1.0;
+	}else{
+		bes = 3.0*(sin(qr)-qr*cos(qr))/(qr*qr*qr);
+	}
 	vol = 4.0*pi/3.0*(rcore+thick1+thick2+thick3)*(rcore+thick1+thick2+thick3)*(rcore+thick1+thick2+thick3);
 	f += vol*bes*contr;
 	//now the shell (4)
 	qr=x*(rcore+thick1+thick2+thick3+thick4);
 	contr = rhoshel4-rhosolv;
-	bes = 3.0*(sin(qr)-qr*cos(qr))/(qr*qr*qr);
+	if(qr == 0){
+		bes = 1.0;
+	}else{
+		bes = 3.0*(sin(qr)-qr*cos(qr))/(qr*qr*qr);
+	}
 	vol = 4.0*pi/3.0*(rcore+thick1+thick2+thick3+thick4)*(rcore+thick1+thick2+thick3+thick4)*(rcore+thick1+thick2+thick3+thick4);
 	f += vol*bes*contr;
 	

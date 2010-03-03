@@ -154,6 +154,10 @@ OneLevel(double dp[], double q)
 	ans = G1*exp(-x*x*Rg1*Rg1/3.0);
 	ans += B1*pow((erf1*erf1*erf1/x),Pow1);
 	
+	if(x == 0) {
+		ans = G1;
+	}
+	
 	ans *= scale;
 	ans += bkg;
 	return(ans);
@@ -189,6 +193,10 @@ TwoLevel(double dp[], double q)
 	ans += B1*exp(-x*x*Rg2*Rg2/3.0)*pow((erf1*erf1*erf1/x),Pow1);
 	ans += G2*exp(-x*x*Rg2*Rg2/3.0);
 	ans += B2*pow((erf2*erf2*erf2/x),Pow2);
+
+	if(x == 0) {
+		ans = G1+G2;
+	}
 	
 	ans *= scale;
 	ans += bkg;
@@ -231,6 +239,10 @@ ThreeLevel(double dp[], double q)
 	ans = G1*exp(-x*x*Rg1*Rg1/3.0) + B1*exp(-x*x*Rg2*Rg2/3.0)*pow((erf1*erf1*erf1/x),Pow1);
 	ans += G2*exp(-x*x*Rg2*Rg2/3.0) + B2*exp(-x*x*Rg3*Rg3/3.0)*pow((erf2*erf2*erf2/x),Pow2);
 	ans += G3*exp(-x*x*Rg3*Rg3/3.0) + B3*pow((erf3*erf3*erf3/x),Pow3);
+
+	if(x == 0) {
+		ans = G1+G2+G3;
+	}
 	
 	ans *= scale;
 	ans += bkg;
@@ -279,6 +291,10 @@ FourLevel(double dp[], double q)
 	ans += G2*exp(-x*x*Rg2*Rg2/3.0) + B2*exp(-x*x*Rg3*Rg3/3.0)*pow((erf2*erf2*erf2/x),Pow2);
 	ans += G3*exp(-x*x*Rg3*Rg3/3.0) + B3*exp(-x*x*Rg4*Rg4/3.0)*pow((erf3*erf3*erf3/x),Pow3);
 	ans += G4*exp(-x*x*Rg4*Rg4/3.0) + B4*pow((erf4*erf4*erf4/x),Pow4);
+
+	if(x == 0) {
+		ans = G1+G2+G3+G4;
+	}
 	
 	ans *= scale;
 	ans += bkg;
