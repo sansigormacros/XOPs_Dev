@@ -155,8 +155,8 @@ Monte_SANSX(MC_ParamsPtr p) {
 	wavelength = inputWave[8];
 	sig_incoh = inputWave[9];
 	sig_sas = inputWave[10];
-	xCtr_long = (long)(xCtr+0.5);
-	yCtr_long = (long)(yCtr+0.5);
+	xCtr_long = (long)(xCtr+0.5);	//round() not defined in VC8
+	yCtr_long = (long)(yCtr+0.5);	// and is probably wrong to use anyways (returns double!)
 	
 	dummy = MDGetWaveScaling(p->ran_devH, 0, &delta, &left);		//0 is the rows
 	if (retVal = MDGetWaveDimensions(p->ran_devH, &numDimensions, dimensionSizes))
