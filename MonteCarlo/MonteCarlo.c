@@ -12,7 +12,7 @@
 #include "MonteCarlo.h"
 #include "DebyeSpheres.h"
 
-static int gCallSpinProcess = 1;		// Set to 1 to all user abort (cmd dot) and background processing.
+//static int gCallSpinProcess = 1;		// Set to 1 to all user abort (cmd dot) and background processing.
 
 //////////
 //    PROGRAM Monte_SANS
@@ -59,7 +59,7 @@ Monte_SANSX(MC_ParamsPtr p) {
 	double qmax,theta_max,q0,zpow;
 	long n1,n2,n3;
 	double dth,zz,xx,yy,phi;
-	double theta,ran,ll,rr,ttot;
+	double theta,ran,ll,rr;
 	long done,find_theta,err;		//used as logicals
 	long xPixel,yPixel;
 	double vx,vy,vz,theta_z;
@@ -72,17 +72,19 @@ Monte_SANSX(MC_ParamsPtr p) {
 
 	// for accessing the 2D wave data, direct method (see the WaveAccess example XOP)
 	waveHndl wavH;
-	int waveType,hState;
+//	int waveType,hState;
 	long numDimensions;
 	long dimensionSizes[MAX_DIMENSIONS+1];
-	char* dataStartPtr;
-	long dataOffset;
-	long numRows, numColumns,numRows_ran_dev;
-	double *dp0, *dp, value[2];				// Pointers used for double data.
+//	char* dataStartPtr;
+//	long dataOffset;
+//	long numRows, numColumns;
+	long numRows_ran_dev;
+//	double *dp0, *dp; 
+	double value[2];				// Pointers used for double data.
 	long seed;
 	long indices[MAX_DIMENSIONS];
 	
-	char buf[256];
+//	char buf[256];
 		
 	/* check that wave handles are all valid */
 	if (p->inputWaveH == NIL) {
@@ -153,8 +155,8 @@ Monte_SANSX(MC_ParamsPtr p) {
 	wavelength = inputWave[8];
 	sig_incoh = inputWave[9];
 	sig_sas = inputWave[10];
-	xCtr_long = round(xCtr);
-	yCtr_long = round(yCtr);
+	xCtr_long = (long)(xCtr+0.5);
+	yCtr_long = (long)(yCtr+0.5);
 	
 	dummy = MDGetWaveScaling(p->ran_devH, 0, &delta, &left);		//0 is the rows
 	if (retVal = MDGetWaveDimensions(p->ran_devH, &numDimensions, dimensionSizes))
@@ -367,7 +369,7 @@ Monte_SANSX(MC_ParamsPtr p) {
 					if(theta_z < theta_max) {
 						//Choose index for scattering angle array.
 						//IND = NINT(THETA_z/DTH + 0.4999999)
-						ind = round(theta_z/dth + 0.4999999);		//round is eqivalent to nint()
+						ind = (long)(theta_z/dth + 0.4999999);		//round is eqivalent to nint()
 						nt[ind] += 1; 			//Increment bin for angle.
 						//Increment angle array for single scattering events.
 						if (index == 1) {
@@ -407,8 +409,8 @@ Monte_SANSX(MC_ParamsPtr p) {
 						MemClear(indices, sizeof(indices)); // Must be 0 for unused dimensions.
 						//indices[0] = xCtr_long;		//don't put everything in one pixel
 						//indices[1] = yCtr_long;
-						indices[0] = (long)round(xCtr+xx/pixSize);
-						indices[1] = (long)round(yCtr+yy/pixSize);
+						indices[0] = (long)(xCtr+xx/pixSize+0.5);
+						indices[1] = (long)(yCtr+yy/pixSize+0.5);
 						// check for valid indices - got an XOP error, probably from here
 						if(indices[0] > 127) indices[0] = 127;
 						if(indices[0] < 0) indices[0] = 0;
@@ -482,11 +484,11 @@ FindPixel(double testQ, double testPhi, double lam, double sdd,
 	//convert qx,qy to pixel locations relative to # of pixels x, y from center
 	theta = 2.0*asin(qy*lam/4.0/pi);
 	dy = sdd*tan(theta);
-	*yPixel = round(yCtr + dy/pixSize);
+	*yPixel = (long)(yCtr + dy/pixSize+0.5);
 	
 	theta = 2.0*asin(qx*lam/4.0/pi);
 	dx = sdd*tan(theta);
-	*xPixel = round(xCtr + dx/pixSize);
+	*xPixel = (long)(xCtr + dx/pixSize+0.5);
 
 	//if on detector, return xPix and yPix values, otherwise -1
 	if(*yPixel > 127 || *yPixel < 0) {
