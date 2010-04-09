@@ -1,0 +1,111 @@
+/*	XOP-specific resources for XOP1 on Windows
+
+	This file is compiled by the resource compiler and creates XOP-specific
+	resources that IGOR looks for in an XOP module.
+*/
+
+#include "XOPResources.h"			// Defines XOP-specific symbols.
+
+/* no custom error messages */
+
+/* no menu item */
+
+1100 XOPI							// XOPI - Describes general XOP properties to IGOR. 
+BEGIN
+	XOP_VERSION,					// Version number of host XOP system.
+	DEV_SYS_CODE,					// Code for development system used to make XOP.
+	0,								// Obsolete - set to zero.
+	0,								// Obsolete - set to zero.
+	XOP_TOOLKIT_VERSION				// XOP Toolkit version.
+END
+
+1100 STR#
+BEGIN
+	/* [1] */
+	"SANSMonteCarlo requires Igor Pro 6.1 or later",
+	/* [2] */
+	"Wave does not exist.",
+	/* [3] */
+	"Coefficient wave must be double precision floating point.",
+	/* Null to terminate resource */
+	"\0" 
+END
+
+1101 STR#
+BEGIN
+	"-1",								// -1 means we don't want to add a menu item.
+	"No Menu Item",						// Igor ignores item 2 because item 1 is -1.
+	"SANSMonteCarlo Help",					// Name of XOP's help file.
+	"\0"								// Null to terminate resource
+END
+
+
+1100 XOPF
+BEGIN
+///		
+		"Monte_SANSX\0",		/* function name */
+		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
+		NT_FP64,							/* return value type */			
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,
+			0,
+
+		"Monte_SANSX2\0",		/* function name */
+		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
+		NT_FP64,							/* return value type */			
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,
+			0,
+		
+		"DebyeSpheresX\0",						/* function name */
+		F_UTIL | F_THREADSAFE | F_EXTERNAL,				/* function category == Utility */
+		NT_FP64,							/* return value type */	
+						NT_FP64,			/* double precision q-value */
+			NT_FP32 + WAVE_TYPE,				/* single precision wave (x coordinates) */
+			NT_FP32 + WAVE_TYPE,				/* single precision wave (y coordinates) */
+			NT_FP32 + WAVE_TYPE,				/* single precision wave (z coordinates) */
+			NT_FP32 + WAVE_TYPE,				/* single precision wave (rho at xyz) */
+                        NT_FP64,				// Rprimary, the primary sphere radius
+                        NT_FP64,				// grid, should be passed as 0.62*Rprimary
+			0,
+		
+		"Monte_SANSX3\0",		/* function name */
+		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
+		NT_FP64,							/* return value type */			
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,
+			0,
+		
+		"Monte_SANSX4\0",		/* function name */
+		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
+		NT_FP64,							/* return value type */			
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,
+			0,
+
+	0,
+END
