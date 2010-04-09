@@ -2220,6 +2220,7 @@ FuzzySpheres(double dp[], double q)
 	double pi,x;
 	double scale,rad,pd,sig,rho,rhos,bkg,delrho,sig_surf,f2,bes,vol,f;		//my local names
 	double va,vb,zi,yy,summ,inten;
+	double lor_scale,lor_L;			//for the lorentzian
 	int nord=20,ii;
 	
 	pi = 4.0*atan(1.0);
@@ -2233,7 +2234,9 @@ FuzzySpheres(double dp[], double q)
 	rho=dp[4];
 	rhos=dp[5];
 	delrho=rho-rhos;
-	bkg=dp[6];
+	bkg=dp[8];
+	lor_scale = dp[6];
+	lor_L = dp[7];
 	
 			
 	va = -4.0*sig + rad;
@@ -2276,6 +2279,10 @@ FuzzySpheres(double dp[], double q)
 	inten /= (4.0*pi/3.0*rad*rad*rad)*(1.0+3.0*pd*pd);
 	
 	inten *= scale;
+
+// add the lorentzian term
+	inten += lor_scale/(1.0 + (x*lor_L)*(x*lor_L));
+		
 	inten += bkg;
 	
     return(inten);	//scale, and add in the background
