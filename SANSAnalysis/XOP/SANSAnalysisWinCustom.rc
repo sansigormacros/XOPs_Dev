@@ -736,7 +736,7 @@ BEGIN
 			NT_FP64,					/* double precision x */
 			0,
 
-		"CSParallepipedX\0",		//case # 94
+		"CSParallelepipedX\0",		//case # 94
 		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
 		NT_FP64,						/* return value type */			
 			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
