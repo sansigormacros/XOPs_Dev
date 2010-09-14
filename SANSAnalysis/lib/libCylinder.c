@@ -975,7 +975,7 @@ LamellarPS(double dp[], double q)
 	
 	ii=0;
 	Sq = 0.0;
-	for(ii=1;ii<(NNint-1);ii+=1) {
+	for(ii=1;ii<=(NNint-1);ii+=1) {
         
 		fii = (double)ii;		//do I really need to do this?
 		
@@ -1047,7 +1047,7 @@ LamellarPS_HG(double dp[], double q)
 	NNint = (int)NN;		//cast to an integer for the loop
 	ii=0;
 	Sq = 0.0;
-	for(ii=1;ii<(NNint-1);ii+=1) {
+	for(ii=1;ii<=(NNint-1);ii+=1) {
         
 		fii = (double)ii;		//do I really need to do this?
 		
@@ -1086,7 +1086,7 @@ LamellarFF_HG(double dp[], double q)
 	double inten, qval,Pq,drh,drt;
 	double Pi;
 	
-	
+
 	Pi = 4.0*atan(1.0);
 	qval= q;
 	scale = dp[0];
