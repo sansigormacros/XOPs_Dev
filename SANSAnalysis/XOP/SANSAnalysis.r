@@ -839,6 +839,25 @@ resource 'XOPF' (1100) {
 			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
 			NT_FP64,					/* double precision x */
 		},
+		"OneYukawaX",						/* function name */
+		F_UTIL | F_EXTERNAL,					// the one and two-Yukawa are different than other fitting functions
+		NT_FP64,								// they are inherently AAO, and due to memory usage, likely can't be threaded.
+		{										// so they are NOT declared threadsafe
+			NT_FP64 + WAVE_TYPE,			/* double precision wave (coefficient wave) */
+			NT_FP64 + WAVE_TYPE,			/* double precision wave (Q wave) */
+			NT_FP64 + WAVE_TYPE,			/* double precision wave (SQ wave - returned) */
+		},
+		
+		"TwoYukawaX",						/* function name */
+		F_UTIL | F_EXTERNAL,					// the one and two-Yukawa are different than other fitting functions
+		NT_FP64,								// they are inherently AAO, and due to memory usage, likely can't be threaded.		
+		{										// so they are NOT declared threadsafe
+			NT_FP64 + WAVE_TYPE,			/* double precision wave (coefficient wave) */
+			NT_FP64 + WAVE_TYPE,			/* double precision wave (Q wave) */
+			NT_FP64 + WAVE_TYPE,			/* double precision wave (SQ wave - returned) */
+		},
+	
+	
 
 
 	}

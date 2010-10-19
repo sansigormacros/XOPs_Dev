@@ -9,6 +9,8 @@ The fitting function is a simple polynomial. It works but is of no practical use
 #include "SANSAnalysis.h"
 #include "libSANSAnalysis.h"
 #include "StructureFactor.h"
+#include "2Y_OneYukawa.h"
+#include "2Y_TwoYukawa.h"
 
 
 //Hard Sphere Structure Factor
@@ -184,6 +186,190 @@ DiamEllipX(DiamParamsPtr p)
 	
 	return(0);
 }
+
+
+//
+//
+int
+OneYukawaX(FitParamsPtr_Yuk p)
+{
+	double *sq;			//pointer to sq wave
+	double *qw;			//pointer to q wave
+	double *cw;			//pointer to coef wave
+	long npnts,i;			//number of points in waves
+	
+	
+	double a, b, c, d;	
+	int debug = 0,check,ok;			//always keep this to zero...
+	//default parameters
+	double Z,K,phi,radius;
+	char buf[256];
+	
+	/* check that wave handles are all valid */
+	if (p->SQHandle == NIL) {
+		SetNaN64(&p->retVal);					/* return NaN if wave is not valid */
+		return(NON_EXISTENT_WAVE);
+	}
+	if (p->QHandle == NIL) {
+		SetNaN64(&p->retVal);					/* return NaN if wave is not valid */
+		return(NON_EXISTENT_WAVE);
+	}
+	if (p->CoefHandle == NIL) {
+		SetNaN64(&p->retVal);					/* return NaN if wave is not valid */
+		return(NON_EXISTENT_WAVE);
+	}	
+	
+	//get the wave data
+	sq = WaveData(p->SQHandle);
+	qw = WaveData(p->QHandle);					
+	cw = WaveData(p->CoefHandle);					
+	npnts = WavePoints(p->QHandle);						// Number of points in q wave.
+	
+	phi = cw[0];
+	radius = cw[1];
+	K = cw[2];
+	Z = cw[3];
+	
+	if(fabs(Z) < 0.1) Z = 0.1;			// values near zero are very bad for the calculation
+	
+	//	sprintf(buf, "Input OK, phi,radius,K,Z = %g %g %g %g\r",phi,radius,K,Z);
+	//	XOPNotice(buf);
+	
+	debug = 0;
+	ok = Y_SolveEquations( Z, K, phi, &a, &b, &c, &d, debug );
+	
+	if( ok )
+	{
+		//		sprintf(buf, "Y_SolveEquations OK\r");
+		//		XOPNotice(buf);
+		
+		check = Y_CheckSolution( Z, K, phi, a, b, c, d );
+		if(debug) {
+			sprintf(buf, "solution = (%g, %g, %g, %g) check = %d\r", a, b, c, d, check );
+			XOPNotice(buf);
+		}
+	}
+	
+	//	sprintf(buf, "Y_CheckSolution OK\r");
+	//	XOPNotice(buf);
+	
+	// loop through and calculate the S(q), or return 1 if the solution failed
+	//	if(check) {		//from the converted c-code
+	
+	if(ok) {		//less restrictive, if a solution found, return it, even if the equations aren't quite satisfied
+		
+		for (i = 0; i < npnts; i++) {
+			sq[i] = SqOneYukawa(qw[i]*radius*2.0, Z, K, phi, a, b, c, d);
+		}	
+	} else {
+		for (i = 0; i < npnts; i++) {
+			sq[i] = 1;
+		}
+	}
+	
+	// mark the returned wave as updated so that the graph etc. automatically updates	
+	WaveHandleModified(p->SQHandle);
+	
+	p->retVal = 0;
+	
+	return 0;
+}
+
+
+int
+TwoYukawaX(FitParamsPtr_Yuk p)
+{
+	double *sq;			//pointer to sq wave
+	double *qw;			//pointer to q wave
+	double *cw;			//pointer to coef wave
+	long npnts,i;			//number of points in waves
+	
+	
+	double a, b, c1, c2, d1, d2;	
+	int debug = 0,check,ok;			//always keep this to zero...
+	//default parameters
+	double Z1,K1,Z2,K2,phi,radius;
+	char buf[256];
+	
+	/* check that wave handles are all valid */
+	if (p->SQHandle == NIL) {
+		SetNaN64(&p->retVal);					/* return NaN if wave is not valid */
+		return(NON_EXISTENT_WAVE);
+	}
+	if (p->QHandle == NIL) {
+		SetNaN64(&p->retVal);					/* return NaN if wave is not valid */
+		return(NON_EXISTENT_WAVE);
+	}
+	if (p->CoefHandle == NIL) {
+		SetNaN64(&p->retVal);					/* return NaN if wave is not valid */
+		return(NON_EXISTENT_WAVE);
+	}	
+	
+	//get the wave data
+	sq = WaveData(p->SQHandle);
+	qw = WaveData(p->QHandle);					
+	cw = WaveData(p->CoefHandle);					
+	npnts = WavePoints(p->QHandle);						// Number of points in q wave.
+	
+	phi = cw[0];
+	radius = cw[1];
+	K1 = cw[2];
+	Z1 = cw[3];
+	K2 = cw[4];
+	Z2 = cw[5];
+	
+	if(fabs(Z1) < 0.001) Z1 = 0.001;			// values near zero are very bad for the calculation
+	if(fabs(Z2) < 0.001) Z2 = 0.001;			// values near zero are very bad for the calculation
+	if(fabs(K1) < 0.001) K1 = 0.001;			// values near zero are very bad for the calculation
+	if(fabs(K2) < 0.001) K2 = 0.001;			// values near zero are very bad for the calculation
+	
+	
+	//	sprintf(buf, "Input OK, phi,radius,K1,Z1,K2,Z2 = %g %g %g %g %g %g\r",phi,radius,K1,Z1,K2,Z2);
+	//	XOPNotice(buf);
+	
+	debug = 0;
+	
+	ok = TY_SolveEquations( Z1, Z2, K1, K2, phi, &a, &b, &c1, &c2, &d1, &d2, debug );
+	if( ok )
+	{
+		//		sprintf(buf, "TY_SolveEquations OK \r");
+		//		XOPNotice(buf);
+		
+		
+		check = TY_CheckSolution( Z1, Z2, K1, K2, phi, a, b, c1, c2, d1, d2 );
+		if(debug) {
+			sprintf(buf, "solution = (%g, %g, %g, %g, %g, %g) check = %d\r", a, b, c1, c2, d1, d2, check );
+			XOPNotice(buf);
+		}
+	}
+	//	sprintf(buf, "TY_CheckSolution OK \r");
+	//	XOPNotice(buf);
+	
+	// loop through and calculate the S(q), or return 1 if the solution failed
+	//	if(check) {		//from the converted c-code
+	
+	if(ok) {		//less restrictive, if a solution found, return it, even if the equations aren't quite satisfied
+		
+		
+		for (i = 0; i < npnts; i++) {
+			sq[i] = SqTwoYukawa(qw[i]*radius*2.0, Z1, Z2, K1, K2, phi, a, b, c1, c2, d1, d2);
+		}	
+	} else {
+		for (i = 0; i < npnts; i++) {
+			sq[i] = 1;
+		}
+	}
+	
+	// mark the returned wave as updated so that the graph etc. automatically updates	
+	WaveHandleModified(p->SQHandle);
+	
+	p->retVal = 0;
+	
+	return 0;
+}
+
+
+
 
 
 ///////////end of XOP

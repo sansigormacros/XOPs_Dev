@@ -11,6 +11,8 @@
 #include "libSphere.h"
 #include "libStructureFactor.h"
 #include "libTwoPhase.h"
+#include "2Y_OneYukawa.h"
+#include "2Y_TwoYukawa.h"
 
 /*This should not be necessary AJJ May 09*/
 /* IGOR Fit Functions */

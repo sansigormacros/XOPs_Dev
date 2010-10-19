@@ -327,7 +327,12 @@ RegisterFunction()
 		case 94:							// y = f(c,y,x)
 			return((long)CSParallelepipedX);			// This function is called using the direct method.
 			break;
-
+		case 95:							//One Yukawa
+			return((long)OneYukawaX);	// This function is called using the direct method.
+			break;
+		case 96:							// Two Yukawa
+			return((long)TwoYukawaX);	// This function is called using the direct method.
+			break;
 	}
 	return NIL;
 }
