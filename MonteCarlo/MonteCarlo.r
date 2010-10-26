@@ -67,10 +67,10 @@ resource 'XOPF' (1100) {
 		NT_FP64,							/* return value type */	
 		{
 						NT_FP64,			/* single precision wave (q-wave) */
-			NT_FP32 + WAVE_TYPE,				/* single precision wave (x coordinates) */
-			NT_FP32 + WAVE_TYPE,				/* single precision wave (y coordinates) */
-			NT_FP32 + WAVE_TYPE,				/* single precision wave (z coordinates) */
-			NT_FP32 + WAVE_TYPE,				/* single precision wave (rho at xyz) */
+			NT_FP64 + WAVE_TYPE,				/* single precision wave (x coordinates) */
+			NT_FP64 + WAVE_TYPE,				/* single precision wave (y coordinates) */
+			NT_FP64 + WAVE_TYPE,				/* single precision wave (z coordinates) */
+			NT_FP64 + WAVE_TYPE,				/* single precision wave (rho at xyz) */
                         NT_FP64,				// Rprimary, the primary sphere radius
                         NT_FP64,				// grid, should be passed as 0.62*Rprimary
 		},

@@ -15,6 +15,23 @@
 #include "MonteCarlo.h"
 #include "DebyeSpheres.h"
 
+
+// this function is here simply because MS visual studio does not contain lround() or round() in math.h
+// rounds away from zero
+// -- only used in FindPixel
+long MC_round(double x)
+{
+	if(x == 0)	{
+		return (long)(0);
+	}
+	if(x > 0)	{
+		return (long)(x + 0.5f);
+	} else {		// x < 0
+		return (long)(x - 0.5f);
+	}
+}
+
+
 int
 FindPixel(double testQ, double testPhi, double lam, double sdd,
 		  double pixSize, double xCtr, double yCtr, long *xPixel, long *yPixel) {
@@ -28,11 +45,13 @@ FindPixel(double testQ, double testPhi, double lam, double sdd,
 	//convert qx,qy to pixel locations relative to # of pixels x, y from center
 	theta = 2.0*asin(qy*lam/4.0/pi);
 	dy = sdd*tan(theta);
-	*yPixel = lround(yCtr + dy/pixSize);		//corrected 7/2010 to round away from zero, to avoid 2x counts in row 0 and column 0
+//	*yPixel = lround(yCtr + dy/pixSize);		//corrected 7/2010 to round away from zero, to avoid 2x counts in row 0 and column 0
+	*yPixel = MC_round(yCtr + dy/pixSize);		//corrected 7/2010 to round away from zero, to avoid 2x counts in row 0 and column 0
 	
 	theta = 2.0*asin(qx*lam/4.0/pi);
 	dx = sdd*tan(theta);
-	*xPixel = lround(xCtr + dx/pixSize);
+//	*xPixel = lround(xCtr + dx/pixSize);
+	*xPixel = MC_round(xCtr + dx/pixSize);
 	
 	//if on detector, return xPix and yPix values, otherwise -1
 	if(*yPixel > 127 || *yPixel < 0) {

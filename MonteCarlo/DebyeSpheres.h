@@ -11,18 +11,18 @@
 // Parameters passed from Igor to the function, in reverse order of the parameter list
 // result is the last parameter, always.
 typedef struct AltiParams {
-    DOUBLE 	 grid;		// effective c-to-c distance between spheres = 0.62*Rprimary
-    DOUBLE   Rprimary;	//primary sphere radius
+    double 	 grid;		// effective c-to-c distance between spheres = 0.62*Rprimary
+    double   Rprimary;	//primary sphere radius
 	waveHndl rhowavH;	// rho at xyz!!!
 	waveHndl zwavH;	// z coordinate. ALL are expected to be SP waves
 	waveHndl ywavH;	// y coordinate.
 	waveHndl xwavH;	// x coordinate.
-    DOUBLE qval;	// q-value.
+    double qval;	// q-value.
 	void* tp;			//unused void for threadsafe functions
-	DOUBLE result;
+	double result;
 }AltiParams, *AltiParamsPtr;   
  
  
-float PhiQR(float qval, float rval);
-float XYZDistance(float x1, float x2,float y1, float y2,float z1, float z2);
+double PhiQR(double qval, double rval);
+double XYZDistance(double x1, double x2,double y1, double y2,double z1, double z2);
 int DebyeSpheresX(AltiParamsPtr p);

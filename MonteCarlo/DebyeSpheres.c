@@ -21,21 +21,21 @@ HOST_IMPORT void main(IORecHandle ioRecHandle);
 /*	Calculates the scattered intensity from a collection of spheres
     using Debye's method. 
 
-	Warning:
-		The call to WaveData() below returns a pointer to the middle
-		of an unlocked Macintosh handle. In the unlikely event that your
-		calculations could cause memory to move, you should copy the coefficient
-		values to local variables or an array before such operations.
+ everything was previously declared as float, some inputs were as double.
+ 
+ -- to avoid confusion, calculate everything in double, pass everything in as double
+  -- this is more precision than is necessary, but avoids strange results from type casting
+     behind the scenes
 */
 int
 DebyeSpheresX(AltiParamsPtr p)
 {
-	float qv;				// input q-value
-	float ival;				//output intensity value
-	float *xv,*yv,*zv,*rv;		//pointers to input xyz-rho coordinates
+	double qv;				// input q-value
+	double ival;				//output intensity value
+	double *xv,*yv,*zv,*rv;		//pointers to input xyz-rho coordinates
 	int i,j;
     int npt;
-	float rval,grid,vol,fQR,dum,dij;
+	double rval,grid,vol,fQR,dum,dij;
 
 	
 
@@ -59,6 +59,7 @@ DebyeSpheresX(AltiParamsPtr p)
 
 
     //check to see that all are float, not double
+	/*
 	if(WaveType(p->rhowavH) != NT_FP32 ) {
         SetNaN64(&p->result);
         return kExpectedNT_FP32;
@@ -75,13 +76,33 @@ DebyeSpheresX(AltiParamsPtr p)
         SetNaN64(&p->result);
         return kExpectedNT_FP32;
     }
-
+	*/
 	
-	// convert the input to float. Do all calculations as float.
-
-    rval = (float) p->Rprimary;		// primary sphere radius
-    grid = (float) p->grid;			// calling program should set this to 0.62*Rprimary
-	qv = (float) p->qval;
+    //check to see that all are double
+	if(WaveType(p->rhowavH) != NT_FP64 ) {
+        SetNaN64(&p->result);
+        return kExpectedNT_FP64;
+    }
+    if(WaveType(p->zwavH) != NT_FP64 ) {
+        SetNaN64(&p->result);
+        return kExpectedNT_FP64;
+    }
+    if(WaveType(p->ywavH) != NT_FP64 ) {
+        SetNaN64(&p->result);
+        return kExpectedNT_FP64;
+    }
+    if(WaveType(p->xwavH) != NT_FP64 ) {
+        SetNaN64(&p->result);
+        return kExpectedNT_FP64;
+    }
+	
+	
+	// (NO) -- convert the input to float. Do all calculations as float.
+	// do everything in double. no reason to do in float, except for the previous Altivec incarnation
+	
+    rval = p->Rprimary;		// primary sphere radius
+    grid = p->grid;			// calling program should set this to 0.62*Rprimary
+	qv = p->qval;
 
 //
     npt = (int) WavePoints(p->xwavH);	//wavePoints returns long, number of XYZ points
@@ -108,30 +129,30 @@ DebyeSpheresX(AltiParamsPtr p)
 		}
 	}
 
-    p->result= (DOUBLE) ival;
+    p->result = ival;
 	
     return 0;
 
 }
 
 
-float PhiQR(float qval, float rval)
+double PhiQR(double qval, double rval)
 {
-	float retval,qr;
+	double retval,qr;
 	
 	qr = qval*rval;
-	retval = (float) ( 3*(sin(qr) - qr*cos(qr))/qr/qr/qr );
+	retval = ( 3*(sin(qr) - qr*cos(qr))/qr/qr/qr );
 	return(retval);
 }
 
-float XYZDistance(float x1, float x2,float y1, float y2,float z1, float z2)
+double XYZDistance(double x1, double x2,double y1, double y2,double z1, double z2)
 {
-	float retval,dx,dy,dz;
+	double retval,dx,dy,dz;
 	
 	dx = (x1-x2);
 	dy = (y1-y2);
 	dz = (z1-z2);
-	retval = (float) sqrt( dx*dx + dy*dy + dz*dz );
+	retval = sqrt( dx*dx + dy*dy + dz*dz );
 	return(retval);
 }
 
