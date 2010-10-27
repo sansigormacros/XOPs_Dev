@@ -743,5 +743,23 @@ BEGIN
 			NT_FP64,					/* double precision x */
 			0,
 
+
+		"OneYukawaX\0",		//case # 95
+		F_UTIL | F_EXTERNAL,					/* inherently AAO, and not threadable */
+		NT_FP64,								/* return value type */			
+			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
+			NT_FP64 + WAVE_TYPE,				/* double precision wave (Q wave) */
+			NT_FP64 + WAVE_TYPE,				/* double precision wave (SQ wave returned) */
+			0,
+
+
+		"TwoYukawaX\0",		//case # 96
+		F_UTIL | F_EXTERNAL,					/* inherently AAO, and not threadable */
+		NT_FP64,								/* return value type */			
+			NT_FP64 + WAVE_TYPE,				/* double precision wave (coefficient wave) */
+			NT_FP64 + WAVE_TYPE,				/* double precision wave (Q wave) */
+			NT_FP64 + WAVE_TYPE,				/* double precision wave (SQ wave returned) */
+			0,
+
 	0,
 END
