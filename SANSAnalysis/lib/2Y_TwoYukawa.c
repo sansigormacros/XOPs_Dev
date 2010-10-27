@@ -83,13 +83,14 @@ double TY_g( double s,
 
 double TY_hq( double q, double Z, double K, double v )
 {
+	double t1, t2, t3, t4;
+
 	if ( q == 0) 
 	{
 		return (exp(-2*Z)*(v + (v*(-1 + Z) - 2*K*Z)*exp(Z))*(-(v*(1 + Z)) + (v + 2*K*Z*(1 + Z))*exp(Z))*pow(K,-1)*pow(Z,-4))/4.;
 	}
 	else 
 	{
-		double t1, t2, t3, t4;
 		
 		t1 = ( 1 - v / ( 2 * K * Z * exp( Z ) ) ) * ( ( 1 - cos( q ) ) / ( q*q ) - 1 / ( Z*Z + q*q ) );
 		t2 = ( v*v * ( q * cos( q ) - Z * sin( q ) ) ) / ( 4 * K * Z*Z * q * ( Z*Z + q*q ) );
@@ -110,7 +111,7 @@ double TY_pc( double q,
 	double a0 = a * a;
 	double b0 = -12 * phi *( pow( a + b,2 ) / 2 + a * ( c1 * exp( -Z1 ) + c2 * exp( -Z2 ) ) );
 	
-	double t1, t2, t3;
+	double t1, t2, t3,t4;
 	
 	if ( q == 0 ) 
 	{
@@ -124,7 +125,7 @@ double TY_pc( double q,
 		t2 = b0 * ( 2 * q * sin( q ) - ( q * q - 2 ) * cos( q ) - 2 ) / pow( q, 4 );
 		t3 = a0 * phi * ( ( q*q - 6 ) * 4 * q * sin( q ) - ( pow( q, 4 ) - 12 * q*q + 24) * cos( q ) + 24 ) / ( 2 * pow( q, 6 ) );
 	}
-	double t4 = TY_hq( q, Z1, K1, v1 ) + TY_hq( q, Z2, K2, v2 );
+	t4 = TY_hq( q, Z1, K1, v1 ) + TY_hq( q, Z2, K2, v2 );
 	return -24 * phi * ( t1 + t2 + t3 + t4 );
 }
 
@@ -236,7 +237,7 @@ void TY_ReduceNonlinearSystem( double Z1, double Z2, double K1, double K2, doubl
 		  m13*(m34*m42 + m24*(-(m32*m41) + m31*m42) - m32*m44 + (4*m11*(3*m34*m41 - 2*m34*m42 - 3*m31*m44 + 2*m32*m44))/3.) + (3*m24*
 		  (m33*(3*m41 + 4*m11*m41 - 3*m11*m42) + (-3*m31 - 4*m11*m31 + 3*m11*m32)*m43) + 3*m23*(-3*m34*m41 - 4*m11*m34*m41 + 
 		  3*m11*m34*m42 + 3*m31*m44 + 4*m11*m31*m44 - 3*m11*m32*m44) - (m34*m43 - m33*m44)*pow(3 - 2*m11,2))/9.;
-	
+/*	
 	if( debug ) 
 	{
 		sprintf(buf,"\rDet = \r" );
@@ -244,6 +245,7 @@ void TY_ReduceNonlinearSystem( double Z1, double Z2, double K1, double K2, doubl
 		sprintf(buf, "%f\t%f\r%f\t%f\r", 0., 0., 0., TY_q22 );
 		XOPNotice(buf);
 	}
+*/
 	
 	/* Matrix representation of the determinant of the of the system where row refering to 
 	 the variable a is replaced by solution vector */
@@ -271,7 +273,7 @@ void TY_ReduceNonlinearSystem( double Z1, double Z2, double K1, double K2, doubl
 		   2*(3*(m14*m33*m42 - m13*m34*m42 - m14*m32*m43 + m34*m43 + m13*m32*m44 - m33*m44)*Z1*(Z1 + Z2) + 
 		   2*m11*(-3*(m14*m43 - m13*m44)*(Z1 + Z2)*pow(Z1,2) + 2*m34*(m43*(-3 + Z1)*(Z1 + Z2) - 3*m13*Z2*pow(Z1,2)) + 
 		  m33*(-2*m44*(-3 + Z1)*(Z1 + Z2) + 6*m14*Z2*pow(Z1,2)))))*pow(Z1 + Z2,-1);
-		
+/*		
 	if( debug ) 
 	{
 		sprintf(buf,"\rDet_a = \r" );
@@ -282,6 +284,7 @@ void TY_ReduceNonlinearSystem( double Z1, double Z2, double K1, double K2, doubl
 			   0.,    TY_qa32, 0. );
 		XOPNotice(buf);
 	}
+*/
 	
 	/* Matrix representation of the determinant of the of the system where row refering to 
 	 the variable b is replaced by solution vector */
@@ -308,7 +311,7 @@ void TY_ReduceNonlinearSystem( double Z1, double Z2, double K1, double K2, doubl
 		   (6*m24*m33 - 3*m24*m43 + 8*m14*(-2*m33 + m43) + (8*m13 - 3*m23)*(2*m34 - m44))*pow(Z1,2)) + 
 		   m11*Z1*(2*m34*m43*(8 - 3*Z1) + 2*m33*m44*(-8 + 3*Z1) + (8*m14*m43 - 3*m24*m43 - 8*m13*m44 + 3*m23*m44)*pow(Z1,2)))*
 		   pow(Z1 + Z2,-1) + 6*(-(m14*(m23*m31 + m33)) + m13*(m24*m31 + m34))*pow(Z1,3)*pow(Z1 + Z2,-1));
-		
+/*		
 	if( debug ) 
 	{
 		sprintf(buf,"\rDet_b = \r" );
@@ -319,6 +322,7 @@ void TY_ReduceNonlinearSystem( double Z1, double Z2, double K1, double K2, doubl
 			   0., TY_qb32, 0. );
 		XOPNotice(buf);
 	}
+*/
 	
 	/* Matrix representation of the determinant of the of the system where row refering to 
 	 the variable c1 is replaced by solution vector */
@@ -347,7 +351,7 @@ void TY_ReduceNonlinearSystem( double Z1, double Z2, double K1, double K2, doubl
 			2*(3*m14*m41 - 2*m14*m42 + m44)*pow(Z1,2)) + 
 			Z2*(4*(3*m31 - 2*m32)*m44 + Z1*(-4*m31*m44 + 3*m32*m44 - 2*(m14*(-6*m31 + 4*m32 + 3*m41 - 2*m42) + m44)*Z1) + 
 			m34*(m42*(8 - 3*Z1) + 4*m41*(-3 + Z1) + 4*pow(Z1,2)))))*pow(Z1 + Z2,-1))/3.;
-		
+/*		
 	if( debug ) 
 	{
 		sprintf(buf,"\rDet_c1 = \r" );
@@ -358,6 +362,7 @@ void TY_ReduceNonlinearSystem( double Z1, double Z2, double K1, double K2, doubl
 			   0., TY_qc132, 0. );
 		XOPNotice(buf);
 	}
+ */
 	/* Matrix representation of the determinant of the of the system where row refering to 
 	 the variable c1 is replaced by solution vector */
 	
@@ -386,7 +391,7 @@ void TY_ReduceNonlinearSystem( double Z1, double Z2, double K1, double K2, doubl
 			2*(3*m13*m41 - 2*m13*m42 + m43)*pow(Z1,2)) + 
 			Z2*(4*(3*m31 - 2*m32)*m43 + Z1*(-4*m31*m43 + 3*m32*m43 - 2*(m13*(-6*m31 + 4*m32 + 3*m41 - 2*m42) + m43)*Z1) + 
 			m33*(m42*(8 - 3*Z1) + 4*m41*(-3 + Z1) + 4*pow(Z1,2)))))*pow(Z1 + Z2,-1))/3.;
-		
+/*		
 	if( debug ) 
 	{
 		sprintf(buf,"\rDet_c2 = \r" );
@@ -397,6 +402,7 @@ void TY_ReduceNonlinearSystem( double Z1, double Z2, double K1, double K2, doubl
 			   0., TY_qc232, 0. );
 		XOPNotice(buf);
 	}	
+*/
 	
 	/* coefficient matrices of nonlinear equation 1 */
 	
@@ -488,7 +494,7 @@ void TY_ReduceNonlinearSystem( double Z1, double Z2, double K1, double K2, doubl
 	TY_A42 /= norm_A;
 	TY_A43 /= norm_A;
 	TY_A52 /= norm_A;*/
-	
+/*	
 	if( debug ) 
 	{
 		sprintf(buf,"\rNonlinear equation 1 = \r" );
@@ -504,6 +510,8 @@ void TY_ReduceNonlinearSystem( double Z1, double Z2, double K1, double K2, doubl
 		sprintf(buf, "%f\t\t%f\t\t%f\r", 0.,   TY_A52, 0. );		
 		XOPNotice(buf);
 	}
+ */
+	
 	/* coefficient matrices of nonlinear equation 2 */
 	
 	TY_B12 = 6*phi*exp(-Z1 - 2*Z2)*pow(TY_q22,-2)*pow(Z2,-3)*(-2*TY_qc212*TY_qc221*(Z1 + Z2)*exp(Z1)*pow(Z2,2) + 
@@ -596,7 +604,7 @@ void TY_ReduceNonlinearSystem( double Z1, double Z2, double K1, double K2, doubl
 	TY_B25 /= norm_B;
 	TY_B32 /= norm_B;
 	TY_B34 /= norm_B; */
-	
+/*	
 	if( debug ) 
 	{
 		sprintf(buf,"\rNonlinear equation 2 = \r" );
@@ -608,6 +616,7 @@ void TY_ReduceNonlinearSystem( double Z1, double Z2, double K1, double K2, doubl
 		sprintf(buf, "%f\t\t%f\t\t%f\t\t%f\t\t%f\r", 0.,  TY_B32, 0.,  TY_B34, 0.  );
 		XOPNotice(buf);
 	}
+*/
 	
 	/* decrease order of nonlinear equation 1 by means of equation 2 */
 	
@@ -630,7 +639,8 @@ void TY_ReduceNonlinearSystem( double Z1, double Z2, double K1, double K2, doubl
 	TY_F38 = 2*TY_A52*TY_B23*TY_B25 - TY_A43*TY_B25*TY_B32 - TY_A43*TY_B23*TY_B34 - TY_A42*TY_B24*TY_B34 - TY_A41*TY_B25*TY_B34 + TY_A52*pow(TY_B24,2);
 	TY_F39 = 2*TY_A52*TY_B24*TY_B25 - TY_A43*TY_B24*TY_B34 - TY_A42*TY_B25*TY_B34;
 	TY_F310 = -(TY_A43*TY_B25*TY_B34) + TY_A52*pow(TY_B25,2);
-	
+
+/*
 	if( debug ) 
 	{
 		sprintf(buf,"\rF = \r" );
@@ -642,7 +652,8 @@ void TY_ReduceNonlinearSystem( double Z1, double Z2, double K1, double K2, doubl
 		sprintf(buf, "%f\t\t%f\t\t%f\t\t%f\t\t%f\t\t%f\t\t%f\t\t%f\t\t%f\t\t%f\r", 0., TY_F32, TY_F33, TY_F34, TY_F35, TY_F36, TY_F37, TY_F38, TY_F39, TY_F310 );
 		XOPNotice(buf);
 	}
-	
+*/
+ 
 	TY_G13  = -(TY_B12*TY_F32);
 	TY_G14  = -(TY_B12*TY_F33);
 	TY_G15  = TY_B32*TY_F14 - TY_B14*TY_F32 - TY_B12*TY_F34;
@@ -667,7 +678,7 @@ void TY_ReduceNonlinearSystem( double Z1, double Z2, double K1, double K2, doubl
 	TY_G212 = TY_B34*TY_F29 - TY_B23*TY_F310 - TY_B25*TY_F38 - TY_B24*TY_F39;
 	TY_G213 = -(TY_B24*TY_F310) - TY_B25*TY_F39;
 	TY_G214 = -(TY_B25*TY_F310);
-	
+/*	
 	if( debug ) 
 	{
 		sprintf(buf,"\rG = \r" );
@@ -677,7 +688,7 @@ void TY_ReduceNonlinearSystem( double Z1, double Z2, double K1, double K2, doubl
 		sprintf(buf, "%f\t\t%f\t\t%f\t\t%f\t\t%f\t\t%f\t\t%f\t\t%f\t\t%f\t\t%f\t\t%f\t\t%f\t\t%f\t\t%f\r", 0., TY_G22, TY_G23, TY_G24, TY_G25, TY_G26, TY_G27, TY_G28, TY_G29, TY_G210, TY_G211, TY_G212, TY_G213, TY_G214 );
 		XOPNotice(buf);
 	}
-	
+*/	
 	// coefficients for polynomial
 	TY_w[0] = (-(TY_A21*TY_B12) + TY_A12*TY_B21)*(TY_A52*TY_B21 - TY_A41*TY_B32)*pow(TY_B21,2)*pow(TY_B32,3);
 	
@@ -827,7 +838,7 @@ void TY_ReduceNonlinearSystem( double Z1, double Z2, double K1, double K2, doubl
 																			 + TY_A12*(4*TY_A52*TY_B24*TY_B25 - (3*TY_A43*TY_B24 + TY_A42*TY_B25)*TY_B34)))*pow(TY_B34,3);
 	
 	TY_w[22] = (-(TY_A23*TY_B14) + TY_A12*TY_B25)*(TY_A52*TY_B25 - TY_A43*TY_B34)*pow(TY_B25,2)*pow(TY_B34,3);
-	
+/*	
 	if( debug ) 
 	{
 		sprintf(buf,"\rCoefficients of polynomial\r");
@@ -840,6 +851,7 @@ void TY_ReduceNonlinearSystem( double Z1, double Z2, double K1, double K2, doubl
 		sprintf(buf, "\r" );
 		XOPNotice(buf);
 	}
+ */
 }
 
 double TY_Q( double d2 )
@@ -889,9 +901,6 @@ int TY_SolveEquations( double Z1, double Z2, double K1, double K2, double phi,
 					   double* a, double* b, double* c1, double* c2, double* d1, double* d2, 
 				       int debug )
 {
-	// reduce system to a polynomial from which all solution are extracted
-	// by doing that a lot of global background variables are set
-	TY_ReduceNonlinearSystem( Z1, Z2, K1, K2, phi, debug );
 	
 	// the two coupled non-linear eqautions were reduced to a
 	// 22nd order polynomial, the roots are give all possible solutions 
@@ -906,9 +915,23 @@ int TY_SolveEquations( double Z1, double Z2, double K1, double K2, double phi,
 	
 	//integer degree of polynomial
 	int degree = 22;
+	int i;
+	double x,y;
+	double var_a, var_b, var_c1, var_c2, var_d1, var_d2;
+	double sol_a[22], sol_b[22], sol_c1[22], sol_c2[22], sol_d1[22], sol_d2[22];
+	
+	int j = 0;
+	
+	int n_roots,n,selected_root;
+	double dr,qmax,q,dq,min,sum;
+	double *sq,*gr;
+	
+	
+	// reduce system to a polynomial from which all solution are extracted
+	// by doing that a lot of global background variables are set
+	TY_ReduceNonlinearSystem( Z1, Z2, K1, K2, phi, debug );
 	
 	// vector of real and imaginary coefficients in order of decreasing powers
-	int i;
 	for ( i = 0; i <= degree; i++ )
 	{
 		// the global variablw TY_w was set by TY_ReduceNonlinearSystem
@@ -920,7 +943,7 @@ int TY_SolveEquations( double Z1, double Z2, double K1, double K2, double phi,
 	cpoly( real_coefficient, imag_coefficient, degree, real_root, imag_root );
 	
 	// show the result if in debug mode
-	double x, y;
+/*	
 	if ( debug )
 	{
 		for ( i = 0; i < degree; i++ )
@@ -936,6 +959,7 @@ int TY_SolveEquations( double Z1, double Z2, double K1, double K2, double phi,
 		sprintf(buf, "\r" );
 		XOPNotice(buf);
 	}
+ */
 	
 	// select real roots and those satisfying Q(x) != 0 and W(x) != 0
 	// Paper: Cluster formation in two-Yukawa Fluids, J. Chem. Phys. 122, 2005
@@ -946,10 +970,7 @@ int TY_SolveEquations( double Z1, double Z2, double K1, double K2, double phi,
 	// (4) if there is still more than root, calculate g(r) for each root
 	//     and g(r) of the correct root should have the minimum average value 
 	//	   inside the hardcore	
-	double var_a, var_b, var_c1, var_c2, var_d1, var_d2;
-	double sol_a[22], sol_b[22], sol_c1[22], sol_c2[22], sol_d1[22], sol_d2[22];
-	
-	int j = 0;
+
 	for ( i = 0; i < degree; i++ )
 	{
 		x = real_root[i];
@@ -975,7 +996,7 @@ int TY_SolveEquations( double Z1, double Z2, double K1, double K2, double phi,
 				sol_c2[j] = var_c2;
 				sol_d1[j] = var_d1;
 				sol_d2[j] = var_d2;
-				
+/*				
 				if ( debug )
 				{
 					double eq1 = chop( TY_LinearEquation_1( Z1, Z2, K1, K2, phi, sol_a[j], sol_b[j], sol_c1[j], sol_c2[j], sol_d1[j], sol_d2[j] ) );
@@ -990,12 +1011,14 @@ int TY_SolveEquations( double Z1, double Z2, double K1, double K2, double phi,
 						   eq1 , eq2, eq3, eq4, eq5, eq6 );
 					XOPNotice(buf);
 				}
+ */
 				j++;
 			}
 		}
 	}
 	// number  remaining roots 
-	int n_roots = j;
+	n_roots = j;
+	
 	
 	// if there is still more than one root left, than choose the one with the minimum
 	// average value inside the hardcore
@@ -1003,25 +1026,24 @@ int TY_SolveEquations( double Z1, double Z2, double K1, double K2, double phi,
 	{
 		// the number of q values should be a power of 2
 		// in order to speed up the FFT
-		int n = 1 << 14;
+		n = 1 << 14;
 		
 		// the maximum q value should be large enough 
 		// to enable a reasoble approximation of g(r)
-		double qmax = 16 * 10 * 2 * M_PI;
-		double q, dq = qmax / ( n - 1 );
+		qmax = 16 * 10 * 2 * M_PI;
+		dq = qmax / ( n - 1 );
 		
-		// step size for g(r)
-		double dr;
+		// step size for g(r) = dr
 		
 		// allocate memory for pair correlation function g(r)
 		// and structure factor S(q)
-		double* sq = malloc( sizeof( double ) * n );
-		double* gr = malloc( sizeof( double ) * n );
+		sq = malloc( sizeof( double ) * n );
+		gr = malloc( sizeof( double ) * n );
 		
 		// loop over all remaining roots
-		double min = INFINITY;
-		int selected_root = 10;	
-		double sum = 0;
+		min = INFINITY;
+		selected_root = 10;	
+		sum = 0;
 		for ( j = 0; j < n_roots; j++) 
 		{
 			// calculate structure factor at different q values
@@ -1029,11 +1051,12 @@ int TY_SolveEquations( double Z1, double Z2, double K1, double K2, double phi,
 			{
 				q = dq * i;
 				sq[i] = SqTwoYukawa( q, Z1, Z2, K1, K2, phi, sol_a[j], sol_b[j], sol_c1[j], sol_c2[j], sol_d1[j], sol_d2[j] );
-				
+/*				
 				if(i<20 && debug) {
 					sprintf(buf, "after SqTwoYukawa: s(q) = %g\r",sq[i] );
 					XOPNotice(buf);	
 				}
+ */
 			}
 			
 			// calculate pair correlation function for given
@@ -1045,12 +1068,12 @@ int TY_SolveEquations( double Z1, double Z2, double K1, double K2, double phi,
 			sum = 0;
 			for (i = 0; i < floor( 1. / dr ); i++ )  {
 				sum += fabs( gr[i] );
-				
+/*				
 				if(i<20 && debug) {
 					sprintf(buf, "g(r) in core = %g\r",fabs(gr[i]));
 					XOPNotice(buf);
 				}
-				
+*/				
 			}
 
 			if ( sum < min )

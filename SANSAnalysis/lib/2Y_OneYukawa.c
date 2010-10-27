@@ -51,13 +51,14 @@ double Y_g( double s, double phi, double Z, double a, double b, double c, double
 
 double Y_hq( double q, double Z, double K, double v )
 {
+	double t1, t2, t3, t4;
+
 	if ( q == 0) 
 	{
 		return (exp(-2*Z)*(v + (v*(-1 + Z) - 2*K*Z)*exp(Z))*(-(v*(1 + Z)) + (v + 2*K*Z*(1 + Z))*exp(Z))*pow(K,-1)*pow(Z,-4))/4.;
 	}
 	else 
 	{
-		double t1, t2, t3, t4;
 		
 		t1 = ( 1 - v / ( 2 * K * Z * exp( Z ) ) ) * ( ( 1 - cos( q ) ) / ( q*q ) - 1 / ( Z*Z + q*q ) );
 		t2 = ( v*v * ( q * cos( q ) - Z * sin( q ) ) ) / ( 4 * K * Z*Z * q * ( Z*Z + q*q ) );
@@ -77,7 +78,7 @@ double Y_pc( double q,
 	double a0 = a * a;
 	double b0 = -12 * phi *( pow( a + b,2 ) / 2 + a * c * exp( -Z ) );
 	
-	double t1, t2, t3;
+	double t1, t2, t3, t4;
 	
 	if ( q == 0 ) 
 	{
@@ -91,7 +92,7 @@ double Y_pc( double q,
 		t2 = b0 * ( 2 * q * sin( q ) - ( q * q - 2 ) * cos( q ) - 2 ) / pow( q, 4 );
 		t3 = a0 * phi * ( ( q*q - 6 ) * 4 * q * sin( q ) - ( pow( q, 4 ) - 12 * q*q + 24) * cos( q ) + 24 ) / ( 2 * pow( q, 6 ) );
 	}
-	double t4 = Y_hq( q, Z, K, v );
+	t4 = Y_hq( q, Z, K, v );
 	return -24 * phi * ( t1 + t2 + t3 + t4 );
 }
 
@@ -184,6 +185,12 @@ int Y_SolveEquations( double Z, double K, double phi, double* a, double* b, doub
 	
 	double zeta = 24*phi*pow(-6*phi*Z*cosh(Z/2.) + (12*phi + (-1 + phi)*pow(Z,2))*sinh(Z/2.),2);	
 	double A[5];
+	int degree,i,j,n_roots;
+	double x,y;
+	int n,selected_root;
+	double qmax,q,dq,min,sum,dr;
+	double *sq,*gr;
+	
 	
 	A[0] = -(exp(3*Z)*pow(K,2)*pow(-1 + phi,2)*pow(Z,3) / zeta );
 	A[1] = K*Z*exp(Z)*(6*phi*(2 + 4*phi + (2 + phi)*Z) + exp(Z)*
@@ -192,7 +199,7 @@ int Y_SolveEquations( double Z, double K, double phi, double* a, double* b, doub
 	A[3] = 6*phi*Z*exp(-Z)*(-12*phi*(1 + 2*phi)*(-1 + exp(Z)) + 6*phi*Z*(3*phi + (2 + phi)*exp(Z)) + 
 							6*(-1 + phi)*phi*pow(Z,2) + pow(-1 + phi,2)*pow(Z,3))/zeta;
 	A[4] = -36*exp(-Z)*pow(-1 + phi,2)*pow(phi,2)*pow(Z,3)/zeta;
-	
+/*	
 	if ( debug )
 	{
 		sprintf (buf, "(Z,K,phi) = (%g, %g, %g)\r", K, Z, phi );
@@ -200,12 +207,11 @@ int Y_SolveEquations( double Z, double K, double phi, double* a, double* b, doub
 		sprintf (buf, "A = (%g, %g, %g, %g, %g)\r", A[0], A[1], A[2], A[3], A[4] );
 		XOPNotice(buf);
 	}
-	
+*/	
 	//integer degree of polynomial
-	int degree = 4;
+	degree = 4;
 	
 	// vector of real and imaginary coefficients in order of decreasing powers
-	int i;
 	for ( i = 0; i <= degree; i++ )
 	{
 		real_coefficient[i] = A[4-i];
@@ -216,7 +222,7 @@ int Y_SolveEquations( double Z, double K, double phi, double* a, double* b, doub
 	cpoly( real_coefficient, imag_coefficient, degree, real_root, imag_root );
 	
 	// show the result if in debug mode
-	double x, y;
+/*
 	if ( debug )
 	{
 		for ( i = 0; i < degree; i++ )
@@ -229,8 +235,9 @@ int Y_SolveEquations( double Z, double K, double phi, double* a, double* b, doub
 		sprintf(buf, "\r" );
 		XOPNotice(buf);
 	}
+ */
 	// determine the set of solutions for a,b,c,d,
-	int j = 0;
+	j = 0;
 	for ( i = 0; i < degree; i++ ) 
 	{
 		x = real_root[i];
@@ -248,35 +255,38 @@ int Y_SolveEquations( double Z, double K, double phi, double* a, double* b, doub
 	}
 
 	// number  remaining roots 
-	int n_roots = j;
+	n_roots = j;
 	
 //	sprintf(buf, "inside Y_solveEquations OK, before malloc: n_roots = %d\r",n_roots);
 //	XOPNotice(buf);	
 	
 	// if there is still more than one root left, than choose the one with the minimum
 	// average value inside the hardcore
+	
+	
+	
 	if ( n_roots > 1 )
 	{
 		// the number of q values should be a power of 2
 		// in order to speed up the FFT
-		int n = 1 << 14;		//= 16384
+		n = 1 << 14;		//= 16384
 		
 		// the maximum q value should be large enough 
 		// to enable a reasoble approximation of g(r)
-		double qmax = 1000.;
-		double q, dq = qmax / ( n - 1 );
+		qmax = 1000.;
+		dq = qmax / ( n - 1 );
 		
-		// step size for g(r)
-		double dr;
+		// step size for g(r) = dr
 		
 		// allocate memory for pair correlation function g(r)
 		// and structure factor S(q)
-		double* sq = malloc( sizeof( double ) * n );
-		double* gr = malloc( sizeof( double ) * n );
+		// (note that sq and gr are pointers)
+		sq = malloc( sizeof( double ) * n );
+		gr = malloc( sizeof( double ) * n );
 		
 		// loop over all remaining roots
-		double min = INFINITY;
-		int selected_root=0;	
+		min = INFINITY;
+		selected_root=0;	
 		
 //		sprintf(buf, "after malloc: n,dq = %d  %g\r",n,dq);
 //		XOPNotice(buf);
@@ -288,11 +298,12 @@ int Y_SolveEquations( double Z, double K, double phi, double* a, double* b, doub
 			{
 				q = dq * i;
 				sq[i] = SqOneYukawa( q, Z, K, phi, sol_a[j], sol_b[j], sol_c[j], sol_d[j] );
-				
+/*				
 				if(i<20 && debug) {
 					sprintf(buf, "after SqOneYukawa: s(q) = %g\r",sq[i] );
 					XOPNotice(buf);	
 				}
+ */
 			}
 						
 			// calculate pair correlation function for given
@@ -305,15 +316,16 @@ int Y_SolveEquations( double Z, double K, double phi, double* a, double* b, doub
 			
 			// determine sum inside the hardcore 
 			// 0 =< r < 1 of the pair-correlation function
-			double sum = 0;
+			sum = 0;
 			for (i = 0; i < floor( 1. / dr ); i++ ) 
 			{
 				sum += fabs( gr[i] );
-				
+/*				
 				if(i<20 && debug) {
 					sprintf(buf, "g(r) in core = %g\r",fabs(gr[i]));
 					XOPNotice(buf);
 				}
+ */
 			}
 			
 //			sprintf(buf, "after hard core: sum, min = %g %g\r",sum,min);

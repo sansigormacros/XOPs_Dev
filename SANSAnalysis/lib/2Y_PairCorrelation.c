@@ -111,7 +111,9 @@ int PairCorrelation_GSL( double phi, double dq, double* Sq, double* dr, double* 
 int PairCorrelation( double phi, double dq, double* Sq, double* dr, double* gr, int N )
 {
 	double* data = malloc( sizeof(double) * N * 2);
-	int n;
+	int n,error,k;
+	double alpha,real,imag;
+	
 	for ( n = 0; n < N; n++ ) {
 		data[2*n] = n * ( Sq[n] - 1 );
 		data[2*n+1] = 0;
@@ -120,7 +122,7 @@ int PairCorrelation( double phi, double dq, double* Sq, double* dr, double* gr, 
 	
 	// data[k] -> sum( data[n] * exp(-2*pi*i*n*k/N), {n, 0, N-1 })
 	//	int error  = gsl_fft_real_radix2_transform( data, stride, N );
-	int error  = 1;
+	error  = 1;
 	dfour1( data-1, N, 1 );		//N is the number of complex points
 	
 	//	printf("dfour1 is done\n");
@@ -128,11 +130,9 @@ int PairCorrelation( double phi, double dq, double* Sq, double* dr, double* gr, 
 	// if no errors detected 
 	if ( error == 1 ) 
 	{
-		double alpha = N * pow( dq, 3 ) / ( 24 * M_PI * M_PI * phi );
+		alpha = N * pow( dq, 3 ) / ( 24 * M_PI * M_PI * phi );
 		
 		*dr = 2 * M_PI / ( N * dq );  
-		int k;
-		double real, imag;
 		for ( k = 0; k < N; k++ )
 		{
 			// the solutions of the transform is stored in data, 
