@@ -925,6 +925,7 @@ int TY_SolveEquations( double Z1, double Z2, double K1, double K2, double phi,
 	int n_roots,n,selected_root;
 	double dr,qmax,q,dq,min,sum;
 	double *sq,*gr;
+	double Pi = 3.14159265358979323846264338327950288;   /* pi */
 	
 	
 	// reduce system to a polynomial from which all solution are extracted
@@ -1030,7 +1031,7 @@ int TY_SolveEquations( double Z1, double Z2, double K1, double K2, double phi,
 		
 		// the maximum q value should be large enough 
 		// to enable a reasoble approximation of g(r)
-		qmax = 16 * 10 * 2 * M_PI;
+		qmax = 16 * 10 * 2 * Pi;
 		dq = qmax / ( n - 1 );
 		
 		// step size for g(r) = dr
@@ -1041,7 +1042,7 @@ int TY_SolveEquations( double Z1, double Z2, double K1, double K2, double phi,
 		gr = malloc( sizeof( double ) * n );
 		
 		// loop over all remaining roots
-		min = INFINITY;
+		min = 1e99;
 		selected_root = 10;	
 		sum = 0;
 		for ( j = 0; j < n_roots; j++) 

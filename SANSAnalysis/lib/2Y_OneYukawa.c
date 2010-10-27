@@ -285,7 +285,7 @@ int Y_SolveEquations( double Z, double K, double phi, double* a, double* b, doub
 		gr = malloc( sizeof( double ) * n );
 		
 		// loop over all remaining roots
-		min = INFINITY;
+		min = 1e99;
 		selected_root=0;	
 		
 //		sprintf(buf, "after malloc: n,dq = %d  %g\r",n,dq);

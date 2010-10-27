@@ -113,6 +113,8 @@ int PairCorrelation( double phi, double dq, double* Sq, double* dr, double* gr, 
 	double* data = malloc( sizeof(double) * N * 2);
 	int n,error,k;
 	double alpha,real,imag;
+	double Pi = 3.14159265358979323846264338327950288;   /* pi */
+
 	
 	for ( n = 0; n < N; n++ ) {
 		data[2*n] = n * ( Sq[n] - 1 );
@@ -130,9 +132,9 @@ int PairCorrelation( double phi, double dq, double* Sq, double* dr, double* gr, 
 	// if no errors detected 
 	if ( error == 1 ) 
 	{
-		alpha = N * pow( dq, 3 ) / ( 24 * M_PI * M_PI * phi );
+		alpha = N * pow( dq, 3 ) / ( 24 * Pi * Pi * phi );
 		
-		*dr = 2 * M_PI / ( N * dq );  
+		*dr = 2 * Pi / ( N * dq );  
 		for ( k = 0; k < N; k++ )
 		{
 			// the solutions of the transform is stored in data, 
