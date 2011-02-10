@@ -103,5 +103,49 @@ resource 'XOPF' (1100) {
 			NT_FP64 + WAVE_TYPE,
 		},
 		
+		"maxDistanceX",		/* function name */
+		F_UTIL | F_EXTERNAL,					/* function category == UTILITY */
+		NT_FP64,							/* return value type */			
+		{
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,
+		},
+		
+		"binDistanceX",		/* function name */
+		F_UTIL | F_EXTERNAL,					/* function category == UTILITY */
+		NT_FP64,							/* return value type */			
+		{
+			NT_FP64 + WAVE_TYPE,			// XYZ waves
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,			// distance Bin wave (this is returned)
+			NT_FP64,						// grid
+			NT_FP64,						// bin width
+		},
+		
+		"SobolX",		/* function name */
+		F_UTIL | F_EXTERNAL,					/* function category == UTILITY */
+		NT_FP64,							/* return value type */			
+		{
+			NT_FP64,						// requested dimension (this is really an integer)
+			NT_FP64 + WAVE_TYPE,			// result wave
+		},
+		
+		"binSLDDistanceX",		/* function name */
+		F_UTIL | F_EXTERNAL,					/* function category == UTILITY */
+		NT_FP64,							/* return value type */			
+		{
+			NT_FP64 + WAVE_TYPE,			// XYZ waves
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,			// rho wave
+			NT_FP64 + WAVE_TYPE,			// distance Bin wave, 2D (this is returned)
+			NT_FP64 + WAVE_TYPE,			// SLD lookup
+			NT_FP64 + WAVE_TYPE,			// PSF id matrix
+			NT_FP64,						// grid
+			NT_FP64,						// bin width
+		},
+		
 	}
 };

@@ -113,8 +113,8 @@ Monte_SANSX(MC_ParamsPtr p) {
 	
 	seed = (long)results[0];
 	
-//	sprintf(buf, "input seed = %ld\r", seed);
-//	XOPNotice(buf);
+	//	sprintf(buf, "input seed = %ld\r", seed);
+	//	XOPNotice(buf);
 	
 	if(seed >= 0) {
 		seed = -1234509876;

@@ -370,6 +370,18 @@ RegisterFunction()
 		case 4:						// 
 			return((long)Monte_SANSX4);
 			break;
+		case 5:						// 
+			return((long)maxDistanceX);
+			break;
+		case 6:						// 
+			return((long)binDistanceX);
+			break;
+		case 7:						// 
+			return((long)SobolX);
+			break;
+		case 8:						// 
+			return((long)binSLDDistanceX);
+			break;
 	}
 	return(NIL);
 }
