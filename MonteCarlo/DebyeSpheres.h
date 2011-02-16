@@ -39,19 +39,23 @@ typedef struct DistParam {
 // Parameters passed from Igor to the function, in reverse order of the parameter list
 // result is the last parameter, always.
 typedef struct BinParam {
+	double p2;
+	double p1;		// start and stop of the outer index
 	double binWidth;
 	double grid;
 	waveHndl bwavH;	// bin wave
 	waveHndl zwavH;	// z coordinate. ALL are expected to be DP waves
 	waveHndl ywavH;	// y coordinate.
 	waveHndl xwavH;	// x coordinate.
-	//	void* tp;			//unused void for threadsafe functions
+	void* tp;			//unused void for threadsafe functions
 	double result;
 }BinParam, *BinParamPtr;   
 
 // Parameters passed from Igor to the function, in reverse order of the parameter list
 // result is the last parameter, always.
 typedef struct BinSLDParam {
+	double p2;
+	double p1;		// start and stop of the outer index
 	double binWidth;
 	double grid;
 	waveHndl PSFidH;	// psf id matrix, this is 2D
@@ -61,7 +65,7 @@ typedef struct BinSLDParam {
 	waveHndl zwavH;	// z coordinate. ALL are expected to be DP waves
 	waveHndl ywavH;	// y coordinate.
 	waveHndl xwavH;	// x coordinate.
-	//	void* tp;			//unused void for threadsafe functions
+	void* tp;			//unused void for threadsafe functions
 	double result;
 }BinSLDParam, *BinSLDParamPtr;   
 

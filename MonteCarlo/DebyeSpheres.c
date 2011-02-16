@@ -240,6 +240,7 @@ binDistanceX(BinParamPtr p)
 	int i,j;
     int npt,numBins,binIndex;
 	double grid,binWidth,val;
+	int p1,p2;
 	
 	
 	
@@ -282,6 +283,9 @@ binDistanceX(BinParamPtr p)
 	//
     npt = (int) WavePoints(p->xwavH);	//wavePoints returns long, number of XYZ points
     numBins = (int) WavePoints(p->bwavH);	//wavePoints returns long, number of points in bin wave
+	p1 = (int) p->p1;
+	p2 = (int) p->p2;
+	
 	
 	xv = WaveData(p->xwavH);		//xyz locations
 	yv = WaveData(p->ywavH);
@@ -292,7 +296,7 @@ binDistanceX(BinParamPtr p)
 	binWidth = p->binWidth;
 	
 	//do the i!=j double loop, 	
-	for(i=0;i<npt;i+=1) {
+	for(i=p1;i<p2;i+=1) {
 		for(j=(i+1);j<npt;j+=1) {
 			val = XYZDistance(xv[i],xv[j],yv[i],yv[j],zv[i],zv[j])*grid;
 			binIndex = (int)(val/binWidth-0.5);
@@ -328,6 +332,8 @@ binSLDDistanceX(BinSLDParamPtr p)
 	int i,j;
     int npt,numBins,binIndex;
 	double grid,binWidth,val,retVal;
+	int p1,p2;
+
 	
 // for accessing the 2D wave data to write the results	
 	waveHndl wavH,PSFwavH;
@@ -417,11 +423,14 @@ binSLDDistanceX(BinSLDParamPtr p)
 	SLDLook = WaveData(p->SLDLookH);
 	PSFid = WaveData(p->PSFidH);			//this one is 2D
 	
+	p1 = (int) p->p1;
+	p2 = (int) p->p2;
+	
 	grid = p->grid;
 	binWidth = p->binWidth;
 	
 	//do the i!=j double loop, 	
-	for(i=0;i<npt;i+=1) {
+	for(i=p1;i<p2;i+=1) {
 		for(j=(i+1);j<npt;j+=1) {
 			val = XYZDistance(xv[i],xv[j],yv[i],yv[j],zv[i],zv[j])*grid;
 			binIndex = (int)(val/binWidth-0.5);
