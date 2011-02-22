@@ -32,7 +32,7 @@ typedef struct DistParam {
 	waveHndl zwavH;	// z coordinate. ALL are expected to be DP waves
 	waveHndl ywavH;	// y coordinate.
 	waveHndl xwavH;	// x coordinate.
-//	void* tp;			//unused void for threadsafe functions
+	void* tp;			//unused void for threadsafe functions
 	double result;
 }DistParam, *DistParamPtr;   
 

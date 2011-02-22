@@ -48,6 +48,7 @@ resource 'XOPF' (1100) {
 			NT_FP64 + WAVE_TYPE,
 			NT_FP64 + WAVE_TYPE,
 		},
+		
 		"Monte_SANSX2",		/* function name */
 		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
 		NT_FP64,							/* return value type */			
@@ -104,7 +105,7 @@ resource 'XOPF' (1100) {
 		},
 		
 		"maxDistanceX",		/* function name */
-		F_UTIL | F_EXTERNAL,					/* function category == UTILITY */
+		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
 		NT_FP64,							/* return value type */			
 		{
 			NT_FP64 + WAVE_TYPE,
