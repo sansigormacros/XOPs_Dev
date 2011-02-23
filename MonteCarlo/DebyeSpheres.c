@@ -171,8 +171,7 @@ maxDistanceX(DistParamPtr p)
 	double *xv,*yv,*zv;		//pointers to input xyz coordinates
 	int i,j;
     int npt;
-	
-	
+	int p1,p2;
 	
 	// check for all of the required waves
 	if (p->zwavH == NIL) {
@@ -208,10 +207,13 @@ maxDistanceX(DistParamPtr p)
 	yv = WaveData(p->ywavH);
 	zv = WaveData(p->zwavH);
 	
+	p1 = (int) p->p1;
+	p2 = (int) p->p2;
+	
 	dmax = 0;
 	//do the i!=j double loop, keeping the maximum distance
 
-	for(i=0;i<npt;i+=1) {
+	for(i=p1;i<p2;i+=1) {
 		for(j=(i+1);j<npt;j+=1) {
 //			dij=XYZDistance(xv[i],xv[j],yv[i],yv[j],zv[i],zv[j]);
 			dij = (xv[i]-xv[j])*(xv[i]-xv[j]) + (yv[i]-yv[j])*(yv[i]-yv[j]) + (zv[i]-zv[j])*(zv[i]-zv[j]);

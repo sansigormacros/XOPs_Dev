@@ -111,6 +111,8 @@ resource 'XOPF' (1100) {
 			NT_FP64 + WAVE_TYPE,
 			NT_FP64 + WAVE_TYPE,
 			NT_FP64 + WAVE_TYPE,
+			NT_FP64,						// start index
+			NT_FP64,						// stop index
 		},
 		
 		"binDistanceX",		/* function name */

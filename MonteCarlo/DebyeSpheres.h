@@ -29,6 +29,8 @@ typedef struct AltiParams {
 // Parameters passed from Igor to the function, in reverse order of the parameter list
 // result is the last parameter, always.
 typedef struct DistParam {
+	double p2;
+	double p1;		// start and stop of the outer index
 	waveHndl zwavH;	// z coordinate. ALL are expected to be DP waves
 	waveHndl ywavH;	// y coordinate.
 	waveHndl xwavH;	// x coordinate.
