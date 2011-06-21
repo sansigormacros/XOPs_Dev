@@ -33,7 +33,7 @@ long MC_round(double x)
 
 
 int
-FindPixel(double testQ, double testPhi, double lam, double sdd,
+FindPixel(double testQ, double testPhi, double lam, double yg_d, double sdd,
 		  double pixSize, double xCtr, double yCtr, long *xPixel, long *yPixel) {
 	
 	double theta,dy,dx,qx,qy,pi;
@@ -41,6 +41,10 @@ FindPixel(double testQ, double testPhi, double lam, double sdd,
 	//decompose to qx,qy
 	qx = testQ*cos(testPhi);
 	qy = testQ*sin(testPhi);
+	
+	//correct qy for gravity
+	qy += 4.0*pi/lam*(yg_d/sdd/2.0);
+
 	
 	//convert qx,qy to pixel locations relative to # of pixels x, y from center
 	theta = 2.0*asin(qy*lam/4.0/pi);

@@ -51,7 +51,11 @@ Monte_SANSX4(MC_ParamsPtr p) {
 	long NDoubleCoherent,NMultipleScatter,isOn,xCtr_long,yCtr_long;
 	long NMultipleCoherent,NCoherentEvents;
 	double deltaLam,v1,v2,currWavelength,rsq,fac;		//for simulating wavelength distribution
+	double ssd, sourAp, souXX, souYY, magn;		//source-to-sample, and source Ap radius for initlal trajectory
+	double vz_1,g,yg_d;				//gravity terms
 	
+	vz_1 = 3.956e5;		//velocity [cm/s] of 1 A neutron
+	g = 981.0;				//gravity acceleration [cm/s^2]	
 	
 	// for accessing the 2D wave data, direct method (see the WaveAccess example XOP)
 	waveHndl wavH;
@@ -139,6 +143,9 @@ Monte_SANSX4(MC_ParamsPtr p) {
 	sig_incoh = inputWave[9];
 	sig_sas = inputWave[10];
 	deltaLam = inputWave[11];
+	ssd = inputWave[12];			// in cm, like SDD
+	sourAp = inputWave[13];		// radius, in cm, like r1 and r2
+	
 	xCtr_long = (long)(xCtr+0.5);
 	yCtr_long = (long)(yCtr+0.5);
 	
@@ -190,7 +197,7 @@ Monte_SANSX4(MC_ParamsPtr p) {
 	//	RATIO = SIG_ABS / SIG_TOTAL
 	ratio = sig_incoh / sig_total;
 	
-	theta_max = wavelength*qmax/(2*pi);
+	theta_max = wavelength*qmax/(2.0*pi);
 	//C     SET Theta-STEP SIZE.
 	dth = theta_max/num_bins;
 	//	Print "theta bin size = dth = ",dth
@@ -219,9 +226,9 @@ Monte_SANSX4(MC_ParamsPtr p) {
 		//				break;
 		//		}
 		
-		vx = 0.0;			// Initialize direction vector.
-		vy = 0.0;
-		vz = 1.0;
+//		vx = 0.0;			// Initialize direction vector.
+//		vy = 0.0;
+//		vz = 1.0;
 		
 		theta = 0.0;		//	Initialize scattering angle.
 		phi = 0.0;			//	Intialize azimuthal angle.
@@ -232,6 +239,17 @@ Monte_SANSX4(MC_ParamsPtr p) {
 		incoherentEvent = 0;
 		coherentEvent = 0;
 		
+		// pick point in source aperture area		
+		do	{				//	Makes sure position is within circle.
+			ran = ran1a(&seed);		//[0,1]
+			souXX = 2.0*sourAp*(ran-0.5);		//X beam position of neutron entering sample.
+			ran = ran1a(&seed);		//[0,1]
+			souYY = 2.0*sourAp*(ran-0.5);		//Y beam position ...
+			rr = sqrt(souXX*souXX+souYY*souYY);		//Radial position of neutron in incident beam.
+		} while(rr>sourAp);
+		
+		
+		// pick point in sample aperture		
 		do	{				//	Makes sure position is within circle.
 			ran = ran1a(&seed);		//[0,1]
 			xx = 2.0*r1*(ran-0.5);		//X beam position of neutron entering sample.
@@ -248,10 +266,15 @@ Monte_SANSX4(MC_ParamsPtr p) {
 			v2=2.0*ran1a(&seed)-1.0;
 			rsq=v1*v1+v2*v2;
 		} while (rsq >= 1.0 || rsq == 0.0);
-		fac=sqrt(-2.0*log(rsq)/rsq);
+		fac=sqrt(-2.0*log10(rsq)/rsq);		//be sure to use log10() here, to duplicate the Igor code
 		
 		//		gset=v1*fac		//technically, I'm throwing away one of the two values
 		currWavelength = (v2*fac)*deltaLam*wavelength/2.35 + wavelength;
+		
+		magn = sqrt((souXX - xx)*(souXX - xx) + (souYY - yy)*(souYY - yy) + ssd*ssd);
+		vx = (souXX - xx)/magn;		// Initialize direction vector.
+		vy = (souYY - yy)/magn;
+		vz = (ssd - 0.)/magn;
 		
 		do {   //Scattering Loop, will exit when "done" == 1
 			// keep scattering multiple times until the neutron exits the sample
@@ -293,7 +316,7 @@ Monte_SANSX4(MC_ParamsPtr p) {
 						//						q0 =left + binarysearchinterp(ran_dev,ran1a(seed))*delta;
 						
 						q0 =left + locate_interp(ran_dev,numRows_ran_dev,ran1a(&seed))*delta;
-						theta = q0/2/pi*currWavelength;		//SAS approximation
+						theta = q0/2.0/pi*currWavelength;		//SAS approximation
 						
 						find_theta = 1;		//always accept
 						
@@ -332,18 +355,21 @@ Monte_SANSX4(MC_ParamsPtr p) {
 						return retVal;
 					//	nn[index] += 1;
 				}
+
+				// calculate fall due to gravity (in cm) (note that it is negative)
+				yg_d = -0.5*g*sdd*(ssd+sdd)*(currWavelength/vz_1)*(currWavelength/vz_1);
 				
 				if( index != 0) {		//neutron was scattered, figure out where it went
 					theta_z = acos(vz);		// Angle (= 2theta) WITH respect to z axis.
-					testQ = 2*pi*sin(theta_z)/currWavelength;
+					testQ = 2.0*pi*sin(theta_z)/currWavelength;
 					
 					// pick a random phi angle, and see if it lands on the detector
 					// since the scattering is isotropic, I can safely pick a new, random value
 					// this would not be true if simulating anisotropic scattering.
-					testPhi = ran1a(&seed)*2*pi;
+					testPhi = ran1a(&seed)*2.0*pi;
 					
 					// is it on the detector?	
-					FindPixel(testQ,testPhi,currWavelength,sdd,pixSize,xCtr,yCtr,&xPixel,&yPixel);
+					FindPixel(testQ,testPhi,currWavelength,yg_d,sdd,pixSize,xCtr,yCtr,&xPixel,&yPixel);
 					
 					if(xPixel != -1 && yPixel != -1) {
 						isOn += 1;
@@ -403,22 +429,33 @@ Monte_SANSX4(MC_ParamsPtr p) {
 				} else {	// index was zero, neutron must be transmitted, so just increment the proper counters and data
 					isOn += 1;
 					nt[0] += 1;
-					MemClear(indices, sizeof(indices)); // Must be 0 for unused dimensions.
-					//indices[0] = xCtr_long;		//don't put everything in one pixel
-					//indices[1] = yCtr_long;
-					indices[0] = (long)(xCtr+xx/pixSize+0.5);
-					indices[1] = (long)(yCtr+yy/pixSize+0.5);
-					// check for valid indices - got an XOP error, probably from here
-					if(indices[0] > 127) indices[0] = 127;
-					if(indices[0] < 0) indices[0] = 0;
-					if(indices[1] > 127) indices[1] = 127;
-					if(indices[1] < 0) indices[1] = 0;
+					//figure out where it landed
+					theta_z = acos(vz);		// Angle (= 2theta) WITH respect to z axis.
+					testQ = 2.0*pi*sin(theta_z)/currWavelength;
 					
-					if (retVal = MDGetNumericWavePointValue(wavH, indices, value))
-						return retVal;
-					value[0] += 1; // Real part
-					if (retVal = MDSetNumericWavePointValue(wavH, indices, value))
-						return retVal;
+					// pick a random phi angle, and see if it lands on the detector
+					// since the scattering is isotropic, I can safely pick a new, random value
+					// this would not be true if simulating anisotropic scattering.
+					testPhi = ran1a(&seed)*2.0*pi;
+					
+					// is it on the detector?	
+					FindPixel(testQ,testPhi,currWavelength,yg_d,sdd,pixSize,xCtr,yCtr,&xPixel,&yPixel);
+					
+					if(xPixel != -1 && yPixel != -1) {
+						isOn += 1;
+						MemClear(indices, sizeof(indices)); // Must be 0 for unused dimensions.
+						indices[0] = xPixel;
+						indices[1] = yPixel;
+						if (retVal = MDGetNumericWavePointValue(wavH, indices, value))
+							return retVal;
+						value[0] += 1; // Real part
+						if (retVal = MDSetNumericWavePointValue(wavH, indices, value))
+							return retVal;
+						//if(index==1)  // only the single scattering events
+						//dp = dp0 + xPixel + yPixel*numColumns;		//offset the pointer to the exact memory location
+						//*dp += 1;		//increment the value there
+						//endif
+					}
 				}	
 			}
 		} while (!done);

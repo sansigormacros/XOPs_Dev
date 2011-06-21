@@ -55,7 +55,7 @@ int Monte_SANSX3(MC_ParamsPtr p);
 int Monte_SANSX4(MC_ParamsPtr p);
 
 long MC_round(double x);
-int FindPixel(double testQ, double testPhi, double lam, double sdd, double pixSize, double xCtr, double yCtr, long *xPixel, long *yPixel);
+int FindPixel(double testQ, double testPhi, double lam, double yg_d, double sdd, double pixSize, double xCtr, double yCtr, long *xPixel, long *yPixel);
 int NewDirection(double *vx, double *vy, double *vz, double theta, double phi);
 double path_len(double aval, double sig_tot);
 float ran1(long *idum);
