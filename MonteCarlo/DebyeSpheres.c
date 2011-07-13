@@ -335,6 +335,7 @@ binSLDDistanceX(BinSLDParamPtr p)
     int npt,numBins,binIndex;
 	double grid,binWidth,val,retVal;
 	int p1,p2;
+	int intSLD;
 
 	
 // for accessing the 2D wave data to write the results	
@@ -428,6 +429,8 @@ binSLDDistanceX(BinSLDParamPtr p)
 	p1 = (int) p->p1;
 	p2 = (int) p->p2;
 	
+	intSLD = (int) p->minSLD;		//convert to int for use as index
+
 	grid = p->grid;
 	binWidth = p->binWidth;
 	
@@ -441,8 +444,8 @@ binSLDDistanceX(BinSLDParamPtr p)
 			} else {
 				rhoi = (long) rho[i];				//get the rho value at i and j
 				rhoj = (long) rho[j];
-				rii = (long) SLDLook[rhoi];			//rho i index
-				rji = (long) SLDLook[rhoj];			//rho j index
+				rii = (long) SLDLook[rhoi+intSLD];			//rho i index
+				rji = (long) SLDLook[rhoj+intSLD];			//rho j index
 				MemClear(indices, sizeof(indices)); // Must be 0 for unused dimensions.
 				indices[0] = rii;
 				indices[1] = rji;

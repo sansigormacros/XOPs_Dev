@@ -148,6 +148,7 @@ resource 'XOPF' (1100) {
 			NT_FP64 + WAVE_TYPE,			// distance Bin wave, 2D (this is returned)
 			NT_FP64 + WAVE_TYPE,			// SLD lookup
 			NT_FP64 + WAVE_TYPE,			// PSF id matrix
+			NT_FP64,						// abs(minSLD) for lookup table
 			NT_FP64,						// grid
 			NT_FP64,						// bin width
 			NT_FP64,						// start index

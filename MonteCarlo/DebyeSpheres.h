@@ -60,6 +60,7 @@ typedef struct BinSLDParam {
 	double p1;		// start and stop of the outer index
 	double binWidth;
 	double grid;
+	double minSLD;
 	waveHndl PSFidH;	// psf id matrix, this is 2D
 	waveHndl SLDLookH;	// SLD lookup wave, this is 1D
 	waveHndl bwavH;	// bin wave, this is 2D
