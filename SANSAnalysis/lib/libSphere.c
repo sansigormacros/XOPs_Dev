@@ -1720,13 +1720,15 @@ PolyTwoShell(double dp[], double x)
     return(answer);
 }
 
+// Use 150 point integral. This is probably excessive, but we need at least 100 points 
+// and this avoids yet another set of abcissae and weights
 double
 PolyThreeShell(double dp[], double x)
 {
 	double scale,rcore,rhocore,rhosolv,bkg,pd,zz;		//my local names
 	double va,vb,summ,yyy,zi;
 	double answer,zp1,zp2,zp3,vpoly,range,temp_3sf[11],pi;
-	int nord=76,ii;
+	int nord=150,ii;
 	double thick1,thick2,thick3;
 	double rhoshel1,rhoshel2,rhoshel3;
 	
@@ -1773,9 +1775,9 @@ PolyThreeShell(double dp[], double x)
 	summ = 0.0;		// initialize integral
 	for(ii=0;ii<nord;ii+=1) {
 		// calculate Gauss points on integration interval (r-value for evaluation)
-		zi = ( Gauss76Z[ii]*(vb-va) + vb + va )/2.0;
+		zi = ( Gauss150Z[ii]*(vb-va) + vb + va )/2.0;
 		temp_3sf[1] = zi;
-		yyy = Gauss76Wt[ii] * SchulzPoint(zi,rcore,zz) * ThreeShell(temp_3sf,x);
+		yyy = Gauss150Wt[ii] * SchulzPoint(zi,rcore,zz) * ThreeShell(temp_3sf,x);
 		//un-normalize by volume
 		yyy *= 4.0*pi/3.0*pow((zi+thick1+thick2+thick3),3);
 		summ += yyy;		//add to the running total of the quadrature
@@ -1797,13 +1799,16 @@ PolyThreeShell(double dp[], double x)
     return(answer);
 }
 
+
+// Use 150 point integral. This is probably excessive, but we need at least 100 points 
+// and this avoids yet another set of abcissae and weights
 double
 PolyFourShell(double dp[], double x)
 {
 	double scale,rcore,rhocore,rhosolv,bkg,pd,zz;		//my local names
 	double va,vb,summ,yyy,zi;
 	double answer,zp1,zp2,zp3,vpoly,range,temp_4sf[13],pi;
-	int nord=76,ii;
+	int nord=150,ii;
 	double thick1,thick2,thick3,thick4;
 	double rhoshel1,rhoshel2,rhoshel3,rhoshel4;
 	
@@ -1854,9 +1859,9 @@ PolyFourShell(double dp[], double x)
 	summ = 0.0;		// initialize integral
 	for(ii=0;ii<nord;ii+=1) {
 		// calculate Gauss points on integration interval (r-value for evaluation)
-		zi = ( Gauss76Z[ii]*(vb-va) + vb + va )/2.0;
+		zi = ( Gauss150Z[ii]*(vb-va) + vb + va )/2.0;
 		temp_4sf[1] = zi;
-		yyy = Gauss76Wt[ii] * SchulzPoint(zi,rcore,zz) * FourShell(temp_4sf,x);
+		yyy = Gauss150Wt[ii] * SchulzPoint(zi,rcore,zz) * FourShell(temp_4sf,x);
 		//un-normalize by volume
 		yyy *= 4.0*pi/3.0*pow((zi+thick1+thick2+thick3+thick4),3);
 		summ += yyy;		//add to the running total of the quadrature
