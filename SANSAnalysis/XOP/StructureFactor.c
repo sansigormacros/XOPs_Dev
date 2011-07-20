@@ -263,7 +263,7 @@ OneYukawaX(FitParamsPtr_Yuk p)
 		}	
 	} else {
 		for (i = 0; i < npnts; i++) {
-			sq[i] = 1;
+			sq[i] = 1000;		// return a really bogus value, as Yun suggests
 		}
 	}
 	
@@ -356,7 +356,7 @@ TwoYukawaX(FitParamsPtr_Yuk p)
 		}	
 	} else {
 		for (i = 0; i < npnts; i++) {
-			sq[i] = 1;
+			sq[i] = 1000;		// return a really bogus value, as Yun suggests
 		}
 	}
 	
