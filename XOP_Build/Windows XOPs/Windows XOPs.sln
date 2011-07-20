@@ -1,11 +1,11 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual C++ Express 2008
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libSANSAnalysis", "libSANSAnalysis\libSANSAnalysis.vcproj", "{AFDE1D41-E81E-49DF-88F8-61BF40D015CC}"
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual C++ Express 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libSANSAnalysis", "libSANSAnalysis\libSANSAnalysis.vcxproj", "{AFDE1D41-E81E-49DF-88F8-61BF40D015CC}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SANSAnalysis", "SANSAnalysis\SANSAnalysis.vcproj", "{FE1D4648-3354-4709-82C5-352E0E86C356}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SANSAnalysis", "SANSAnalysis\SANSAnalysis.vcxproj", "{FE1D4648-3354-4709-82C5-352E0E86C356}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MonteCarlo", "MonteCarlo\MonteCarlo.vcproj", "{EB31EE73-C214-4AE8-B9D5-C10CCF7EDD44}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MonteCarlo", "MonteCarlo\MonteCarlo.vcxproj", "{EB31EE73-C214-4AE8-B9D5-C10CCF7EDD44}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

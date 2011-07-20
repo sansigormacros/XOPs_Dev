@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{AFDE1D41-E81E-49DF-88F8-61BF40D015CC}</ProjectGuid>
+    <RootNamespace>libSANSAnalysis</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>C:\Devel\SANSAnalysis\lib;C:\Devel\SANSAnalysis\lib\DANSE\igor_wrapper_src;C:\Devel\SANSAnalysis\lib\DANSE\c_extensions;C:\Devel\SANSAnalysis\lib\DANSE\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;LIBSANSANALYSIS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>C:\Devel\SANSAnalysis\lib;C:\Devel\SANSAnalysis\lib\DANSE\igor_wrapper_src;C:\Devel\SANSAnalysis\lib\DANSE\c_extensions;C:\Devel\SANSAnalysis\lib\DANSE\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;LIBSANSANALYSIS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\SANSAnalysis\lib\2Y_cpoly.c" />
+    <ClCompile Include="..\..\..\SANSAnalysis\lib\2Y_OneYukawa.c" />
+    <ClCompile Include="..\..\..\SANSAnalysis\lib\2Y_PairCorrelation.c" />
+    <ClCompile Include="..\..\..\SANSAnalysis\lib\2Y_TwoYukawa.c" />
+    <ClCompile Include="..\..\..\SANSAnalysis\lib\2Y_utility.c" />
+    <ClCompile Include="..\..\..\SANSAnalysis\lib\libCylinder.c" />
+    <ClCompile Include="..\..\..\SANSAnalysis\lib\libSphere.c" />
+    <ClCompile Include="..\..\..\SANSAnalysis\lib\libStructureFactor.c" />
+    <ClCompile Include="..\..\..\SANSAnalysis\lib\libTwoPhase.c" />
+    <ClCompile Include="..\..\..\SANSAnalysis\lib\winFuncs.c" />
+    <ClCompile Include="..\..\..\SANSAnalysis\lib\DANSE\igor_wrapper_src\c_disperser.c" />
+    <ClCompile Include="..\..\..\SANSAnalysis\lib\DANSE\c_extensions\core_shell.c" />
+    <ClCompile Include="..\..\..\SANSAnalysis\lib\DANSE\c_extensions\core_shell_cylinder.c" />
+    <ClCompile Include="..\..\..\SANSAnalysis\lib\DANSE\c_extensions\cylinder.c" />
+    <ClCompile Include="..\..\..\SANSAnalysis\lib\DANSE\igor_wrapper_src\disp_core_shell_cylinder.c" />
+    <ClCompile Include="..\..\..\SANSAnalysis\lib\DANSE\igor_wrapper_src\disp_cylinder.c" />
+    <ClCompile Include="..\..\..\SANSAnalysis\lib\DANSE\igor_wrapper_src\disp_ellipsoid.c" />
+    <ClCompile Include="..\..\..\SANSAnalysis\lib\DANSE\igor_wrapper_src\disp_elliptical_cylinder.c" />
+    <ClCompile Include="..\..\..\SANSAnalysis\lib\DANSE\c_extensions\ellipsoid.c" />
+    <ClCompile Include="..\..\..\SANSAnalysis\lib\DANSE\c_extensions\elliptical_cylinder.c" />
+    <ClCompile Include="..\..\..\SANSAnalysis\lib\DANSE\igor_wrapper_src\erf.c" />
+    <ClCompile Include="..\..\..\SANSAnalysis\lib\DANSE\c_extensions\sphere.c" />
+    <ClCompile Include="..\..\..\SANSAnalysis\lib\DANSE\igor_wrapper_src\weighted_core_shell_cylinder.c" />
+    <ClCompile Include="..\..\..\SANSAnalysis\lib\DANSE\igor_wrapper_src\weighted_cylinder.c" />
+    <ClCompile Include="..\..\..\SANSAnalysis\lib\DANSE\igor_wrapper_src\weighted_ellipsoid.c" />
+    <ClCompile Include="..\..\..\SANSAnalysis\lib\DANSE\igor_wrapper_src\weighted_elliptical_cylinder.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\SANSAnalysis\lib\2Y_cpoly.h" />
+    <ClInclude Include="..\..\..\SANSAnalysis\lib\2Y_OneYukawa.h" />
+    <ClInclude Include="..\..\..\SANSAnalysis\lib\2Y_PairCorrelation.h" />
+    <ClInclude Include="..\..\..\SANSAnalysis\lib\2Y_TwoYukawa.h" />
+    <ClInclude Include="..\..\..\SANSAnalysis\lib\2Y_utility.h" />
+    <ClInclude Include="..\..\..\SANSAnalysis\lib\GaussWeights.h" />
+    <ClInclude Include="..\..\..\SANSAnalysis\lib\libCylinder.h" />
+    <ClInclude Include="..\..\..\SANSAnalysis\lib\libSANSAnalysis.h" />
+    <ClInclude Include="..\..\..\SANSAnalysis\lib\libSphere.h" />
+    <ClInclude Include="..\..\..\SANSAnalysis\lib\libStructureFactor.h" />
+    <ClInclude Include="..\..\..\SANSAnalysis\lib\libTwoPhase.h" />
+    <ClInclude Include="..\..\..\SANSAnalysis\lib\StandardHeaders.h" />
+    <ClInclude Include="..\..\..\SANSAnalysis\lib\winFuncs.h" />
+    <ClInclude Include="..\..\..\SANSAnalysis\lib\DANSE\c_extensions\core_shell.h" />
+    <ClInclude Include="..\..\..\SANSAnalysis\lib\DANSE\c_extensions\core_shell_cylinder.h" />
+    <ClInclude Include="..\..\..\SANSAnalysis\lib\DANSE\c_extensions\cylinder.h" />
+    <ClInclude Include="..\..\..\SANSAnalysis\lib\DANSE\c_extensions\ellipsoid.h" />
+    <ClInclude Include="..\..\..\SANSAnalysis\lib\DANSE\c_extensions\elliptical_cylinder.h" />
+    <ClInclude Include="..\..\..\SANSAnalysis\lib\DANSE\c_extensions\sphere.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
