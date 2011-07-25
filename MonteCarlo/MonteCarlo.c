@@ -51,8 +51,7 @@ Monte_SANSX(MC_ParamsPtr p) {
 	double ssd, sourAp, souXX, souYY, magn;		//source-to-sample, and source Ap radius for initlal trajectory
 	double vz_1,g,yg_d;				//gravity terms
 	
-	vz_1 = 3.956e5;		//velocity [cm/s] of 1 A neutron
-	g = 981.0;				//gravity acceleration [cm/s^2]
+
 	
 	// for accessing the 2D wave data, direct method (see the WaveAccess example XOP)
 	waveHndl wavH;
@@ -70,6 +69,9 @@ Monte_SANSX(MC_ParamsPtr p) {
 	
 //	char buf[256];
 		
+	vz_1 = 3.956e5;		//velocity [cm/s] of 1 A neutron
+	g = 981.0;				//gravity acceleration [cm/s^2]
+
 	/* check that wave handles are all valid */
 	if (p->inputWaveH == NIL) {
 		SetNaN64(&p->retVal);					/* return NaN if wave is not valid */
