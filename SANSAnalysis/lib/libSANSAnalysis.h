@@ -156,8 +156,8 @@ double GaussianShell(double dp[], double q);
 // it is imperative to set ALL the structure alignments to be two-byte
 // rather than leave it to the whim of the compiler
 /* SRK08
-#include "XOPStructureAlignmentTwoByte.h"
-
+#pragma pack(2)
+ 
 typedef struct {
     double scale;
     double radius;
@@ -181,7 +181,7 @@ typedef struct {
     double sigma_radius;
 } SmearCylinderParameters;
 
-#include "XOPStructureAlignmentReset.h"
+#pragma pack()
 
 /// 1D scattering function
 double cylinder_analytical_1D(CylinderParameters *pars, double q);

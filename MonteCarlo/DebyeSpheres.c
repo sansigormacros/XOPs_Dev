@@ -9,10 +9,10 @@
 //#pragma XOP_SET_STRUCT_PACKING			// All structures are 2-byte-aligned.
 
 // Prototypes
-HOST_IMPORT void main(IORecHandle ioRecHandle);
+HOST_IMPORT int main(IORecHandle ioRecHandle);
 
 // Custom error codes
-#define REQUIRES_IGOR_200 1 + FIRST_XOP_ERR
+//#define REQUIRES_IGOR_200 1 + FIRST_XOP_ERR
 #define NON_EXISTENT_WAVE 2 + FIRST_XOP_ERR
 #define REQUIRES_SP_OR_DP_WAVE 3 + FIRST_XOP_ERR
 
@@ -106,10 +106,10 @@ DebyeSpheresX(AltiParamsPtr p)
 
 //
     npt = (int) WavePoints(p->xwavH);	//wavePoints returns long, number of XYZ points
-	xv = WaveData(p->xwavH);		//xyz locations
-	yv = WaveData(p->ywavH);
-	zv = WaveData(p->zwavH);
-	rv = WaveData(p->rhowavH);
+	xv = (double*)WaveData(p->xwavH);		//xyz locations
+	yv = (double*)WaveData(p->ywavH);
+	zv = (double*)WaveData(p->zwavH);
+	rv = (double*)WaveData(p->rhowavH);
     
 	
 	vol = 4.0*3.1415927/3.0*rval*rval*rval;
@@ -203,9 +203,9 @@ maxDistanceX(DistParamPtr p)
 	
 	//
     npt = (int) WavePoints(p->xwavH);	//wavePoints returns long, number of XYZ points
-	xv = WaveData(p->xwavH);		//xyz locations
-	yv = WaveData(p->ywavH);
-	zv = WaveData(p->zwavH);
+	xv = (double*)WaveData(p->xwavH);		//xyz locations
+	yv = (double*)WaveData(p->ywavH);
+	zv = (double*)WaveData(p->zwavH);
 	
 	p1 = (int) p->p1;
 	p2 = (int) p->p2;
@@ -289,10 +289,10 @@ binDistanceX(BinParamPtr p)
 	p2 = (int) p->p2;
 	
 	
-	xv = WaveData(p->xwavH);		//xyz locations
-	yv = WaveData(p->ywavH);
-	zv = WaveData(p->zwavH);
-	bv = WaveData(p->bwavH);
+	xv = (double*)WaveData(p->xwavH);		//xyz locations
+	yv = (double*)WaveData(p->ywavH);
+	zv = (double*)WaveData(p->zwavH);
+	bv = (double*)WaveData(p->bwavH);
 	
 	grid = p->grid;
 	binWidth = p->binWidth;
@@ -419,12 +419,12 @@ binSLDDistanceX(BinSLDParamPtr p)
     npt = (int) WavePoints(p->xwavH);	//wavePoints returns long, number of XYZ points
     numBins = (int) WavePoints(p->bwavH);	//wavePoints returns long, number of points in bin wave
 	
-	xv = WaveData(p->xwavH);		//xyz locations
-	yv = WaveData(p->ywavH);
-	zv = WaveData(p->zwavH);
-	rho = WaveData(p->rhowavH);
-	SLDLook = WaveData(p->SLDLookH);
-	PSFid = WaveData(p->PSFidH);			//this one is 2D
+	xv = (double*)WaveData(p->xwavH);		//xyz locations
+	yv = (double*)WaveData(p->ywavH);
+	zv = (double*)WaveData(p->zwavH);
+	rho = (double*)WaveData(p->rhowavH);
+	SLDLook = (double*)WaveData(p->SLDLookH);
+	PSFid = (double*)WaveData(p->PSFidH);			//this one is 2D
 	
 	p1 = (int) p->p1;
 	p2 = (int) p->p2;
@@ -516,7 +516,7 @@ SobolX(SobolParamPtr p)
         SetNaN64(&p->result);
         return kExpectedNT_FP64;
     }
- 	x = WaveData(p->bwavH);
+ 	x = (double*)WaveData(p->bwavH);
 	n = (int)(p->nIn);			// not sure that the negative input will be properly cast to int
 	
 //	sprintf(buf, "input, recast n = %g  %d\r",p->nIn, n);

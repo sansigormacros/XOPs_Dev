@@ -361,8 +361,10 @@ This is the initial entry point at which the host application calls XOP.
 The message sent by the host must be INIT.
 main() does any necessary initialization and then sets the XOPEntry field of the
 ioRecHandle to the address to be called for future messages.
+ 
+ updated for TK6 30JAN2012 SRK
 */
-HOST_IMPORT void
+HOST_IMPORT int						// was void
 main(IORecHandle ioRecHandle)
 {	
 	XOPInit(ioRecHandle);							// Do standard XOP initialization.
@@ -370,13 +372,19 @@ main(IORecHandle ioRecHandle)
 	
 	if (igorVersion < 600) {						// checks required for ThreadSafe declarations
 		SetXOPResult(IGOR_OBSOLETE);
+		return EXIT_FAILURE;					// added for TK6
 	}
-	else {
-		if (igorVersion >= 700)
-			SetXOPResult(IGOR_OBSOLETE);
-		else
-			SetXOPResult(0L);
-	}
+	
+	SetXOPResult(0);
+	return EXIT_SUCCESS;					// added for TK6
+	
+//	else {
+//		if (igorVersion >= 700)
+//			SetXOPResult(IGOR_OBSOLETE);
+//		else
+//			SetXOPResult(0L);
+//	}
+	
 }
 
 

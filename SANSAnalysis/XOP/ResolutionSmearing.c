@@ -331,7 +331,7 @@ SmearedCyl_PolyRadiusX(SmearParamsPtr p)
 	i_qbar = p->i_qbar;
 	i_sigq = p->i_sigq;
 	
-	dp = WaveData(p->waveHandle);
+	dp = (double*)WaveData(p->waveHandle);
 	q = p->x;
 	
 	p->result = Cyl_PolyRadius(dp,q);

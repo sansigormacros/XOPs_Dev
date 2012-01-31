@@ -25,11 +25,11 @@ TeubnerStreyModelX(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
             SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07            
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = TeubnerStreyModel(dp,q);																
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -56,11 +56,11 @@ Power_Law_ModelX(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = Power_Law_Model(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -88,11 +88,11 @@ Peak_Lorentz_ModelX(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = Peak_Lorentz_Model(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -119,11 +119,11 @@ Peak_Gauss_ModelX(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = Peak_Gauss_Model(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -150,11 +150,11 @@ Lorentz_ModelX(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
   			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result=Lorentz_Model(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -181,11 +181,11 @@ FractalX(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);           
+			fp= (float*)WaveData(p->waveHandle);           
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
             p->result = Fractal(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -212,11 +212,11 @@ DAB_ModelX(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = DAB_Model(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -245,11 +245,11 @@ OneLevelX(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p-> result = OneLevel(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -278,11 +278,11 @@ TwoLevelX(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = TwoLevel(dp, q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -311,11 +311,11 @@ ThreeLevelX(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = ThreeLevel(dp, q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -344,11 +344,11 @@ FourLevelX(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = FourLevel(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -375,11 +375,11 @@ BroadPeakX(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = BroadPeak(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -406,11 +406,11 @@ CorrLengthX(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = CorrLength(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -437,11 +437,11 @@ TwoLorentzianX(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = TwoLorentzian(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -468,11 +468,11 @@ TwoPowerLawX(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = TwoPowerLaw(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -499,11 +499,11 @@ PolyGaussCoilX(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = PolyGaussCoil(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -530,11 +530,11 @@ GaussLorentzGelX(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = GaussLorentzGel(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -561,11 +561,11 @@ GaussianShellX(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = GaussianShell(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.

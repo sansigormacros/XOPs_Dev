@@ -414,15 +414,21 @@ XOPEntry(void)
  The message sent by the host must be INIT.
  main() does any necessary initialization and then sets the XOPEntry field of the
  ioRecHandle to the address to be called for future messages.
+ 
+ changed for TK6 30JAN2012 SRK
  */
-HOST_IMPORT void
+HOST_IMPORT int
 main(IORecHandle ioRecHandle)
 {	
 	XOPInit(ioRecHandle);							// Do standard XOP initialization.
 	SetXOPEntry(XOPEntry);							// Set entry point for future calls.
 	
-	if (igorVersion < 600)				// Requires Igor Pro 6.00 or later.
-		SetXOPResult(OLD_IGOR);			// OLD_IGOR is defined in WaveAccess.h and there are corresponding error strings in WaveAccess.r and WaveAccessWinCustom.rc.
-	else
-		SetXOPResult(0L);
+	if (igorVersion < 600)	{					// Requires Igor Pro 6.00 or later.
+		SetXOPResult(IGOR_OBSOLETE);	
+		return EXIT_FAILURE;
+	}
+
+	SetXOPResult(0);
+	return EXIT_SUCCESS;
+	
 }

@@ -9,7 +9,7 @@
 #include <stdio.h>
 
 // All structures passed to Igor are two-byte aligned.
-#include "XOPStructureAlignmentTwoByte.h"
+#pragma pack(2)
 
 // Parameters passed from Igor to the function, in reverse order of the parameter list
 // result is the last parameter, always.
@@ -84,7 +84,7 @@ typedef struct SobolParam {
 
 
 
-#include "XOPStructureAlignmentReset.h"
+#pragma pack()		// return to default structure packing
 
 
 double PhiQR(double qval, double rval);

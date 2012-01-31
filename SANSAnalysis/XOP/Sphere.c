@@ -29,11 +29,11 @@ SphereFormX(FitParamsPtr p)
 
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = SphereForm(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -61,11 +61,11 @@ CoreShellSphereX(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = CoreShellForm(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -93,11 +93,11 @@ VesicleFormX(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = VesicleForm(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -126,11 +126,11 @@ PolyCoreFormX(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = PolyCoreForm(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -160,11 +160,11 @@ PolyHardSpheresX(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = PolyHardSphereIntensity(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -193,11 +193,11 @@ BimodalSchulzSpheresX(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = BimodalSchulzSpheres(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -226,11 +226,11 @@ SchulzSpheresX(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = SchulzSpheres(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -260,11 +260,11 @@ PolyRectSpheresX(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = PolyRectSpheres(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -293,11 +293,11 @@ GaussSpheresX(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = GaussPolySphere(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -326,11 +326,11 @@ LogNormalSphereX(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = LogNormalPolySphere(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -360,11 +360,11 @@ PolyCoreShellRatioX(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = PolyCoreShellRatio(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -403,11 +403,11 @@ BinaryHSX(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = BinaryHS(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -433,11 +433,11 @@ BinaryHS_PSF11X(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = BinaryHS_PSF11(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -463,11 +463,11 @@ BinaryHS_PSF12X(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = BinaryHS_PSF12(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -494,11 +494,11 @@ BinaryHS_PSF22X(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = BinaryHS_PSF22(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -519,7 +519,7 @@ BinaryHS_PSF22X(FitParamsPtr p)
  // resolution smeared version gives he most appropriate view of the model
  
 	Warning:
- The call to WaveData() below returns a pointer to the middle
+ The call to (float*)WaveData() below returns a pointer to the middle
  of an unlocked Macintosh handle. In the unlikely event that your
  calculations could cause memory to move, you should copy the coefficient
  values to local variables or an array before such operations.
@@ -540,11 +540,11 @@ MultiShellSphereX(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = MultiShell(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -567,7 +567,7 @@ MultiShellSphereX(FitParamsPtr p)
  // on the parameters, the "distribution" of MLV's that is used may be truncated
  //
 	Warning:
- The call to WaveData() below returns a pointer to the middle
+ The call to (float*)WaveData() below returns a pointer to the middle
  of an unlocked Macintosh handle. In the unlikely event that your
  calculations could cause memory to move, you should copy the coefficient
  values to local variables or an array before such operations.
@@ -588,11 +588,11 @@ PolyMultiShellX(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = PolyMultiShell(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -620,11 +620,11 @@ OneShellX(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = OneShell(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -650,11 +650,11 @@ TwoShellX(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = TwoShell(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -680,11 +680,11 @@ ThreeShellX(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = ThreeShell(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -710,11 +710,11 @@ FourShellX(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = FourShell(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -742,11 +742,11 @@ PolyOneShellX(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = PolyOneShell(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -772,11 +772,11 @@ PolyTwoShellX(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = PolyTwoShell(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -802,11 +802,11 @@ PolyThreeShellX(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = PolyThreeShell(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -832,11 +832,11 @@ PolyFourShellX(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = PolyFourShell(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -863,11 +863,11 @@ BCC_ParaCrystalX(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = BCC_ParaCrystal(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -894,11 +894,11 @@ FCC_ParaCrystalX(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = FCC_ParaCrystal(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -925,11 +925,11 @@ SC_ParaCrystalX(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = SC_ParaCrystal(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -955,11 +955,11 @@ FuzzySpheresX(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = FuzzySpheres(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.

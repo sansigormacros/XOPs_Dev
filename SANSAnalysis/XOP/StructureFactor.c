@@ -31,11 +31,11 @@ HardSphereStructX(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = HardSphereStruct(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -63,11 +63,11 @@ StickyHS_StructX(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = StickyHS_Struct(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -101,12 +101,12 @@ SquareWellStructX(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			XOPNotice("I think it's single precision\r");
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = SquareWellStruct(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -136,11 +136,11 @@ HayterPenfoldMSAX(FitParamsPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
 			SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07  			
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			p->result = HayterPenfoldMSA(dp,q);
 			return 0;
 		default:								// We can't handle this wave data type.
@@ -220,9 +220,9 @@ OneYukawaX(FitParamsPtr_Yuk p)
 	}	
 	
 	//get the wave data
-	sq = WaveData(p->SQHandle);
-	qw = WaveData(p->QHandle);					
-	cw = WaveData(p->CoefHandle);					
+	sq = (double*)WaveData(p->SQHandle);
+	qw = (double*)WaveData(p->QHandle);					
+	cw = (double*)WaveData(p->CoefHandle);					
 	npnts = WavePoints(p->QHandle);						// Number of points in q wave.
 	
 	phi = cw[0];
@@ -306,9 +306,9 @@ TwoYukawaX(FitParamsPtr_Yuk p)
 	}	
 	
 	//get the wave data
-	sq = WaveData(p->SQHandle);
-	qw = WaveData(p->QHandle);					
-	cw = WaveData(p->CoefHandle);					
+	sq = (double*)WaveData(p->SQHandle);
+	qw = (double*)WaveData(p->QHandle);					
+	cw = (double*)WaveData(p->CoefHandle);					
 	npnts = WavePoints(p->QHandle);						// Number of points in q wave.
 	
 	phi = cw[0];

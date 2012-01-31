@@ -11,7 +11,7 @@ The fitting function is a Cylinder form factor. No resolution effects are includ
 /*	CylinderForm  :  calculates the form factor of a cylinder at the give x-value p->x
 
 Warning:
-The call to WaveData() below returns a pointer to the middle
+The call to (float*)WaveData() below returns a pointer to the middle
 of an unlocked Macintosh handle. In the unlikely event that your
 calculations could cause memory to move, you should copy the coefficient
 values to local variables or an array before such operations.
@@ -69,7 +69,7 @@ CylinderForm(double dp[], double q)
 Uses 76 pt Gaussian quadrature for both integrals
 
 Warning:
-The call to WaveData() below returns a pointer to the middle
+The call to (float*)WaveData() below returns a pointer to the middle
 of an unlocked Macintosh handle. In the unlikely event that your
 calculations could cause memory to move, you should copy the coefficient
 values to local variables or an array before such operations.
@@ -151,7 +151,7 @@ Uses 76 pt Gaussian quadrature for orientational integral
 Uses 20 pt quadrature for the inner integral over the elliptical cross-section
 
 Warning:
-The call to WaveData() below returns a pointer to the middle
+The call to (float*)WaveData() below returns a pointer to the middle
 of an unlocked Macintosh handle. In the unlikely event that your
 calculations could cause memory to move, you should copy the coefficient
 values to local variables or an array before such operations.
@@ -234,7 +234,7 @@ EllipCyl20(double dp[], double q)
 Uses 76 pt Gaussian quadrature for both integrals
 
 Warning:
-The call to WaveData() below returns a pointer to the middle
+The call to (float*)WaveData() below returns a pointer to the middle
 of an unlocked Macintosh handle. In the unlikely event that your
 calculations could cause memory to move, you should copy the coefficient
 values to local variables or an array before such operations.
@@ -306,7 +306,7 @@ at the given x-value p->x
 Uses 76 pt Gaussian quadrature for both integrals
 
 Warning:
-The call to WaveData() below returns a pointer to the middle
+The call to (float*)WaveData() below returns a pointer to the middle
 of an unlocked Macintosh handle. In the unlikely event that your
 calculations could cause memory to move, you should copy the coefficient
 values to local variables or an array before such operations.
@@ -395,7 +395,7 @@ at the given x-value p->x
 Uses 76 pt Gaussian quadrature for the single integral
 
 Warning:
-The call to WaveData() below returns a pointer to the middle
+The call to (float*)WaveData() below returns a pointer to the middle
 of an unlocked Macintosh handle. In the unlikely event that your
 calculations could cause memory to move, you should copy the coefficient
 values to local variables or an array before such operations.
@@ -450,7 +450,7 @@ at the given x-value p->x
 Uses 76 pt Gaussian quadrature for the single integral
 
 Warning:
-The call to WaveData() below returns a pointer to the middle
+The call to (float*)WaveData() below returns a pointer to the middle
 of an unlocked Macintosh handle. In the unlikely event that your
 calculations could cause memory to move, you should copy the coefficient
 values to local variables or an array before such operations.

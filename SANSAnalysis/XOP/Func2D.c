@@ -45,11 +45,11 @@ Cylinder_2D(FitParams2DPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
             SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07            
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			
 //			for(i=0; i<11; i++) {
 //				pars[i] = dp[i];
@@ -105,13 +105,13 @@ Cylinder_2D_Weight2D(FitParams2DWeightPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
             SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07            
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
-			par_values = WaveData(p->par_values);
-			weight_values = WaveData(p->weight_values);
+			dp= (double*)WaveData(p->waveHandle);
+			par_values = (double*)WaveData(p->par_values);
+			weight_values = (double*)WaveData(p->weight_values);
 			
 			for(i=0; i<13; i++) {
 				pars[i] = dp[i];
@@ -185,11 +185,11 @@ CoreShellCylinder_2D(FitParams2DPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
             SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07            
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			
 			for(i=0; i<15; i++) {
 				pars[i] = dp[i];
@@ -234,13 +234,13 @@ CoreShellCylinder_2D_Weight2D(FitParams2DWeightPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
             SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07            
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
-			par_values = WaveData(p->par_values);
-			weight_values = WaveData(p->weight_values);
+			dp= (double*)WaveData(p->waveHandle);
+			par_values = (double*)WaveData(p->par_values);
+			weight_values = (double*)WaveData(p->weight_values);
 			
 			for(i=0; i<17; i++) {
 				pars[i] = dp[i];
@@ -313,11 +313,11 @@ Ellipsoid_2D(FitParams2DPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
             SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07            
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			
 //			for(i=0; i<12; i++) {
 //				pars[i] = dp[i];
@@ -375,13 +375,13 @@ Ellipsoid_2D_Weight2D(FitParams2DWeightPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
             SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07            
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
-			par_values = WaveData(p->par_values);
-			weight_values = WaveData(p->weight_values);
+			dp= (double*)WaveData(p->waveHandle);
+			par_values = (double*)WaveData(p->par_values);
+			weight_values = (double*)WaveData(p->weight_values);
 			
 			for(i=0; i<14; i++) {
 				pars[i] = dp[i];
@@ -454,11 +454,11 @@ EllipticalCylinder_2D(FitParams2DPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
             SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07            
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			
 //			for(i=0; i<14; i++) {
 //				pars[i] = dp[i];
@@ -519,13 +519,13 @@ EllipticalCylinder_2D_Weight2D(FitParams2DWeightPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
             SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07            
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
-			par_values = WaveData(p->par_values);
-			weight_values = WaveData(p->weight_values);
+			dp= (double*)WaveData(p->waveHandle);
+			par_values = (double*)WaveData(p->par_values);
+			weight_values = (double*)WaveData(p->weight_values);
 			
 			for(i=0; i<16; i++) {
 				pars[i] = dp[i];
@@ -606,11 +606,11 @@ Sphere_2D(FitParams2DPtr p)
 	
 	switch(WaveType(p->waveHandle)){			// We can handle single and double precision coefficient waves.
 		case NT_FP32:
-			fp= WaveData(p->waveHandle);
+			fp= (float*)WaveData(p->waveHandle);
             SetNaN64(&p->result);
 			return REQUIRES_SP_OR_DP_WAVE; //not quite true, but good enough for now AJJ 4/23/07            
 		case NT_FP64:
-			dp= WaveData(p->waveHandle);
+			dp= (double*)WaveData(p->waveHandle);
 			
 			for(i=0; i<5; i++) {
 				pars[i] = dp[i];

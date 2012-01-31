@@ -59,8 +59,9 @@ Monte_SANSX2(MC_ParamsPtr p) {
 	// for accessing the 2D wave data, direct method (see the WaveAccess example XOP)
 	waveHndl wavH;
 //	int waveType,hState;
-	long numDimensions;
-	long dimensionSizes[MAX_DIMENSIONS+1];
+	//changed for TK6
+	int numDimensions;
+	CountInt dimensionSizes[MAX_DIMENSIONS+1];
 //	char* dataStartPtr;
 //	long dataOffset;
 //	long numRows, numColumns;
@@ -111,15 +112,15 @@ Monte_SANSX2(MC_ParamsPtr p) {
 	
 	p->retVal = 0;
 	
-// trusting that all inputs are DOUBLE PRECISION WAVES!!!
-	inputWave = WaveData(p->inputWaveH);
-	ran_dev = WaveData(p->ran_devH);
-	nt = WaveData(p->ntH);
-	j1 = WaveData(p->j1H);
-	j2 = WaveData(p->j2H);
-	nn = WaveData(p->nnH);
-//	MC_linear_data = WaveData(p->MC_linear_dataH);
-	results = WaveData(p->resultsH);
+// trusting that all inputs are double PRECISION WAVES!!!
+	inputWave = (double*)WaveData(p->inputWaveH);
+	ran_dev = (double*)WaveData(p->ran_devH);
+	nt = (double*)WaveData(p->ntH);
+	j1 = (double*)WaveData(p->j1H);
+	j2 = (double*)WaveData(p->j2H);
+	nn = (double*)WaveData(p->nnH);
+//	MC_linear_data = (double*)WaveData(p->MC_linear_dataH);
+	results = (double*)WaveData(p->resultsH);
 	
 	seed = (long)results[0];
 	
@@ -163,22 +164,6 @@ Monte_SANSX2(MC_ParamsPtr p) {
 	if (wavH == NIL)
 		return NOWAV;
 
-//	waveType = WaveType(wavH);
-//	if (waveType & NT_CMPLX)
-//		return NO_COMPLEX_WAVE;
-//	if (waveType==TEXT_WAVE_TYPE)
-//		return NUMERIC_ACCESS_ON_TEXT_WAVE;
-//	if (retVal = MDGetWaveDimensions(wavH, &numDimensions, dimensionSizes))
-//		return retVal;
-//	numRows = dimensionSizes[0];
-//	numColumns = dimensionSizes[1];
-	
-//	if (retVal = MDAccessNumericWaveData(wavH, kMDWaveAccessMode0, &dataOffset))
-//		return retVal;
-		
-//	hState = MoveLockHandle(wavH);		// So wave data can't move. Remember to call HSetState when done.
-//	dataStartPtr = (char*)(*wavH) + dataOffset;
-//	dp0 = (double*)dataStartPtr;			// Pointer to the start of the 2D wave data.
 	
 //scattering power and maximum qvalue to bin
 //	zpow = .1		//scattering power, calculated below
@@ -501,7 +486,6 @@ Monte_SANSX2(MC_ParamsPtr p) {
 	if (retVal = MDSetNumericWavePointValue(p->resultsH, indices, value))
 		return retVal;
 
-//	HSetState((Handle)wavH, hState);		//release the handle of the 2D data wave
 //	WaveHandleModified(wavH);			// Inform Igor that we have changed the wave. (CALLBACK! needed, but not allowed in Threading)
 	
 	return(0);

@@ -4,15 +4,16 @@
 
 
 /* Prototypes */
-HOST_IMPORT void main(IORecHandle ioRecHandle);
+// for TK6
+HOST_IMPORT int main(IORecHandle ioRecHandle);
 
 // Custom error codes
-#define REQUIRES_IGOR_200 1 + FIRST_XOP_ERR
+//#define REQUIRES_IGOR_200 1 + FIRST_XOP_ERR
 #define NON_EXISTENT_WAVE 2 + FIRST_XOP_ERR
 #define REQUIRES_SP_OR_DP_WAVE 3 + FIRST_XOP_ERR
 
 
-#include "XOPStructureAlignmentTwoByte.h"
+#pragma pack(2)
 
 // Fit function parameter structure
 typedef struct FitParams {
@@ -42,4 +43,5 @@ typedef struct FitParams2DWeight {
 	double result;
 }FitParams2DWeight, *FitParams2DWeightPtr;
 
-#include "XOPStructureAlignmentReset.h"
+#pragma pack()
+

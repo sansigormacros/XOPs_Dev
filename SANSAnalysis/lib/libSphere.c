@@ -1056,7 +1056,7 @@ ashcroft(double qval, double r2, double nf2, double aa, double phi, double *s11,
  // resolution smeared version gives he most appropriate view of the model
  
 	Warning:
- The call to WaveData() below returns a pointer to the middle
+ The call to (float*)WaveData() below returns a pointer to the middle
  of an unlocked Macintosh handle. In the unlikely event that your
  calculations could cause memory to move, you should copy the coefficient
  values to local variables or an array before such operations.
@@ -1120,7 +1120,7 @@ MultiShell(double dp[], double q)
  // on the parameters, the "distribution" of MLV's that is used may be truncated
  //
 	Warning:
- The call to WaveData() below returns a pointer to the middle
+ The call to (float*)WaveData() below returns a pointer to the middle
  of an unlocked Macintosh handle. In the unlikely event that your
  calculations could cause memory to move, you should copy the coefficient
  values to local variables or an array before such operations.

@@ -19,16 +19,17 @@
 #endif
  
 /* Prototypes */
-HOST_IMPORT void main(IORecHandle ioRecHandle);
+// for TK6
+HOST_IMPORT int main(IORecHandle ioRecHandle);
 
  
-#define OLD_IGOR 1 + FIRST_XOP_ERR
+//#define OLD_IGOR 1 + FIRST_XOP_ERR
 #define NON_EXISTENT_WAVE 2 + FIRST_XOP_ERR
 #define NEEDS_2D_WAVE 3 + FIRST_XOP_ERR
 
 
 // All structures passed to Igor are two-byte aligned.
-#include "XOPStructureAlignmentTwoByte.h"
+#pragma pack(2)
 
 struct MC_Params {     // This structure must be 2-byte-aligned because it receives parameters from Igor.
 	waveHndl resultsH;	// results of MC
@@ -45,8 +46,7 @@ struct MC_Params {     // This structure must be 2-byte-aligned because it recei
 typedef struct MC_Params MC_Params;
 typedef struct MC_Params *MC_ParamsPtr;
 
-#include "XOPStructureAlignmentReset.h"
-
+#pragma pack()		// return to default structure packing
 
 // function prototypes
 int Monte_SANSX(MC_ParamsPtr p);

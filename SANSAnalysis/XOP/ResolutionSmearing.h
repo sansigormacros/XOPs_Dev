@@ -2,7 +2,7 @@
 	ResolutionSmearing.h -- 
 */
 
-#include "XOPStructureAlignmentTwoByte.h"
+#pragma pack(2)
 
 /* Prototypes */
 typedef struct SmearParams {
@@ -29,7 +29,7 @@ typedef struct PassParams {
 	double x;
 }PassParams, *PassParamsPtr;
 
-#include "XOPStructureAlignmentReset.h"
+#pragma pack()
 
 /* IGOR Fit Functions */
 int Smear_Model_20_X(GenSmearParamsPtr p);

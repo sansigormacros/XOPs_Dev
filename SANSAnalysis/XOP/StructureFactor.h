@@ -1,6 +1,6 @@
 // header for SphereFit.c
 
-#include "XOPStructureAlignmentTwoByte.h"
+#pragma pack(2)
 
 /* structs */
 typedef struct DiamParams{
@@ -17,7 +17,7 @@ typedef struct FitParams_Yuk {
 } FitParams_Yuk, *FitParamsPtr_Yuk;
 
 
-#include "XOPStructureAlignmentReset.h"
+#pragma pack()
 
 /* IGOR Fit Functions */
 int HardSphereStructX(FitParamsPtr p);
