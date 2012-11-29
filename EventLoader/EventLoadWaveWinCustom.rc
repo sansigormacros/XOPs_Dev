@@ -1,4 +1,4 @@
-/*	SimpleLoadWave.rc -- resources for SimpleLoadWave on Windows
+/*	EventLoadWave.rc -- resources for EventLoadWave on Windows
 
 	This file is compiled by the resource compiler and creates XOP-specific
 	resources that IGOR looks for in an XOP module.
@@ -13,7 +13,7 @@ BEGIN
 	"Could not find at least one row of wave data in the file.\0",	// NO_DATA
 	"Expected name of tab-delimited TEXT file.\0",					// EXPECTED_TD_FILE
 	"Expected base name for new waves.\0",							// EXPECTED_BASENAME
-	"SimpleLoadWave requires Igor Pro 6.00 or later.\0",			// OLD_IGOR
+	"EventLoadWave requires Igor Pro 6.00 or later.\0",			// OLD_IGOR
 
 	// More error messages can appear here.
 	
@@ -24,7 +24,7 @@ END
 1100 XMI1							// Describes simple menu items added by XOP to built-in IGOR menus.
 BEGIN
 	50,									// IGOR menu ID (Data:Load Data submenu).
-	"Load Simple Delimited File...\0",	// Text of item to add to IGOR menu.
+	"Load Event File...\0",		// Text of item to add to IGOR menu.
 	0,									// Resource ID of 'MENU' resource in XOP for submenu to be attached to menu item or 0 for no submenu.
 	0,								// Menu item flags.
 	
@@ -36,10 +36,10 @@ END
 1 STR# 				// Status line help for first item in XMI1 resource.
 BEGIN
 	// The first string is displayed when the menu item is enabled.
-	"Loads data from simple delimited text files into Igor waves.\0",
+	"Loads data from event files into Igor waves.\0",
 	
 	// The second string is displayed when the menu item is disabled.
-	"Loads data from simple delimited text files into Igor waves.\0",
+	"Loads data from event files into Igor waves.\0",
 
 	"\0"							// NOTE: Null required to terminate the resource.
 END
@@ -55,7 +55,7 @@ END
 
 1100 XOPC							// Describes operations that the XOP adds to IGOR.
 BEGIN
-	"SimpleLoadWave\0",
+	"EventLoadWave\0",
 	utilOp | XOPOp | compilableOp,
 
 	"\0"							// NOTE: NULL required to terminate the resource.
