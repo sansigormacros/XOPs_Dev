@@ -19,7 +19,7 @@ resource 'STR#' (1101) {					// Misc strings that Igor looks for.
 		/* [2] */
 		"---"		,						// This item is no longer supported by the Carbon XOP Toolkit.
 		/* [3] */
-		"Event Load Help",				// Name of XOP's help file.
+		"Event Load Wave",				// Name of XOP's help file.
 	}
 };
 
@@ -62,7 +62,7 @@ resource 'STR#' (1100) {					/* custom error messages */
 		/* [4] */
 		"Expected base name for new waves.",
 		/* [5] */
-		"SimpleLoadWave requires Igor Pro 6.00 or later.",
+		"EventLoadWave requires Igor Pro 6.00 or later.",
 	}
 };
 

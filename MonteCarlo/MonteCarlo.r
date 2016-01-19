@@ -3,7 +3,7 @@
 resource 'vers' (1) {						/* XOP version info */
 	0x01, 0x00, final, 0x00, 0,				/* version bytes and country integer */
 	"1.00",
-	"1.00, © 1993 WaveMetrics, Inc., all rights reserved."
+	"1.00, ï¿½ 1993 WaveMetrics, Inc., all rights reserved."
 };
 
 resource 'vers' (2) {						/* Igor version info */
@@ -154,6 +154,21 @@ resource 'XOPF' (1100) {
 			NT_FP64,						// start index
 			NT_FP64,						// stop index
 		},
-		
+	
+		"MetropolisX",		/* function name */
+		F_UTIL | F_THREADSAFE | F_EXTERNAL,					/* function category == UTILITY */
+		NT_FP64,							/* return value type */			
+		{
+			NT_FP64 + WAVE_TYPE,			// UofR
+			NT_FP64 + WAVE_TYPE,			// XYZ waves
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,
+			NT_FP64 + WAVE_TYPE,			// energy wave
+			NT_FP64,						// radius
+			NT_FP64,						// tVox
+			NT_FP64,						// nVox
+			NT_FP64,						// nIterations
+			NT_FP64,						// gCount
+		},
 	}
 };

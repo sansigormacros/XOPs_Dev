@@ -14,6 +14,7 @@
 #include "XOPStandardHeaders.h"			// Include ANSI headers, Mac headers, IgorXOP.h, XOP.h and XOPSupport.h
 #include "MonteCarlo.h"
 #include "DebyeSpheres.h"
+#include "Metropolis.h"
 
 
 // this function is here simply because MS visual studio does not contain lround() or round() in math.h
@@ -32,12 +33,18 @@ long MC_round(double x)
 }
 
 
+// corrected Feb 2013 to return values in [0,127] rather than detector coordinates (which are passed in)
+// -- also corrected the pixel calculation
 int
 FindPixel(double testQ, double testPhi, double lam, double yg_d, double sdd,
 		  double pixSize, double xCtr, double yCtr, long *xPixel, long *yPixel) {
 	
-	double theta,dy,dx,qx,qy,pi;
-	pi = 4.0*atan(1.0);	
+//	double theta,dy,dx,qx,qy,pi;
+	double pi,two_theta,dist,dx,dy;
+	
+	pi = 4.0*atan(1.0);
+
+/* OLD way
 	//decompose to qx,qy
 	qx = testQ*cos(testPhi);
 	qy = testQ*sin(testPhi);
@@ -56,6 +63,22 @@ FindPixel(double testQ, double testPhi, double lam, double yg_d, double sdd,
 	dx = sdd*tan(theta);
 //	*xPixel = lround(xCtr + dx/pixSize);
 	*xPixel = MC_round(xCtr + dx/pixSize);
+
+*/
+	
+	// corrected way Feb 2013
+	two_theta = 2.0*asin(testQ*lam/4.0/pi);
+	dist = sdd*tan(two_theta);			//hypot in det plane
+	
+	dx = dist*cos(testPhi);
+	dy = dist*sin(testPhi);
+	*xPixel = MC_round(dx/pixSize + xCtr);
+	*yPixel = MC_round(dy/pixSize + yCtr + yg_d/pixSize);		//shift down due to gravity
+	
+	// to array coordinates rather than detector coordinates
+	*xPixel -= 1;
+	*yPixel -= 1;
+	
 	
 	//if on detector, return xPix and yPix values, otherwise -1
 	if(*yPixel > 127 || *yPixel < 0) {
@@ -385,6 +408,9 @@ RegisterFunction()
 			break;
 		case 8:						// 
 			return((long)binSLDDistanceX);
+			break;
+		case 9:						// 
+			return((long)MetropolisX);
 			break;
 	}
 	return(NIL);
