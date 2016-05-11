@@ -7,15 +7,15 @@ resource 'vers' (1) {						/* XOP version info */
 };
 
 resource 'vers' (2) {						/* Igor version info */
-	0x05, 0x00, release, 0x00, 0,			/* version bytes and country integer */
-	"5.00",
-	"(for Igor 5.00 or later)"
+    0x06, 0x20, release, 0x00, 0,			/* version bytes and country integer */
+    "6.20",
+    "(for Igor 6.20 or later)"
 };
 
 resource 'STR#' (1100) {					/* custom error messages */
 	{
 		/* [1] */
-		"SANSMonteCarlo requires Igor Pro 6.1 or later.",
+		"SANSMonteCarlo requires Igor Pro 6.2 or later.",
 		/* [2] */
 		"Wave does not exist.",
 		/* [3] */

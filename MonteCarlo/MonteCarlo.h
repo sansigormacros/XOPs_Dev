@@ -20,10 +20,10 @@
  
 /* Prototypes */
 // for TK6
-HOST_IMPORT int main(IORecHandle ioRecHandle);
+HOST_IMPORT int XOPMain(IORecHandle ioRecHandle);
 
  
-//#define OLD_IGOR 1 + FIRST_XOP_ERR
+#define OLD_IGOR 1 + FIRST_XOP_ERR
 #define NON_EXISTENT_WAVE 2 + FIRST_XOP_ERR
 #define NEEDS_2D_WAVE 3 + FIRST_XOP_ERR
 
@@ -54,12 +54,12 @@ int Monte_SANSX2(MC_ParamsPtr p);
 int Monte_SANSX3(MC_ParamsPtr p);
 int Monte_SANSX4(MC_ParamsPtr p);
 
-long MC_round(double x);
-int FindPixel(double testQ, double testPhi, double lam, double yg_d, double sdd, double pixSize, double xCtr, double yCtr, long *xPixel, long *yPixel);
+int MC_round(double x);
+int FindPixel(double testQ, double testPhi, double lam, double yg_d, double sdd, double pixSize, double xCtr, double yCtr, int *xPixel, int *yPixel);
 int NewDirection(double *vx, double *vy, double *vz, double theta, double phi);
 double path_len(double aval, double sig_tot);
-float ran1(long *idum);
-float ran3(long *idum);
-float ran1a(long *idum);
-float ran3a(long *idum);
-double locate_interp(double xx[], long n, double x);
+float ran1(SInt32 *idum);
+float ran3(SInt32 *idum);
+float ran1a(SInt32 *idum);
+float ran3a(SInt32 *idum);
+double locate_interp(double xx[], IndexInt n, double x);

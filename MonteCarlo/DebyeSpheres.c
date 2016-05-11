@@ -9,7 +9,7 @@
 //#pragma XOP_SET_STRUCT_PACKING			// All structures are 2-byte-aligned.
 
 // Prototypes
-HOST_IMPORT int main(IORecHandle ioRecHandle);
+HOST_IMPORT int XOPMain(IORecHandle ioRecHandle);
 
 // Custom error codes
 //#define REQUIRES_IGOR_200 1 + FIRST_XOP_ERR
@@ -33,8 +33,8 @@ DebyeSpheresX(AltiParamsPtr p)
 	double qv;				// input q-value
 	double ival;				//output intensity value
 	double *xv,*yv,*zv,*rv;		//pointers to input xyz-rho coordinates
-	int i,j;
-    int npt;
+	CountInt i,j;
+    CountInt npt;
 	double rval,grid,vol,fQR,dum,dij;
 
 	
@@ -105,7 +105,7 @@ DebyeSpheresX(AltiParamsPtr p)
 	qv = p->qval;
 
 //
-    npt = (int) WavePoints(p->xwavH);	//wavePoints returns long, number of XYZ points
+    npt = (CountInt) WavePoints(p->xwavH);	//wavePoints returns long, number of XYZ points
 	xv = (double*)WaveData(p->xwavH);		//xyz locations
 	yv = (double*)WaveData(p->ywavH);
 	zv = (double*)WaveData(p->zwavH);
@@ -169,9 +169,9 @@ maxDistanceX(DistParamPtr p)
 {
 	double dmax,dij;				//output dmax value, dij
 	double *xv,*yv,*zv;		//pointers to input xyz coordinates
-	int i,j;
-    int npt;
-	int p1,p2;
+	CountInt i,j;
+    CountInt npt;
+	CountInt p1,p2;
 	
 	// check for all of the required waves
 	if (p->zwavH == NIL) {
@@ -202,13 +202,13 @@ maxDistanceX(DistParamPtr p)
     }
 	
 	//
-    npt = (int) WavePoints(p->xwavH);	//wavePoints returns long, number of XYZ points
+    npt = (CountInt) WavePoints(p->xwavH);	//wavePoints returns long, number of XYZ points
 	xv = (double*)WaveData(p->xwavH);		//xyz locations
 	yv = (double*)WaveData(p->ywavH);
 	zv = (double*)WaveData(p->zwavH);
 	
-	p1 = (int) p->p1;
-	p2 = (int) p->p2;
+	p1 = (CountInt) p->p1;
+	p2 = (CountInt) p->p2;
 	
 	dmax = 0;
 	//do the i!=j double loop, keeping the maximum distance
@@ -239,10 +239,10 @@ int
 binDistanceX(BinParamPtr p)
 {
 	double *xv,*yv,*zv,*bv;		//pointers to input xyz coordinates
-	int i,j;
-    int npt,numBins,binIndex;
+	CountInt i,j;
+    CountInt npt,numBins,binIndex;
 	double grid,binWidth,val;
-	int p1,p2;
+	CountInt p1,p2;
 	
 	
 	
@@ -283,10 +283,10 @@ binDistanceX(BinParamPtr p)
     }
 	
 	//
-    npt = (int) WavePoints(p->xwavH);	//wavePoints returns long, number of XYZ points
-    numBins = (int) WavePoints(p->bwavH);	//wavePoints returns long, number of points in bin wave
-	p1 = (int) p->p1;
-	p2 = (int) p->p2;
+    npt = (CountInt) WavePoints(p->xwavH);	//wavePoints returns long, number of XYZ points
+    numBins = (CountInt) WavePoints(p->bwavH);	//wavePoints returns long, number of points in bin wave
+	p1 = (CountInt) p->p1;
+	p2 = (CountInt) p->p2;
 	
 	
 	xv = (double*)WaveData(p->xwavH);		//xyz locations
@@ -301,7 +301,7 @@ binDistanceX(BinParamPtr p)
 	for(i=p1;i<p2;i+=1) {
 		for(j=(i+1);j<npt;j+=1) {
 			val = XYZDistance(xv[i],xv[j],yv[i],yv[j],zv[i],zv[j])*grid;
-			binIndex = (int)(val/binWidth-0.5);
+			binIndex = (CountInt)(val/binWidth-0.5);
 			if(binIndex > numBins -1 ) {
 				//Print "bad index"
 			} else {
@@ -331,11 +331,11 @@ binSLDDistanceX(BinSLDParamPtr p)
 {
 	double *xv,*yv,*zv;		//pointers to input xyz coordinates
 	double *rho,*SLDLook,*PSFid;	// rho and the SLD lookup vector
-	int i,j;
-    int npt,numBins,binIndex;
+	CountInt i,j;
+    CountInt npt,numBins,binIndex;
 	double grid,binWidth,val,retVal;
-	int p1,p2;
-	int intSLD;
+	CountInt p1,p2;
+	CountInt intSLD;
 
 	
 // for accessing the 2D wave data to write the results	
@@ -343,9 +343,9 @@ binSLDDistanceX(BinSLDParamPtr p)
 //	long numDimensions;
 //	long dimensionSizes[MAX_DIMENSIONS+1];
 	double value[2];				// Pointers used for double data.
-	long indices[MAX_DIMENSIONS];
+	IndexInt indices[MAX_DIMENSIONS];
 //	
-	long rhoi,rhoj,rii,rji,PSFIndex;
+	CountInt rhoi,rhoj,rii,rji,PSFIndex;
 	
 	
 	// check for all of the required waves
@@ -416,8 +416,8 @@ binSLDDistanceX(BinSLDParamPtr p)
 	//
 	PSFwavH = p->PSFidH;
 	
-    npt = (int) WavePoints(p->xwavH);	//wavePoints returns long, number of XYZ points
-    numBins = (int) WavePoints(p->bwavH);	//wavePoints returns long, number of points in bin wave
+    npt = (CountInt) WavePoints(p->xwavH);	//wavePoints returns long, number of XYZ points
+    numBins = (CountInt) WavePoints(p->bwavH);	//wavePoints returns long, number of points in bin wave
 	
 	xv = (double*)WaveData(p->xwavH);		//xyz locations
 	yv = (double*)WaveData(p->ywavH);
@@ -426,10 +426,10 @@ binSLDDistanceX(BinSLDParamPtr p)
 	SLDLook = (double*)WaveData(p->SLDLookH);
 	PSFid = (double*)WaveData(p->PSFidH);			//this one is 2D
 	
-	p1 = (int) p->p1;
-	p2 = (int) p->p2;
+	p1 = (CountInt) p->p1;
+	p2 = (CountInt) p->p2;
 	
-	intSLD = (int) p->minSLD;		//convert to int for use as index
+	intSLD = (CountInt) p->minSLD;		//convert to int for use as index
 
 	grid = p->grid;
 	binWidth = p->binWidth;
@@ -438,28 +438,28 @@ binSLDDistanceX(BinSLDParamPtr p)
 	for(i=p1;i<p2;i+=1) {
 		for(j=(i+1);j<npt;j+=1) {
 			val = XYZDistance(xv[i],xv[j],yv[i],yv[j],zv[i],zv[j])*grid;
-			binIndex = (int)(val/binWidth-0.5);
+			binIndex = (CountInt)(val/binWidth-0.5);
 			if(binIndex > numBins -1 ) {
 				//Print "bad index"
 			} else {
-				rhoi = (long) rho[i];				//get the rho value at i and j
-				rhoj = (long) rho[j];
-				rii = (long) SLDLook[rhoi+intSLD];			//rho i index
-				rji = (long) SLDLook[rhoj+intSLD];			//rho j index
+				rhoi = (CountInt) rho[i];				//get the rho value at i and j
+				rhoj = (CountInt) rho[j];
+				rii = (CountInt) SLDLook[rhoi+intSLD];			//rho i index
+				rji = (CountInt) SLDLook[rhoj+intSLD];			//rho j index
 				MemClear(indices, sizeof(indices)); // Must be 0 for unused dimensions.
-				indices[0] = rii;
-				indices[1] = rji;
+				indices[0] = (IndexInt)rii;
+				indices[1] = (IndexInt)rji;
 				if (retVal = MDGetNumericWavePointValue(PSFwavH, indices, value))
 					return retVal;
 				//PSFIndex = (long) PSFid[rii][rji];		//doesn't work
-				PSFIndex = (long) value[0];
+				PSFIndex = (CountInt) value[0];
 				
 				//now do the assignment to the 2D
 				// equivalent to binMatrix[binIndex][PSFIndex]
 				
 				MemClear(indices, sizeof(indices)); // Must be 0 for unused dimensions.
-				indices[0] = binIndex;
-				indices[1] = PSFIndex;
+				indices[0] = (IndexInt)binIndex;
+				indices[1] = (IndexInt)PSFIndex;
 				if (retVal = MDGetNumericWavePointValue(wavH, indices, value))
 					return retVal;
 				value[0] += 1; // Real part

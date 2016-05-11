@@ -20,15 +20,15 @@
 // this function is here simply because MS visual studio does not contain lround() or round() in math.h
 // rounds away from zero
 // -- only used in FindPixel
-long MC_round(double x)
+int MC_round(double x)
 {
 	if(x == 0)	{
-		return (long)(0);
+		return (int)(0);
 	}
 	if(x > 0)	{
-		return (long)(x + 0.5f);
+		return (int)(x + 0.5f);
 	} else {		// x < 0
-		return (long)(x - 0.5f);
+		return (int)(x - 0.5f);
 	}
 }
 
@@ -37,7 +37,7 @@ long MC_round(double x)
 // -- also corrected the pixel calculation
 int
 FindPixel(double testQ, double testPhi, double lam, double yg_d, double sdd,
-		  double pixSize, double xCtr, double yCtr, long *xPixel, long *yPixel) {
+		  double pixSize, double xCtr, double yCtr, int *xPixel, int *yPixel) {
 	
 //	double theta,dy,dx,qx,qy,pi;
 	double pi,two_theta,dist,dx,dy;
@@ -151,12 +151,12 @@ path_len(double aval, double sig_tot) {
 #define EPS 1.2e-7
 #define RNMX (1.0-EPS)
 
-float ran1(long *idum)
+float ran1(SInt32 *idum)
 {
 	int j;
-	long k;
-	static long iy=0;
-	static long iv[NTAB];
+	SInt32 k;
+	static SInt32 iy=0;
+	static SInt32 iv[NTAB];
 	float temp;
 	
 	if (*idum <= 0 || !iy) {
@@ -201,12 +201,12 @@ float ran1(long *idum)
 #define EPS2 1.2e-7
 #define RNMX2 (1.0-EPS2)
 
-float ran1a(long *idum)
+float ran1a(SInt32 *idum)
 {
 	int j;
-	long k;
-	static long iy=0;
-	static long iv[NTAB2];
+	SInt32 k;
+	static SInt32 iy=0;
+	static SInt32 iv[NTAB2];
 	float temp;
 	
 	if (*idum <= 0 || !iy) {
@@ -247,12 +247,12 @@ float ran1a(long *idum)
 #define MZ 0
 #define FAC (1.0/MBIG)
 
-float ran3(long *idum)
+float ran3(SInt32 *idum)
 {
 	static int inext,inextp;
-	static long ma[56];
+	static SInt32 ma[56];
 	static int iff=0;
-	long mj,mk;
+	SInt32 mj,mk;
 	int i,ii,k;
 	
 	if (*idum < 0 || iff == 0) {
@@ -295,12 +295,12 @@ float ran3(long *idum)
 #define MZ2 0
 #define FAC2 (1.0/MBIG2)
 
-float ran3a(long *idum)
+float ran3a(SInt32 *idum)
 {
 	static int inext,inextp;
-	static long ma[56];
+	static SInt32 ma[56];
 	static int iff=0;
-	long mj,mk;
+	SInt32 mj,mk;
 	int i,ii,k;
 	
 	if (*idum < 0 || iff == 0) {
@@ -339,9 +339,9 @@ float ran3a(long *idum)
 
 
 // returns the interpolated point value in xx[0,n-1] that has the value x
-double locate_interp(double xx[], long n, double x)
+double locate_interp(double xx[], IndexInt n, double x)
 {
-	unsigned long ju,jm,jl,j;
+	UInt32 ju,jm,jl,j;
 	int ascnd;
 	double pt;
 	
@@ -375,56 +375,59 @@ double locate_interp(double xx[], long n, double x)
  Igor calls this at startup time to find the address of the
  XFUNCs added by this XOP. See XOP manual regarding "Direct XFUNCs".
  */
-static long
+static XOPIORecResult
 RegisterFunction()
 {
 	int funcIndex;
 	
-	funcIndex = GetXOPItem(0);		// Which function is Igor asking about?
+	funcIndex = (int)GetXOPItem(0);		// Which function is Igor asking about?
 	switch (funcIndex) {
 		case 0:						// 
-			return((long)Monte_SANSX);
+			return((XOPIORecResult)Monte_SANSX);
 			break;
 		case 1:						// 
-			return((long)Monte_SANSX2);
+			return((XOPIORecResult)Monte_SANSX2);
 			break;
 		case 2:						// 
-			return((long)DebyeSpheresX);
+			return((XOPIORecResult)DebyeSpheresX);
 			break;
 		case 3:						// 
-			return((long)Monte_SANSX3);
+			return((XOPIORecResult)Monte_SANSX3);
 			break;
 		case 4:						// 
-			return((long)Monte_SANSX4);
+			return((XOPIORecResult)Monte_SANSX4);
 			break;
 		case 5:						// 
-			return((long)maxDistanceX);
+			return((XOPIORecResult)maxDistanceX);
 			break;
 		case 6:						// 
-			return((long)binDistanceX);
+			return((XOPIORecResult)binDistanceX);
 			break;
 		case 7:						// 
-			return((long)SobolX);
+			return((XOPIORecResult)SobolX);
 			break;
 		case 8:						// 
-			return((long)binSLDDistanceX);
+			return((XOPIORecResult)binSLDDistanceX);
 			break;
 		case 9:						// 
-			return((long)MetropolisX);
+			return((XOPIORecResult)MetropolisX);
 			break;
 	}
-	return(NIL);
+	return(0);
 }
 
 /*	XOPEntry()
  
  This is the entry point from the host application to the XOP for all messages after the
  INIT message.
+ 
+ updated for TK7 May2016
  */
+//extern "C" void       //only use this if file is .cpp
 static void
 XOPEntry(void)
 {	
-	long result = 0;
+    XOPIORecResult result = 0;
 	
 	switch (GetXOPMessage()) {
 		case FUNCADDRS:
@@ -444,13 +447,13 @@ XOPEntry(void)
  changed for TK6 30JAN2012 SRK
  */
 HOST_IMPORT int
-main(IORecHandle ioRecHandle)
+XOPMain(IORecHandle ioRecHandle)
 {	
 	XOPInit(ioRecHandle);							// Do standard XOP initialization.
 	SetXOPEntry(XOPEntry);							// Set entry point for future calls.
 	
-	if (igorVersion < 600)	{					// Requires Igor Pro 6.00 or later.
-		SetXOPResult(IGOR_OBSOLETE);	
+	if (igorVersion < 620)	{					// Requires Igor Pro 6.00 or later.
+		SetXOPResult(OLD_IGOR);
 		return EXIT_FAILURE;
 	}
 

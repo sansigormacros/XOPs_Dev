@@ -33,22 +33,22 @@ Monte_SANSX3(MC_ParamsPtr p) {
 	double *results;				/* pointer to double precision wave data */
 	double retVal;				//return value
 	
-	long imon;
+	SInt64 imon;
 	double r1,r2,xCtr,yCtr,sdd,pixSize,thick,wavelength,sig_incoh,sig_sas;
-	long ind,index,n_index;
+	IndexInt ind,index,n_index;
 	double qmax,theta_max,q0,zpow;
-	long n1,n2,n3;
+	CountInt n1,n2,n3;
 	double dth,zz,xx,yy,phi;
 	double theta,ran,ll,rr;
-	long done,find_theta,err;		//used as logicals
-	long xPixel,yPixel;
+	int done,find_theta,err;		//used as logicals
+	int xPixel,yPixel;
 	double vx,vy,vz,theta_z;
 	double sig_abs,ratio,sig_total;
 	double testQ,testPhi,left,delta,dummy,pi;
 	double sigabs_0,num_bins;
-	long NSingleIncoherent,NSingleCoherent,NScatterEvents,incoherentEvent,coherentEvent;
-	long NDoubleCoherent,NMultipleScatter,isOn,xCtr_long,yCtr_long;
-	long NMultipleCoherent,NCoherentEvents;
+	CountInt NSingleIncoherent,NSingleCoherent,NScatterEvents,incoherentEvent,coherentEvent;
+	CountInt NDoubleCoherent,NMultipleScatter,isOn,xCtr_long,yCtr_long;
+	CountInt NMultipleCoherent,NCoherentEvents;
 	double deltaLam,v1,v2,currWavelength,rsq,fac;		//for simulating wavelength distribution
 	double ssd, sourAp, souXX, souYY, magn;		//source-to-sample, and source Ap radius for initlal trajectory
 	double vz_1,g,yg_d;				//gravity terms
@@ -63,11 +63,11 @@ Monte_SANSX3(MC_ParamsPtr p) {
 	//	char* dataStartPtr;
 	//	long dataOffset;
 	//	long numRows, numColumns;
-	long numRows_ran_dev;
+	CountInt numRows_ran_dev;
 	//	double *dp0, *dp;
 	double value[2];				// Pointers used for double data.
-	long seed;
-	long indices[MAX_DIMENSIONS];
+	SInt32 seed;
+	IndexInt indices[MAX_DIMENSIONS];
 	
 	//	char buf[256];
 
@@ -120,7 +120,7 @@ Monte_SANSX3(MC_ParamsPtr p) {
 	//	MC_linear_data = (double*)WaveData(p->MC_linear_dataH);
 	results = (double*)WaveData(p->resultsH);
 	
-	seed = (long)results[0];
+	seed = (SInt32)results[0];
 	
 	//	sprintf(buf, "input seed = %ld\r", seed);
 	//	XOPNotice(buf);
@@ -132,7 +132,7 @@ Monte_SANSX3(MC_ParamsPtr p) {
 	dummy = ran3a(&seed);		//initialize the random sequence by passing in a negative value
 	seed = 12348765;		//non-negative after that does nothing
 	
-	imon = (int)inputWave[0];
+	imon = (SInt64)inputWave[0];
 	r1 = inputWave[1];
 	r2 = inputWave[2];
 	xCtr = inputWave[3];
@@ -147,8 +147,8 @@ Monte_SANSX3(MC_ParamsPtr p) {
 	ssd = inputWave[12];			// in cm, like SDD
 	sourAp = inputWave[13];		// radius, in cm, like r1 and r2	
 	
-	xCtr_long = (long)(xCtr+0.5);
-	yCtr_long = (long)(yCtr+0.5);
+	xCtr_long = (CountInt)(xCtr+0.5);
+	yCtr_long = (CountInt)(yCtr+0.5);
 	
 	dummy = MDGetWaveScaling(p->ran_devH, 0, &delta, &left);		//0 is the rows
 	if (retVal = MDGetWaveDimensions(p->ran_devH, &numDimensions, dimensionSizes))
@@ -376,7 +376,7 @@ Monte_SANSX3(MC_ParamsPtr p) {
 					if(theta_z < theta_max) {
 						//Choose index for scattering angle array.
 						//IND = NINT(THETA_z/DTH + 0.4999999)
-						ind = (long)(theta_z/dth + 0.4999999);		//round is eqivalent to nint()
+						ind = (IndexInt)(theta_z/dth + 0.4999999);		//round is eqivalent to nint()
 						nt[ind] += 1; 			//Increment bin for angle.
 						//Increment angle array for single scattering events.
 						if (index == 1) {
