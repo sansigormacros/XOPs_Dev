@@ -196,7 +196,7 @@ OneYukawaX(FitParamsPtr_Yuk p)
 	double *sq;			//pointer to sq wave
 	double *qw;			//pointer to q wave
 	double *cw;			//pointer to coef wave
-	long npnts,i;			//number of points in waves
+	CountInt npnts,i;			//number of points in waves
 	
 	
 	double a, b, c, d;	
@@ -223,7 +223,7 @@ OneYukawaX(FitParamsPtr_Yuk p)
 	sq = (double*)WaveData(p->SQHandle);
 	qw = (double*)WaveData(p->QHandle);					
 	cw = (double*)WaveData(p->CoefHandle);					
-	npnts = WavePoints(p->QHandle);						// Number of points in q wave.
+	npnts = (CountInt)WavePoints(p->QHandle);						// Number of points in q wave.
 	
 	phi = cw[0];
 	radius = cw[1];
@@ -282,7 +282,7 @@ TwoYukawaX(FitParamsPtr_Yuk p)
 	double *sq;			//pointer to sq wave
 	double *qw;			//pointer to q wave
 	double *cw;			//pointer to coef wave
-	long npnts,i;			//number of points in waves
+	CountInt npnts,i;			//number of points in waves
 	
 	
 	double a, b, c1, c2, d1, d2;	
@@ -309,7 +309,7 @@ TwoYukawaX(FitParamsPtr_Yuk p)
 	sq = (double*)WaveData(p->SQHandle);
 	qw = (double*)WaveData(p->QHandle);					
 	cw = (double*)WaveData(p->CoefHandle);					
-	npnts = WavePoints(p->QHandle);						// Number of points in q wave.
+	npnts = (CountInt)WavePoints(p->QHandle);						// Number of points in q wave.
 	
 	phi = cw[0];
 	radius = cw[1];

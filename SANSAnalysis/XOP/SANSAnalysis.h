@@ -5,10 +5,10 @@
 
 /* Prototypes */
 // for TK6
-HOST_IMPORT int main(IORecHandle ioRecHandle);
+HOST_IMPORT int XOPMain(IORecHandle ioRecHandle);
 
 // Custom error codes
-//#define REQUIRES_IGOR_200 1 + FIRST_XOP_ERR
+#define OLD_IGOR 1 + FIRST_XOP_ERR
 #define NON_EXISTENT_WAVE 2 + FIRST_XOP_ERR
 #define REQUIRES_SP_OR_DP_WAVE 3 + FIRST_XOP_ERR
 

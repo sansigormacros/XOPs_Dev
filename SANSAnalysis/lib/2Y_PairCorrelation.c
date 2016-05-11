@@ -111,14 +111,14 @@ int PairCorrelation_GSL( double phi, double dq, double* Sq, double* dr, double* 
 int PairCorrelation( double phi, double dq, double* Sq, double* dr, double* gr, int N )
 {
 	double* data = malloc( sizeof(double) * N * 2);
-	int n,error,k;
+	int nn,error,k;
 	double alpha,real,imag;
 	double Pi = 3.14159265358979323846264338327950288;   /* pi */
 
 	
-	for ( n = 0; n < N; n++ ) {
-		data[2*n] = n * ( Sq[n] - 1 );
-		data[2*n+1] = 0;
+	for ( nn = 0; nn < N; nn++ ) {
+		data[2*nn] = nn * ( Sq[nn] - 1 );
+		data[2*nn+1] = 0;
 	}
 	//	printf("start of new fft\n");
 	

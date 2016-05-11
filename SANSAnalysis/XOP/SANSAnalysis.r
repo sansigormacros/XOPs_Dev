@@ -5,21 +5,21 @@
 #include "XOPStandardHeaders.r"
 
 resource 'vers' (1) {						/* XOP version info */
-0x01, 0x02, final, 0x00, 0,				/* version bytes and country integer */
-"1.1",
-"1.1, NIST Center for Neutron Research"
+    0x01, 0x02, final, 0x00, 0,				/* version bytes and country integer */
+    "1.1",
+    "1.1, NIST Center for Neutron Research"
 };
 
 resource 'vers' (2) {						/* Igor version info */
-0x02, 0x00, release, 0x00, 0,			/* version bytes and country integer */
-"6.00",
-"(for Igor 6.00 or later)"
+    0x06, 0x20, release, 0x00, 0,			/* version bytes and country integer */
+    "6.20",
+    "(for Igor 6.20 or later)"
 };
 
 resource 'STR#' (1100) {					/* custom error messages */
 {
 	/* [1] */
-	"SANS Analysis requires Igor Pro 6.0 or later",
+	"SANS Analysis requires Igor Pro 6.2 or later",
 	/* [2] */
 	"Wave does not exist.",
 	/* [3] */

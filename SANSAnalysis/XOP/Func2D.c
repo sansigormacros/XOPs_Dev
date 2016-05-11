@@ -15,6 +15,7 @@
 #include "danse.h"						// functions from the DANSE part of libSANS
 #include <math.h>
 #include "Func2D.h"						// declarations for the 2D functions in this file
+#include "c_disperser.h"                // declaration of weight_dispersion function
 
 int
 Cylinder_2D(FitParams2DPtr p)
@@ -135,7 +136,7 @@ Cylinder_2D_Weight2D(FitParams2DWeightPtr p)
 					// For the cylinder model, theta_cyl=90 degrees
 					// will produce a NAN at phi_cyl=0 and 45 degrees
 					pars[5] = acos(-1.0)/n_slices * i_theta;
-					if( fabs(i_theta / n_slices) - 0.5 < 0.000001 ) {
+					if( abs(i_theta / n_slices) - 0.5 < 0.000001 ) {
 						//continue;
 						pars[5] += 0.00001;
 					}
@@ -263,7 +264,7 @@ CoreShellCylinder_2D_Weight2D(FitParams2DWeightPtr p)
 					// will produce a NAN at phi_cyl=0 and 45 degrees
 					// TODO: integrate from 0 to pi/2 instead of 0 to pi
 					pars[8] = acos(-1.0)/n_slices * i_theta;
-					if( fabs(i_theta / n_slices) - 0.5 < 0.000001 ) {
+					if( abs(i_theta / n_slices) - 0.5 < 0.000001 ) {
 						//continue;
 						pars[8] += 0.00001;
 					}
@@ -403,7 +404,7 @@ Ellipsoid_2D_Weight2D(FitParams2DWeightPtr p)
 					// For the cylinder model, theta_cyl=90 degrees
 					// will produce a NAN at phi_cyl=0 and 45 degrees
 					pars[5] = acos(-1.0)/n_slices * i_theta;
-					if( fabs(i_theta / n_slices) - 0.5 < 0.000001 ) {
+					if( abs(i_theta / n_slices) - 0.5 < 0.000001 ) {
 						//continue;
 						pars[5] += 0.00001;
 					}
@@ -550,7 +551,7 @@ EllipticalCylinder_2D_Weight2D(FitParams2DWeightPtr p)
 					
 					pars[6] = acos(-1.0)/n_slices * i_theta;
 					
-					 if( fabs(i_theta / n_slices) - 0.5 < 0.000001 ) {
+					 if( abs(i_theta / n_slices) - 0.5 < 0.000001 ) {
 						//continue;
 						pars[6] += 0.00001;
 					}
