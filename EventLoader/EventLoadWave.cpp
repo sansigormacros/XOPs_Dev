@@ -758,7 +758,7 @@ LoadEvent(
 
 	numRows = (CountInt)counter.XYevents;
 	
-//	sprintf(bufStr,"numCol = %d, numRows = %d\r",numColumns,numRows);
+//	sprintf(bufStr,"numCol = %d, numRows = %lld\r",numColumns,(SInt64)numRows);
 //	XOPNotice(bufStr);
 	
 // from the manual for the MakeWave utility - integer types are only recommended for storage when there
@@ -779,7 +779,7 @@ LoadEvent(
 //		sprintf(bufStr,"make wave = %d\r",column);
 //		XOPNotice(bufStr);
 		if (err) {
-			sprintf(bufStr,"FileLoaderMakeWave returned an error  numCol = %d, numRows = %d\r",numColumns,numRows);
+			sprintf(bufStr,"FileLoaderMakeWave returned an error  numCol = %d, numRows = %lld\r",numColumns,(SInt64)numRows);
 			XOPNotice(bufStr);
 			break;		// NOTE: In this case, not all fields in caPtr are set.
 		}
@@ -977,14 +977,14 @@ XOPEntry(void)
 	XOPRecHandle to the address to be called for future messages.
 */
 HOST_IMPORT int
-main(IORecHandle ioRecHandle)
+XOPMain(IORecHandle ioRecHandle)
 {
 	int err;
 	
 	XOPInit(ioRecHandle);				// Do standard XOP initialization.
 	SetXOPEntry(XOPEntry);				// Set entry point for future calls.
 
-	if (igorVersion < 600) {			// Requires Igor Pro 6.00 or later.
+	if (igorVersion < 620) {			// Requires Igor Pro 6.20 or later.
 		SetXOPResult(OLD_IGOR);			// OLD_IGOR is defined in EventLoadWave.h and there are corresponding error strings in EventLoadWave.r and EventLoadWaveWinCustom.rc.
 		return EXIT_FAILURE;
 	}

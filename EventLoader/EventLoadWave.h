@@ -49,7 +49,7 @@ typedef struct ColumnInfo {
 
 // In EventLoadWave.c
 int LoadWave(int calledFromFunction, int flags, const char* baseName, const char* symbolicPathName, const char* fileParam);
-HOST_IMPORT int main(IORecHandle ioRecHandle);
+HOST_IMPORT int XOPMain(IORecHandle ioRecHandle);
 
 // In EventLoadWaveOperation.c
 int RegisterEventLoadWave(void);
